@@ -3,11 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package calculetatcomptes;
+import java.io.IOException;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  *
  * @author LP
  */
-public class GestionEmploye {
+public class GestionEmploye extends Employe{
+    
     
 }
