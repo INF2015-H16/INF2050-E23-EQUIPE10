@@ -4,6 +4,8 @@
  */
 package calculetatcomptes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author LP
@@ -12,9 +14,9 @@ public class Employe {
     
     private int matricule;
     private int typeEmploye;
-    private double tauxMin;
-    private double tauxMax;
-   //private Intervention interventions;
+    private String tauxMin;
+    private String tauxMax;
+    private ArrayList<Intervention> interventions=new ArrayList<>();
            
     
     
@@ -24,26 +26,34 @@ public class Employe {
     public void setTypeEmploye(int typeEmploye){
         this.typeEmploye=typeEmploye;
     }  
-    public void setTauxMin(double tauxMin){
+    public void setTauxMin(String tauxMin){
         this.tauxMin=tauxMin;
     }  
-    public void setTauxMax(double tauxMax){
+    public void setTauxMax(String tauxMax){
         this.tauxMax=tauxMax;
     }   
-    public int getMatricule(int matricule){
+    public int getMatricule(){
         return this.matricule;
     }    
-    public int getTypeEmploye(int typeEmploye){
+    public int getTypeEmploye(){
         return this.typeEmploye;
     }  
-    public double getTauxMin(double tauxMin){
+    public String getTauxMin(){
         return this.tauxMin;
     }  
-    public double getTauxMax(){
+    public String getTauxMax(){
         return this.tauxMax;
         
     } 
-    
-    
+    public  void setInterventions(ArrayList<Intervention>interventions){
+        
+        this.interventions=interventions;
+       
+    }
+    public  ArrayList<Intervention> getInterventions(){
+        
+        return this.interventions;
+       
+    }
     
 }
