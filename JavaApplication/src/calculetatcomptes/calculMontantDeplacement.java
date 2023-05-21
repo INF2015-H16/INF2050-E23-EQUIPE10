@@ -7,7 +7,7 @@ package calculetatcomptes;
 
 /**
  *
- * @author Napo
+ * @author Lucie Suarez
  */
 public class calculMontantDeplacement {
     
