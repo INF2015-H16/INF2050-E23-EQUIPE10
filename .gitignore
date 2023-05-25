@@ -2,3 +2,5 @@ nbproject
 build.xml
 /dist/
 /build/
+/lib/
+/Data/
