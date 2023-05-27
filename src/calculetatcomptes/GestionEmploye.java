@@ -9,7 +9,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 /**
  *
- * @author LP
+ * @author rabahlemaici
  */
 public class GestionEmploye {
     
@@ -36,9 +36,11 @@ public class GestionEmploye {
         int typeEmployeLocal= employe.getInt(TYPE_EMPLOYE);
         objetEmploye.setTypeEmploye(typeEmployeLocal);
         String tauxMinLocal= employe.getString(TAUX_HORAIRES_MIN);
-        objetEmploye.setTauxMin(tauxMinLocal);
+        double tauxMinLocal1=convertirString(tauxMinLocal);
+        objetEmploye.setTauxMin(tauxMinLocal1);
         String tauxMaxLocal= employe.getString(TAUX_HORAIRES_MAX);
-        objetEmploye.setTauxMax(tauxMaxLocal);
+        double tauxMaxLocal1=convertirString(tauxMaxLocal);
+        objetEmploye.setTauxMax(tauxMaxLocal1);
         JSONArray listInterventions=employe.getJSONArray(INTERVENTION);
         ArrayList<Intervention> interventions;
         interventions=remplireInetrventions(listInterventions);
@@ -49,15 +51,14 @@ public class GestionEmploye {
     }
     public static ArrayList<Intervention> remplireInetrventions(JSONArray listInterventions){
         JSONObject singleIntervention;
-        Intervention intervention=new Intervention();
+        
         ArrayList<Intervention> interventions=new ArrayList<>(); 
         
         
         for (int i = 0; i < listInterventions.size(); i++) {
 
             singleIntervention = listInterventions.getJSONObject(i);
-
-
+            Intervention intervention=new Intervention();
             intervention.setCodeClient(singleIntervention.getString(CODE_CLIENT));
             intervention.setDistanceDeplacement(singleIntervention.getInt(DISTANCE_DEPLACEMENT));
             intervention.setOvertime(singleIntervention.getInt(OVERTIME));
@@ -69,4 +70,11 @@ public class GestionEmploye {
         return interventions;
     }
     
+    public static double convertirString(String chaine){
+        
+        chaine=chaine.replace(" $", "");
+        double decimal=Double.parseDouble(chaine);
+        return decimal;
+    }  
 }
+

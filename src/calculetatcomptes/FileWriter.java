@@ -3,17 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package calculetatcomptes;
-import java.io.FileInputStream;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.apache.commons.io.IOUtils;
+
 /**
  *
  * @author rabahlemaici
  */
-public class FileReader {
-    public static  String loadFileIntoString(String filePath, String fileEncoding) throws
-    FileNotFoundException, IOException {
-        return IOUtils.toString(new FileInputStream(filePath), fileEncoding);
-    }  
+public class FileWriter {
+    
+    public static void saveStringIntoFile(String filePath, String contentToSave)
+    throws FileNotFoundException, IOException {
+        File f = new File(filePath);
+        FileUtils.writeStringToFile(f, contentToSave, "UTF-8");
+    } 
 }

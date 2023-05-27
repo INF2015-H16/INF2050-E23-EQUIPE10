@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author LP
+ * @author rabahlemaici
  */
 public class Employe {
     
     private int matricule;
     private int typeEmploye;
-    private String tauxMin;
-    private String tauxMax;
+    private double tauxMin;
+    private double tauxMax;
     private ArrayList<Intervention> interventions=new ArrayList<>();
            
     
@@ -26,10 +26,10 @@ public class Employe {
     public void setTypeEmploye(int typeEmploye){
         this.typeEmploye=typeEmploye;
     }  
-    public void setTauxMin(String tauxMin){
+    public void setTauxMin(double tauxMin){
         this.tauxMin=tauxMin;
     }  
-    public void setTauxMax(String tauxMax){
+    public void setTauxMax(double tauxMax){
         this.tauxMax=tauxMax;
     }   
     public int getMatricule(){
@@ -38,10 +38,10 @@ public class Employe {
     public int getTypeEmploye(){
         return this.typeEmploye;
     }  
-    public String getTauxMin(){
+    public double getTauxMin(){
         return this.tauxMin;
     }  
-    public String getTauxMax(){
+    public double getTauxMax(){
         return this.tauxMax;
         
     } 

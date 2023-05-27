@@ -38,8 +38,8 @@ public class CalculMontantRegulier {
         boolean verification;
         String tabCodesClient[] = new String[interventions.size()];
         String tabPourVérifier[] = new String[interventions.size()];
-        double tauxHoraireMin = convertireStringEnDouble(employe.getTauxMin());
-        double tauxHoraireMax = convertireStringEnDouble(employe.getTauxMax());
+        double tauxHoraireMin = employe.getTauxMin();
+        double tauxHoraireMax = employe.getTauxMax();
         double tauxHoraireMoyen = (tauxHoraireMax+tauxHoraireMin)/2;
         int nbHeure;
         int typeEmploye = employe.getTypeEmploye();
