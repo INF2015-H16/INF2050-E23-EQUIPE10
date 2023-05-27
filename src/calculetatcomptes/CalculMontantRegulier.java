@@ -5,10 +5,19 @@
  */
 package calculetatcomptes;
 
+import java.io.IOException;
+
 /**
  *
  * @author seif saidi
  */
 public class CalculMontantRegulier {
+    private static double convertireStringEnDouble(String chaine) throws IOException {
+        double chaineConvertit;
+        chaine = chaine.replace("$", "");
+        chaineConvertit = Double.parseDouble(chaine);
+        return chaineConvertit;
+    }
+
     
 }
