@@ -9,6 +9,9 @@ package calculetatcomptes;
  *
  * @author seif saidi
  */
-public class claculMontantRegulier {
+public class ObjetMontantRegulier {
+   
+
+   
     
 }
