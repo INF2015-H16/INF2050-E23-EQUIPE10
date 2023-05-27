@@ -86,9 +86,63 @@ public class CalculMontantRegulier {
                 break;
             
             case 1:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMoyen;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
                 break;
             
             case 2:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMax;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
                 break;
 
         }
