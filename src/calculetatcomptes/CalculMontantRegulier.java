@@ -52,8 +52,55 @@ public class CalculMontantRegulier {
             intervention = interventions.get(i);
             tabCodesClient[i] = intervention.getCodeClient();
             // System.out.println(tabCodesClient[i]);
+        }
+             switch (typeEmploye) {
+            case 0:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMin;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
+
+                break;
+            
+            case 1:
+                break;
+            
+            case 2:
+                break;
 
         }
-    return tabObjetFinal;
+
+        return tabObjetFinal;
     }
-}
+    }
+
+
+
+
+
+        
+   
+
