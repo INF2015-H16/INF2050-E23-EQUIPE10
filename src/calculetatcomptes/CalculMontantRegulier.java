@@ -13,12 +13,7 @@ import java.util.ArrayList;
  * @author seif saidi
  */
 public class CalculMontantRegulier {
-    private static double convertireStringEnDouble(String chaine) throws IOException {
-        double chaineConvertit;
-        chaine = chaine.replace("$", "");
-        chaineConvertit = Double.parseDouble(chaine);
-        return chaineConvertit;
-    }
+    
     private static boolean verifCodesClient(String codeClient, String tab[]) {
         boolean verif = false;
         for (String tab1 : tab) {
