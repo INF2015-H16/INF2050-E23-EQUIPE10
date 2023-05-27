@@ -6,6 +6,7 @@
 package calculetatcomptes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,6 +29,31 @@ public class CalculMontantRegulier {
         }
         return verif;
     }
+    public ObjetMontantRegulier[] claculMontant() throws IOException {
+        Employe employe;
+        Intervention intervention;
+        employe = GestionEmploye.RecupererJson();
+        ArrayList<Intervention> interventions;
+        interventions = employe.getInterventions();
+        boolean verification;
+        String tabCodesClient[] = new String[interventions.size()];
+        String tabPourVérifier[] = new String[interventions.size()];
+        double tauxHoraireMin = convertireStringEnDouble(employe.getTauxMin());
+        double tauxHoraireMax = convertireStringEnDouble(employe.getTauxMax());
+        double tauxHoraireMoyen = (tauxHoraireMax+tauxHoraireMin)/2;
+        int nbHeure;
+        int typeEmploye = employe.getTypeEmploye();
+        double montantRegulier;
+        ObjetMontantRegulier tabObjet[] = new ObjetMontantRegulier[interventions.size()];
+        ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
+        int compteur = 0;
 
-    
+        for (int i = 0; i < interventions.size(); i++) {
+            intervention = interventions.get(i);
+            tabCodesClient[i] = intervention.getCodeClient();
+            // System.out.println(tabCodesClient[i]);
+
+        }
+    return tabObjetFinal;
+    }
 }
