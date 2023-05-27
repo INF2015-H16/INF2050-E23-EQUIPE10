@@ -9,7 +9,7 @@ import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 /**
  *
- * @author LP
+ * @author rabahlemaici
  */
 public class FileReader {
     public static  String loadFileIntoString(String filePath, String fileEncoding) throws
