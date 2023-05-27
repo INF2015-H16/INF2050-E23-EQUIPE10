@@ -7,7 +7,9 @@ package calculetatcomptes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -58,19 +60,21 @@ public class CalculMontantDeplacement {
         return listeUnique;
     }
 
-    private static void calculMontantType0(ArrayList<Intervention> interventions) {
-        HashMap<String, Integer> listeUnique;
-        listeUnique = listeClientsUnique(interventions);
+    private static CalculMontantDeplacement[] calculMontantType0(HashMap<String, Integer> listeUnique) throws IOException {
+
+        
+        CalculMontantDeplacement[] montant = null;
+        
+
+        return montant;
     }
 
     private static void calculMontantType1(ArrayList<Intervention> interventions) {
-        HashMap<String, Integer> listeUnique;
-        listeUnique = listeClientsUnique(interventions);
+        
     }
 
     private static void calculMontantType2(ArrayList<Intervention> interventions) {
-        HashMap<String, Integer> listeUnique;
-        listeUnique = listeClientsUnique(interventions);
+       
     }
 
     /**
@@ -85,15 +89,19 @@ public class CalculMontantDeplacement {
         ArrayList<Intervention> interventions;
         interventions = employe.getInterventions();
 
+        HashMap<String, Integer> listeUnique;
+        listeUnique = listeClientsUnique(interventions);
+
         switch (employe.getTypeEmploye()) {
             case 0:
-                calculMontantType0(interventions);
+                CalculMontantDeplacement[] calculMontantType0 = calculMontantType0(listeUnique); //
                 break;
+
             case 1:
-                calculMontantType1(interventions);
+                // calculMontantType1(interventions);
                 break;
             case 2:
-                calculMontantType2(interventions);
+                //calculMontantType2(interventions);
                 break;
             default:
                 break;
