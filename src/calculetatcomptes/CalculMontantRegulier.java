@@ -13,12 +13,7 @@ import java.util.ArrayList;
  * @author seif saidi
  */
 public class CalculMontantRegulier {
-    private static double convertireStringEnDouble(String chaine) throws IOException {
-        double chaineConvertit;
-        chaine = chaine.replace("$", "");
-        chaineConvertit = Double.parseDouble(chaine);
-        return chaineConvertit;
-    }
+    
     private static boolean verifCodesClient(String codeClient, String tab[]) {
         boolean verif = false;
         for (String tab1 : tab) {
@@ -38,8 +33,8 @@ public class CalculMontantRegulier {
         boolean verification;
         String tabCodesClient[] = new String[interventions.size()];
         String tabPourVérifier[] = new String[interventions.size()];
-        double tauxHoraireMin = convertireStringEnDouble(employe.getTauxMin());
-        double tauxHoraireMax = convertireStringEnDouble(employe.getTauxMax());
+        double tauxHoraireMin = employe.getTauxMin();
+        double tauxHoraireMax = employe.getTauxMax();
         double tauxHoraireMoyen = (tauxHoraireMax+tauxHoraireMin)/2;
         int nbHeure;
         int typeEmploye = employe.getTypeEmploye();
@@ -52,8 +47,109 @@ public class CalculMontantRegulier {
             intervention = interventions.get(i);
             tabCodesClient[i] = intervention.getCodeClient();
             // System.out.println(tabCodesClient[i]);
+        }
+             switch (typeEmploye) {
+            case 0:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMin;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
+
+                break;
+            
+            case 1:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMoyen;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
+                break;
+            
+            case 2:
+                for (int i = 0; i < tabCodesClient.length; i++) {
+                    nbHeure = 0;
+                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    if (verification == false) {
+                        compteur++;
+                        for (int j = i + 1; j < tabCodesClient.length; j++) {
+                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                                nbHeure += interventions.get(j).getNombresHeures();
+                            }
+                        }
+
+                        nbHeure += interventions.get(i).getNombresHeures();
+                        montantRegulier = nbHeure * tauxHoraireMax;
+
+                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+                    }
+                    tabPourVérifier[i] = tabCodesClient[i];
+
+                }
+                tabObjetFinal = new ObjetMontantRegulier[compteur];
+
+                for (int i = 0; i < tabObjet.length; i++) {
+                    if (tabObjet[i] != null) {
+                        tabObjetFinal[i] = tabObjet[i];
+                    }
+                }
+                tabObjet = null;
+                break;
 
         }
-    return tabObjetFinal;
+
+        return tabObjetFinal;
     }
-}
+    }
+
+
+
+
+
+        
+   
+
