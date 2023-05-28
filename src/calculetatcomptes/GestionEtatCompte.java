@@ -57,8 +57,6 @@ public class GestionEtatCompte {
     } 
     public static EtatEmploye RemplirObjetEtatCompte() throws IOException{
         
-        //DecimalFormat df=new DecimalFormat("0.00");
-        
         EtatEmploye objetEtatCompte=new EtatEmploye();
         Employe employe;
         employe=GestionEmploye.RecupererJson();
