@@ -25,8 +25,20 @@ public class CalculEtatComptes {
         ArrayList<Intervention> interventions;
         interventions=employe.getInterventions();
         intervention=interventions.get(1);
+        EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
+        ArrayList<Client> clients;
+        clients=etatEmploye.getClients();
+        Client client;
+        client=clients.get(1);
         
-        System.out.print("matricule: "+employe.getMatricule()+"\ntaux horaires maximal :\nnombre d'heure du client <> est : "+intervention.getNombresHeures()  );
+        ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
+        CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
+        CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
+        
+        System.out.println("monatant regulier de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[2].getCodeClient()+" est : "+montantSupp[0].getMontantHeuresSupp());
+        double s=(double)Math.round(4.4567*100.0)/100.0;
+        System.out.println(s);
+        System.out.print("etat compte de "+ etatEmploye.getMatriculeEmploye()+ " est :  "+etatEmploye.getEtatCompte() +" et l'etat compte du client "+client.getCodeClient()+" est : "+client.getEtatParClient());
 
         //System.out.print("test projet");
         // TODO code application logic here

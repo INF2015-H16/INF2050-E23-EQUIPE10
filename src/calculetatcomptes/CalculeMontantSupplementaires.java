@@ -69,14 +69,13 @@ public class CalculeMontantSupplementaires {
      *
      * @throws IOException 
      */
-    public CalculeMontantSupplementaires []  calculeMontantSupplementaire( CalculeMontantSupplementaires [] tableau)throws IOException{
+    public static CalculeMontantSupplementaires []  calculeMontantSupplementaire()throws IOException{
+        CalculeMontantSupplementaires [] tableau;
         String codeCL="";
         int nombreDheureCl=0;
         int overtime=0;
         double MontantHeuresSupp=0;
-        boolean var;
-       
-        
+        boolean var;        
        
         Employe employe;
         Intervention intervention;
@@ -147,10 +146,12 @@ public class CalculeMontantSupplementaires {
          } 
         }
            
-      
+
         }else if (employe.getTypeEmploye()== 0){
         MontantHeuresSupp=0;
         }
+        tableau=new CalculeMontantSupplementaires[interventions.size()];
+
         for (int k = 0; k < tabo.length; k++) {
                if (tabo[k]!=null){
                  
