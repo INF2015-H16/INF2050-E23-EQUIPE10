@@ -13,31 +13,6 @@ import java.util.ArrayList;
  * @author seif saidi
  */
 public class CalculMontantRegulier {
-    
-    private String codeClient;
-    private double montantReguliere;
-
-    public CalculMontantRegulier(String codeClient, double montantReguliere) {
-        this.codeClient = codeClient;
-        this.montantReguliere = montantReguliere;
-    }
-
-    public String getCodeClient() {
-        return codeClient;
-    }
-
-    public void setCodeClient(String codeClient) {
-        this.codeClient = codeClient;
-    }
-
-    public double getMontantReguliere() {
-        return montantReguliere;
-    }
-
-    public void setMontantReguliere(double montantReguliere) {
-        this.montantReguliere = montantReguliere;
-    }
-      
     private static boolean verifCodesClient(String codeClient, String tab[]) {
         boolean verif = false;
         for (String tab1 : tab) {

@@ -35,7 +35,7 @@ public class CalculEtatComptes {
         CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
         CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
         
-        System.out.println("monatant regulier de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[2].getCodeClient()+" est : "+montantSupp[0].getMontantHeuresSupp());
+        System.out.println("monatant déplacement de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[2].getCodeClient()+" est : "+montantSupp[0].getMontantHeuresSupp());
         double s=(double)Math.round(4.4567*100.0)/100.0;
         System.out.println(s);
         System.out.print("etat compte de "+ etatEmploye.getMatriculeEmploye()+ " est :  "+etatEmploye.getEtatCompte() +" et l'etat compte du client "+client.getCodeClient()+" est : "+client.getEtatParClient());
