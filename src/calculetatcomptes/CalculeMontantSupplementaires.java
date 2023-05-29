@@ -69,13 +69,15 @@ public class CalculeMontantSupplementaires {
      *
      * @throws IOException 
      */
-    public static CalculeMontantSupplementaires []  calculeMontantSupplementaire()throws IOException{
+    public static CalculeMontantSupplementaires []  calculeMontantSupplementaire( )throws IOException{
         CalculeMontantSupplementaires [] tableau;
+      
         String codeCL="";
         int nombreDheureCl=0;
         int overtime=0;
         double MontantHeuresSupp=0;
-        boolean var;        
+        boolean var;    
+        int tailleTableau=0;
        
         Employe employe;
         Intervention intervention;
@@ -95,25 +97,19 @@ public class CalculeMontantSupplementaires {
             // la recuperation du Code Client et le Nombre D'heures et le Overtime dec chaque intervention 
             intervention=interventions.get(i);
             codeCL = intervention.getCodeClient();
-            nombreDheureCl=intervention.getNombresHeures()+2;
-            overtime=intervention.getOvertime();
+            nombreDheureCl=intervention.getNombresHeures();
+            overtime=intervention.getOvertime()+2;
             // verification si le Code de client (premiere intervention) et compatible avec le code de client suivant (deuxieme intervention).
             if (verifierLeCodeClient(codeCL,codeClientRepetitif)){
-                
+                tailleTableau+=1;
            for (int j=i+1;j<interventions.size();j++){
-               
                intervention=interventions.get(j);
                var = verifierLeCodeClient(codeCL,codeClientRepetitif);
-               
                if(codeCL.equals(intervention.getCodeClient()) && var ){
-                   
-                   nombreDheureCl+=intervention.getNombresHeures()+2;
-                   overtime+=intervention.getOvertime();
-                   System.out.println("dkhel hna ");
+                   nombreDheureCl+=intervention.getNombresHeures();
+                   overtime+=intervention.getOvertime()+2;
                    montantcd[i]=nombreDheureCl;
                }
-               
-               
            }
            if (employe.getTypeEmploye()== 1){
                
@@ -145,21 +141,19 @@ public class CalculeMontantSupplementaires {
            
          } 
         }
-           
 
         }else if (employe.getTypeEmploye()== 0){
         MontantHeuresSupp=0;
         }
-        tableau=new CalculeMontantSupplementaires[interventions.size()];
-
+        tableau=new CalculeMontantSupplementaires[tailleTableau];
         for (int k = 0; k < tabo.length; k++) {
                if (tabo[k]!=null){
                  
                tableau[k]=tabo[k];
-              
                }
             
              }
+        
    
      return tableau;
     }
