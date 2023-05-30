@@ -36,7 +36,8 @@ public class GestionEtatCompte {
             montantDep[i].getMontantDeplacement() + monatantSupp[i].getMontantHeuresSupp();            
         }
         
-        etatCompte=etatClient+MANTANT_AJOUTE;        
+        etatCompte=etatClient+MANTANT_AJOUTE;
+        etatCompte=(double)Math.round(etatClient*100.0)/100.0;        
         return etatCompte;
     } 
     private static double calculMantantFix(double etatCompte){
