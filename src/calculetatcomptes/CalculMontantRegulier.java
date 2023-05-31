@@ -36,9 +36,9 @@ public class CalculMontantRegulier {
     }
 
     /**
-     * La méthode calculMontant permet de faire le calcul du montant réguliér
+     * La méthode calculMontant permet de faire le calcul du montant régulier
      * selon le type d'employé et retourne un tableau d'objet qui contient le
-     * code du client et son montatnt réguliér
+     * code du client et son montatnt régulier
      *
      * @return
      * @throws IOException
@@ -61,7 +61,7 @@ public class CalculMontantRegulier {
         ObjetMontantRegulier tabObjet[] = new ObjetMontantRegulier[interventions.size()];
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
         int compteur = 0;
-        
+
         /*
         Remplir les codes clients à partir de intervention dans un tableau "tabCodesClient"
          */
@@ -70,11 +70,11 @@ public class CalculMontantRegulier {
             tabCodesClient[i] = intervention.getCodeClient();
             // System.out.println(tabCodesClient[i]);
         }
-       
+
         switch (typeEmploye) {
             /*
-            Clacul du montant réguliér d'un client dont le type d'employé est Superviseur Permanent  Contractuel
-            */
+            Clacul du montant régulier d'un client dont le type d'employé est Superviseur
+             */
             case 0:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
@@ -105,9 +105,9 @@ public class CalculMontantRegulier {
                 tabObjet = null;
 
                 break;
-                /*
-            Clacul du montant réguliér d'un client dont le type d'employé est Permanent
-            */
+            /*
+            Clacul du montant régulier d'un client dont le type d'employé est Permanent
+             */
 
             case 1:
                 for (int i = 0; i < tabCodesClient.length; i++) {
@@ -138,9 +138,9 @@ public class CalculMontantRegulier {
                 }
                 tabObjet = null;
                 break;
-                /*
-            Clacul du montant réguliér d'un client dont le type d'employé est Contractuel
-            */
+            /*
+            Clacul du montant régulier d'un client dont le type d'employé est Contractuel
+             */
 
             case 2:
                 for (int i = 0; i < tabCodesClient.length; i++) {
