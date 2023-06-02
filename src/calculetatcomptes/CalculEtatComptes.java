@@ -21,7 +21,7 @@ public class CalculEtatComptes {
      */
     public static void main(String[] args) throws IOException {
         
-        
+            GestionEmploye.lireFichierEntree(args);
             creationJson();
         
         /*client=clients.get(1);

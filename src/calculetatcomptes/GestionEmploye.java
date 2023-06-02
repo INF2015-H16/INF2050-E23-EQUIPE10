@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package calculetatcomptes;
+import static com.sun.tools.javac.tree.TreeInfo.args;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
@@ -13,6 +16,8 @@ import net.sf.json.JSONObject;
  * @author rabahlemaici
  */
 public class GestionEmploye {
+    
+    private static String source;
     
     public static final String MATRICULE_EMPLOYE="matricule_employe";
     public static final String TYPE_EMPLOYE="type_employe";
@@ -30,9 +35,7 @@ public class GestionEmploye {
     
         Employe objetEmploye=new Employe();
         try{
-            String myJSON = FileReader.loadFileIntoString("Json.txt",
-            "UTF-8");
-            JSONObject employe=JSONObject.fromObject(myJSON);
+            JSONObject employe=JSONObject.fromObject(source);
             int matriculeLocal= employe.getInt(MATRICULE_EMPLOYE);
             objetEmploye.setMatricule(matriculeLocal);
             int typeEmployeLocal= employe.getInt(TYPE_EMPLOYE);
@@ -48,7 +51,7 @@ public class GestionEmploye {
             interventions=remplireInetrventions(listInterventions);
             objetEmploye.setInterventions(interventions);
         }catch(JSONException e){
-            System.out.println("Verifie votre fichier Json SVP !");
+            System.out.println("Verifie la syntaxe de votre fichier Json SVP !");
         }
         
         return objetEmploye;
@@ -79,6 +82,20 @@ public class GestionEmploye {
         chaine=chaine.replace(" $", "");
         double decimal=Double.parseDouble(chaine);
         return decimal;
-    }  
+    }
+    
+    public static void lireFichierEntree(String[] args) throws IOException {
+        if(args.length != 1){
+            throw new IOException("Fichier d'entree manquant.");
+        }
+        try {
+            String texteSource = new String(Files.readAllBytes(Paths.get(args[0])));
+            source=texteSource;
+            
+        } catch (IOException e) {
+            throw new IOException("Erreur dans la lecture du fichier d'entree.");
+        }
+    }
+    
 }
 
