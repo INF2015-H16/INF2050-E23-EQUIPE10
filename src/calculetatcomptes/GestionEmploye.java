@@ -6,6 +6,7 @@ package calculetatcomptes;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 /**
  *
@@ -28,24 +29,27 @@ public class GestionEmploye {
     public static Employe RecupererJson() throws IOException {
     
         Employe objetEmploye=new Employe();
-        String myJSON = FileReader.loadFileIntoString("Json.txt",
-       "UTF-8");
-        JSONObject employe=JSONObject.fromObject(myJSON);
-        int matriculeLocal= employe.getInt(MATRICULE_EMPLOYE);
-        objetEmploye.setMatricule(matriculeLocal);
-        int typeEmployeLocal= employe.getInt(TYPE_EMPLOYE);
-        objetEmploye.setTypeEmploye(typeEmployeLocal);
-        String tauxMinLocal= employe.getString(TAUX_HORAIRES_MIN);
-        double tauxMinLocal1=convertirString(tauxMinLocal);
-        objetEmploye.setTauxMin(tauxMinLocal1);
-        String tauxMaxLocal= employe.getString(TAUX_HORAIRES_MAX);
-        double tauxMaxLocal1=convertirString(tauxMaxLocal);
-        objetEmploye.setTauxMax(tauxMaxLocal1);
-        JSONArray listInterventions=employe.getJSONArray(INTERVENTION);
-        ArrayList<Intervention> interventions;
-        interventions=remplireInetrventions(listInterventions);
-        objetEmploye.setInterventions(interventions);
-        
+        try{
+            String myJSON = FileReader.loadFileIntoString("Json.txt",
+            "UTF-8");
+            JSONObject employe=JSONObject.fromObject(myJSON);
+            int matriculeLocal= employe.getInt(MATRICULE_EMPLOYE);
+            objetEmploye.setMatricule(matriculeLocal);
+            int typeEmployeLocal= employe.getInt(TYPE_EMPLOYE);
+            objetEmploye.setTypeEmploye(typeEmployeLocal);
+            String tauxMinLocal= employe.getString(TAUX_HORAIRES_MIN);
+            double tauxMinLocal1=convertirString(tauxMinLocal);
+            objetEmploye.setTauxMin(tauxMinLocal1);
+            String tauxMaxLocal= employe.getString(TAUX_HORAIRES_MAX);
+            double tauxMaxLocal1=convertirString(tauxMaxLocal);
+            objetEmploye.setTauxMax(tauxMaxLocal1);
+            JSONArray listInterventions=employe.getJSONArray(INTERVENTION);
+            ArrayList<Intervention> interventions;
+            interventions=remplireInetrventions(listInterventions);
+            objetEmploye.setInterventions(interventions);
+        }catch(JSONException e){
+            System.out.println("Verifie votre fichier Json SVP !");
+        }
         
         return objetEmploye;
     }
