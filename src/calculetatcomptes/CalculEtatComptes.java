@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 
 /**
  *
- * @author LP
+ * @author lemaicirabah
  */
 public class CalculEtatComptes {
 
@@ -21,8 +21,12 @@ public class CalculEtatComptes {
      */
     public static void main(String[] args) throws IOException {
         
-            GestionEmploye.lireFichierEntree(args);
-            creationJson();
+        //********Fichier Entree*********    
+        GestionEmploye.lireFichierEntree(args);
+        //******Calculs******************    
+        creationJson();
+        //******Fichier Sortie***********    
+        ecrireFichierSortie(args[1]);
         
         /*client=clients.get(1);
              
@@ -40,7 +44,7 @@ public class CalculEtatComptes {
     }
     
     
-    public static void creationJson()  throws IOException{
+    public static JSONObject creationJson()  throws IOException{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;
@@ -69,9 +73,18 @@ public class CalculEtatComptes {
          
         etatEmployee.accumulate("clients", etatClients);
          
-        FileWriter.saveStringIntoFile("etatEmploye."
-        + "json", etatEmployee.toString());
+       
+        return etatEmployee;
 
+    }
+    
+    public static void ecrireFichierSortie(String args) throws IOException {
+       try  {
+          FileWriter.saveStringIntoFile(args, creationJson().toString());
+        
+       } catch (IOException e) {
+           throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
+       }
     }
     
 }
