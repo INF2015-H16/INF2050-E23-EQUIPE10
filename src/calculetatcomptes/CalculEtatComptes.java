@@ -22,10 +22,10 @@ public class CalculEtatComptes {
     public static void main(String[] args) throws IOException {
         
         
-             creationJson();
+            creationJson();
         
         /*client=clients.get(1);
-        
+             
         ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
         CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
         CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
@@ -48,29 +48,29 @@ public class CalculEtatComptes {
         
         
         JSONObject etatEmployee= new JSONObject();
-         etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
-         etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte());
-         etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe());
-         etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable() );
+        etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
+        etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte());
+        etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe());
+        etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable() );
          
          
-         JSONArray etatClients = new JSONArray();
-         JSONObject etatClient = new JSONObject();
+        JSONArray etatClients = new JSONArray();
+        JSONObject etatClient = new JSONObject();
          
-         for(int i=0;i<clients.size();i++){
+        for(int i=0;i<clients.size();i++){
              
             etatClient.accumulate("code_client",clients.get(i).getCodeClient());
             etatClient.accumulate("etat_par_client",clients.get(i).getEtatParClient());
             etatClients.add(etatClient);
             etatClient.clear();      
              
-         }
+        }
          
          
-         etatEmployee.accumulate("clients", etatClients);
+        etatEmployee.accumulate("clients", etatClients);
          
-         FileWriter.saveStringIntoFile("etatEmploye."
-         + "json", etatEmployee.toString());
+        FileWriter.saveStringIntoFile("etatEmploye."
+        + "json", etatEmployee.toString());
 
     }
     
