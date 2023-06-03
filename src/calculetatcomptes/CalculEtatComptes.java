@@ -10,12 +10,17 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- *
+ *Class principal du projet
+ * lit le fichier d entree passee en argument
+ * appel la methode pour faire les calculs 
+ * envoie de ficier de sortie en argument
+ * 
  * @author lemaicirabah
  */
 public class CalculEtatComptes {
 
     /**
+     * Methode main
      * @param args the command line arguments
      * @throws java.io.IOException
      */
@@ -43,41 +48,46 @@ public class CalculEtatComptes {
      */
     }
     
-    
+    /**
+     * Methode fait la creation de 
+     * l'objet Json et le retourner
+     * 
+     * @throws java.io.IOException
+     * @return etatEmployee objet de type Json pour creer notre fichier de sortie
+     */
     public static JSONObject creationJson()  throws IOException{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;
         clients=etatEmploye.getClients();
         
-        
         JSONObject etatEmployee= new JSONObject();
         etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
-        etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte());
-        etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe());
-        etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable() );
-         
-         
+        etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte()+" $");
+        etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe()+" $");
+        etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable()+" $" );
+          
         JSONArray etatClients = new JSONArray();
         JSONObject etatClient = new JSONObject();
          
         for(int i=0;i<clients.size();i++){
              
             etatClient.accumulate("code_client",clients.get(i).getCodeClient());
-            etatClient.accumulate("etat_par_client",clients.get(i).getEtatParClient());
+            etatClient.accumulate("etat_par_client",clients.get(i).getEtatParClient()+" $");
             etatClients.add(etatClient);
             etatClient.clear();      
              
-        }
-         
-         
+        }  
         etatEmployee.accumulate("clients", etatClients);
          
-       
         return etatEmployee;
-
     }
-    
+    /**
+     * methode qui prends le chemin envoyer en argument 
+     * pour ecrire le fichier Json en sortie 
+     * @param args the command line arguments
+     * @throws java.io.IOException
+     */
     public static void ecrireFichierSortie(String args) throws IOException {
        try  {
           FileWriter.saveStringIntoFile(args, creationJson().toString());

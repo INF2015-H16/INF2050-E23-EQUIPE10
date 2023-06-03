@@ -30,7 +30,6 @@ public class GestionEtatCompte {
         
         double etatClient=0;
         
-        ArrayList <Client> clients=new ArrayList<>(); 
         for(int i=0;i<montantReg.length;i++){
             etatClient+=montantReg[i].getMontantRegulier() + 
             montantDep[i].getMontantDeplacement() + monatantSupp[i].getMontantHeuresSupp();            
