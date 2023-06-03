@@ -15,6 +15,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * Class CalculMontantDeplacement:
+ * Description: classe qui sert à calculer le montant pour le déplacement 
+ *              des interventions pour les clients selon le type d'employé
  * @author lesuareg
  */
 public class CalculMontantDeplacement {
@@ -103,7 +106,7 @@ public class CalculMontantDeplacement {
             default:
                 break;
         }
-        return montantTotal;
+        return Math.round(montantTotal*Math.pow(10,2))/Math.pow(10,2);
     }
      
     // Methode calculMontantType:
