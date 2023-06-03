@@ -6,10 +6,12 @@ package calculetatcomptes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  *
- * @author LP
+ * @author lemaicirabah
  */
 public class CalculEtatComptes {
 
@@ -19,17 +21,70 @@ public class CalculEtatComptes {
      */
     public static void main(String[] args) throws IOException {
         
-        Employe employe;
-        Intervention intervention;
-        employe=GestionEmploye.RecupererJson();
-        ArrayList<Intervention> interventions;
-        interventions=employe.getInterventions();
-        intervention=interventions.get(1);
+        //********Fichier Entree*********    
+        GestionEmploye.lireFichierEntree(args);
+        //******Calculs******************    
+        creationJson();
+        //******Fichier Sortie***********    
+        ecrireFichierSortie(args[1]);
         
-        System.out.print("matricule: "+employe.getMatricule()+"\ntaux horaires maximal :\nnombre d'heure du client <> est : "+intervention.getNombresHeures()  );
+        /*client=clients.get(1);
+             
+        ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
+        CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
+        CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
+        
+        System.out.println("monatant déplacement de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[1].getCodeClient()+" est : "+montantSupp[1].getMontantHeuresSupp());
+        double s=(double)Math.round(4.4567*100.0)/100.0;
+        System.out.print("etat compte de "+ etatEmploye.getMatriculeEmploye()+ " est :  "+etatEmploye.getEtatCompte() +" et l'etat compte du client "+client.getCodeClient()+" est : "+client.getEtatParClient());
 
         //System.out.print("test projet");
         // TODO code application logic here
+     */
+    }
+    
+    
+    public static JSONObject creationJson()  throws IOException{
+        
+        EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
+        ArrayList<Client> clients;
+        clients=etatEmploye.getClients();
+        
+        
+        JSONObject etatEmployee= new JSONObject();
+        etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
+        etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte());
+        etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe());
+        etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable() );
+         
+         
+        JSONArray etatClients = new JSONArray();
+        JSONObject etatClient = new JSONObject();
+         
+        for(int i=0;i<clients.size();i++){
+             
+            etatClient.accumulate("code_client",clients.get(i).getCodeClient());
+            etatClient.accumulate("etat_par_client",clients.get(i).getEtatParClient());
+            etatClients.add(etatClient);
+            etatClient.clear();      
+             
+        }
+         
+         
+        etatEmployee.accumulate("clients", etatClients);
+         
+       
+        return etatEmployee;
+
+    }
+    
+    public static void ecrireFichierSortie(String args) throws IOException {
+       try  {
+          FileWriter.saveStringIntoFile(args, creationJson().toString());
+        
+       } catch (IOException e) {
+           throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
+       }
     }
     
 }

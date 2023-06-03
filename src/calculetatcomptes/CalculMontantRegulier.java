@@ -13,32 +13,18 @@ import java.util.ArrayList;
  * @author seif saidi
  */
 public class CalculMontantRegulier {
-    
-    private String codeClient;
-    private double montantReguliere;
 
-    public CalculMontantRegulier(String codeClient, double montantReguliere) {
-        this.codeClient = codeClient;
-        this.montantReguliere = montantReguliere;
-    }
-
-    public String getCodeClient() {
-        return codeClient;
-    }
-
-    public void setCodeClient(String codeClient) {
-        this.codeClient = codeClient;
-    }
-
-    public double getMontantReguliere() {
-        return montantReguliere;
-    }
-
-    public void setMontantReguliere(double montantReguliere) {
-        this.montantReguliere = montantReguliere;
-    }
-      
-    private static boolean verifCodesClient(String codeClient, String tab[]) {
+    /**
+     * Méthode pour la vérification si un code client existe dans un tableau
+     * rempli avec des codes clients aprés le calcul de son montant reguliér
+     * Elle prend comme parmétre un code client pour le véridier et le tableau
+     * qui contient les codes clients
+     *
+     * @param codeClient
+     * @param tab
+     * @return
+     */
+    private static boolean verifierCodesClient(String codeClient, String tab[]) {
         boolean verif = false;
         for (String tab1 : tab) {
             if (codeClient.equals(tab1)) {
@@ -49,7 +35,14 @@ public class CalculMontantRegulier {
         return verif;
     }
 
-   
+    /**
+     * La méthode calculMontant permet de faire le calcul du montant régulier
+     * selon le type d'employé et retourne un tableau d'objet qui contient le
+     * code du client et son montatnt régulier
+     *
+     * @return
+     * @throws IOException
+     */
     public static ObjetMontantRegulier[] calculMontant() throws IOException {
         Employe employe;
         Intervention intervention;
@@ -61,7 +54,7 @@ public class CalculMontantRegulier {
         String tabPourVérifier[] = new String[interventions.size()];
         double tauxHoraireMin = employe.getTauxMin();
         double tauxHoraireMax = employe.getTauxMax();
-        double tauxHoraireMoyen = (tauxHoraireMax+tauxHoraireMin)/2;
+        double tauxHoraireMoyen = (tauxHoraireMax + tauxHoraireMin) / 2;
         int nbHeure;
         int typeEmploye = employe.getTypeEmploye();
         double montantRegulier;
@@ -69,16 +62,23 @@ public class CalculMontantRegulier {
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
         int compteur = 0;
 
+        /*
+        Remplir les codes clients à partir de intervention dans un tableau "tabCodesClient"
+         */
         for (int i = 0; i < interventions.size(); i++) {
             intervention = interventions.get(i);
             tabCodesClient[i] = intervention.getCodeClient();
             // System.out.println(tabCodesClient[i]);
         }
-             switch (typeEmploye) {
+
+        switch (typeEmploye) {
+            /*
+            Clacul du montant régulier d'un client dont le type d'employé est Superviseur
+             */
             case 0:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
-                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
                     if (verification == false) {
                         compteur++;
                         for (int j = i + 1; j < tabCodesClient.length; j++) {
@@ -105,11 +105,14 @@ public class CalculMontantRegulier {
                 tabObjet = null;
 
                 break;
-            
+            /*
+            Clacul du montant régulier d'un client dont le type d'employé est Permanent
+             */
+
             case 1:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
-                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
                     if (verification == false) {
                         compteur++;
                         for (int j = i + 1; j < tabCodesClient.length; j++) {
@@ -135,11 +138,14 @@ public class CalculMontantRegulier {
                 }
                 tabObjet = null;
                 break;
-            
+            /*
+            Clacul du montant régulier d'un client dont le type d'employé est Contractuel
+             */
+
             case 2:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
-                    verification = verifCodesClient(tabCodesClient[i], tabPourVérifier);
+                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
                     if (verification == false) {
                         compteur++;
                         for (int j = i + 1; j < tabCodesClient.length; j++) {
@@ -170,12 +176,4 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-    }
-
-
-
-
-
-        
-   
-
+}
