@@ -12,7 +12,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 /**
- *
+ *Class qui lit le fichier d entree
+ * et revoie l objet employee creer 
+ * et gere les exception du fichier d entree
+ * 
  * @author rabahlemaici
  */
 public class GestionEmploye {
@@ -85,7 +88,7 @@ public class GestionEmploye {
     }
     
     public static void lireFichierEntree(String[] args) throws IOException {
-        if(args.length != 1){
+        if(args.length != 2){
             throw new IOException("Fichier d'entree manquant.");
         }
         try {
