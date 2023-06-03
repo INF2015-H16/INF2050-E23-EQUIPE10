@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package calculetatcomptes;
-import static com.sun.tools.javac.tree.TreeInfo.args;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,7 +14,6 @@ import net.sf.json.JSONObject;
  *Class qui lit le fichier d entree
  * et revoie l objet employee creer 
  * et gere les exception du fichier d entree
- * 
  * @author rabahlemaici
  */
 public class GestionEmploye {
@@ -33,7 +31,12 @@ public class GestionEmploye {
     public static final String NOMBRES_HEURES="nombre_heures";
     public static final String DATE_INTERVENTION="date_intervention";        
     
-            
+    /**
+     * methode qui cree l objet employe a partir du fichier Json 
+     * @return objetEmploye objet qui contient tous les information de l employe
+     * @throws java.io.IOException
+     */
+    
     public static Employe RecupererJson() throws IOException {
     
         Employe objetEmploye=new Employe();
