@@ -31,4 +31,16 @@ public class CalculMontantRegulierTest {
     public void testCalculMontant() throws Exception {
     }
     
+    @Test
+    public void testVerifierCodesClient(){
+        System.out.println("VerifierCodesClient");
+        String codeClient = "c123";
+        String [] tab = {"c123","d455"};
+        boolean expResult =true;
+         boolean result = CalculMontantRegulier.verifierCodesClient(codeClient, tab) ;
+         assertEquals(expResult, result);
+        
+        
+    }
+    
 }
