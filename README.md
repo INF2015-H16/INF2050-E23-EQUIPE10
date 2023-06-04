@@ -26,15 +26,11 @@ Ce programme prend en argument un fichier d'entrée JSON qui contient tous infor
 ### Exécution du  programme
 
 * Vous devrez spécifier le chemin complet dans lequel se trouve votre .jar et votre fichier d'entrée JSON
-```
-```
 
 ## Aide
 
 Pour toute aide supplémentaire reliée à l'utilisation de ce logiciel, veuillez contacter 
 l'un des auteurs mentionnés ci-dessus
-```
-```
 
 .
 ## Auteurs
