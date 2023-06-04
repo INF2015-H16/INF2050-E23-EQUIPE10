@@ -9,7 +9,9 @@ Ce logiciel vous permettra de calculer l'état de compte d'un employée.
 
 ## Description
 
-Ce programme prend en argument un fichier d'entrée JSON qui contient tous informations sur un seul employé et ces interventions pour ces propres clients. 
+Ce programme prend en argument un fichier d'entrée JSON qui contient tous informations sur un seul employée et ces interventions pour ces propres clients.
+Le programme commence par calculer l'état par client qui est la somme de "Montant régulier, Montant de déplacement et le montant supplémentaire" ces montant son calculer selon le type de l'employée.
+Le calcul de l'état de compte de l'employée se fait en fonction de l'état de compte par client.
 
 ## Pour commencer
 
