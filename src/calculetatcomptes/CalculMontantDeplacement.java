@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Class CalculMontantDeplacement:
  * Description: classe qui sert à calculer le montant pour le déplacement 
  *              des interventions pour les clients selon le type d'employé
- * @author lesuareg
+ * @author Luz Enith Suarez Gonzalez
  */
 public class CalculMontantDeplacement {
 
