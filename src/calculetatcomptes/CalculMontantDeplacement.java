@@ -106,7 +106,7 @@ public class CalculMontantDeplacement {
             default:
                 break;
         }
-        return Math.round(montantTotal*Math.pow(10,2))/Math.pow(10,2);
+        return montantTotal;
     }
      
     // Methode calculMontantType:
@@ -123,18 +123,15 @@ public class CalculMontantDeplacement {
     //                                                     total de deplacement
     //     int type : type d'employé
     private static CalculMontantDeplacement[] calculMontantType(ArrayList<Entry<String, Integer>> listeUnique, int type) throws IOException {
-        double montantTotal, montantA, montantB;
-        String codeA, codeB;
+        double montantTotal, montantReg, montantDep;
+        String codeClMonReg, codeClMonDep;
         
         CalculMontantDeplacement[] deplacementClient = new CalculMontantDeplacement[listeUnique.size()];
         CalculMontantDeplacement[] montant = new CalculMontantDeplacement[listeUnique.size()];
 
         ObjetMontantRegulier[] montantReguliere;
         montantReguliere = CalculMontantRegulier.calculMontant();
-        /*
-        ObjetMontantRegulier[] montantReguliere = {new ObjetMontantRegulier("C123", 1000), //montant reguliere pour test
-            new ObjetMontantRegulier("C456", 1000), new ObjetMontantRegulier("C789", 1000)};
-        */
+      
         int compteur = 0;
 
         for (Entry<String, Integer> b : listeUnique) {
@@ -144,13 +141,13 @@ public class CalculMontantDeplacement {
 
         for (int i = 0; i < montantReguliere.length; i++) {
             for (CalculMontantDeplacement montantDepl : deplacementClient) {
-                codeA = montantReguliere[i].getCodeClient();
-                codeB = montantDepl.getCodeClient();
-                montantA = montantReguliere[i].getMontantRegulier();
-                montantB = montantDepl.getMontantDeplacement();
-                if (codeA.equalsIgnoreCase(codeB)) {
-                    montantTotal = calculMontantTotal(montantA, montantB, type);
-                    montant[i] = new CalculMontantDeplacement(codeA, montantTotal);
+                codeClMonReg = montantReguliere[i].getCodeClient();
+                codeClMonDep = montantDepl.getCodeClient();
+                montantReg = montantReguliere[i].getMontantRegulier();
+                montantDep = montantDepl.getMontantDeplacement();
+                if (codeClMonReg.equalsIgnoreCase(codeClMonDep)) {
+                    montantTotal = calculMontantTotal(montantReg, montantDep, type);
+                    montant[i] = new CalculMontantDeplacement(codeClMonReg, montantTotal);
                 }
             }
         }
