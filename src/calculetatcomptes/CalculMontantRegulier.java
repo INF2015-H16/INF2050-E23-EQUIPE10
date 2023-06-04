@@ -23,8 +23,9 @@ public class CalculMontantRegulier {
      * @param codeClient
      * @param tab
      * @return
+     * @throws java.io.IOException
      */
-    private static boolean verifierCodesClient(String codeClient, String tab[]) {
+    public static boolean verifierCodesClient(String codeClient, String tab[]) throws IOException {
         boolean verif = false;
         for (String tab1 : tab) {
             if (codeClient.equals(tab1)) {

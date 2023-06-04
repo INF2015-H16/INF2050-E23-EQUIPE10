@@ -5,6 +5,7 @@
  */
 package calculetatcomptes;
 
+import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +30,19 @@ public class CalculMontantRegulierTest {
 
     @Test
     public void testCalculMontant() throws Exception {
+         System.out.println("calculeMontantRegulier");
+        ObjetMontantRegulier [] tableau = new ObjetMontantRegulier[1];
+        tableau[0]= new ObjetMontantRegulier("d58",4.20);
+        String expResult = "d58";
+        double expResult1 = 4.20;
+        String result = tableau[0].getCodeClient();
+        double result1 = tableau[0].getMontantRegulier();
+        assertEquals(expResult, result);
+        assertEquals(expResult1, result1, 0.20);
     }
     
     @Test
-    public void testVerifierCodesClient(){
+    public void testVerifierCodesClient() throws IOException{
         System.out.println("VerifierCodesClient");
         String codeClient = "c123";
         String [] tab = {"c123","d455"};
