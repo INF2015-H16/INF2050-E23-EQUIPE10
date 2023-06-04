@@ -11,7 +11,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Napo
+ * @author Luz Enith Suarez Gonzalez
  */
 public class CalculMontantDeplacementTest {
 
