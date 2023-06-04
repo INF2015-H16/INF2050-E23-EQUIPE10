@@ -40,4 +40,4 @@ l'un des auteurs mentionnés ci-dessus
 * **Seif Amen Allah Saidi**
 * **Rabah Lemaici** 
 * **Aymen Messad**
-* **lesuareg**
+* **Luz Enith Suarez Gonzalez**
