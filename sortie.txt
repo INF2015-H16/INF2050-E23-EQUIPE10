@@ -1,0 +1,1 @@
+{"matricule_employe":123456789,"etat_compte":"3635.97 $","cout_fixe":"4363.16 $","cout_ variable":"9089.93 $","clients":[{"code_client":"C123","etat_par_client":"846.80 $"},{"code_client":"C456","etat_par_client":"828.20 $"},{"code_client":"C789","etat_par_client":"1227.20 $"}]}

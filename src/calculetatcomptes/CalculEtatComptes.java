@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import java.text.DecimalFormat;
 
 /**
  *Class principal du projet
@@ -48,6 +49,13 @@ public class CalculEtatComptes {
      */
     }
     
+    //Methode pour donner le format 0.00$ a une valeur double
+    static String formatDecimal(double valeur) {
+        String pattern = "#.00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        return decimalFormat.format(valeur);
+    }
+    
     /**
      * Methode fait la creation de 
      * l'objet Json et le retourner
@@ -63,9 +71,9 @@ public class CalculEtatComptes {
         
         JSONObject etatEmployee= new JSONObject();
         etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
-        etatEmployee.accumulate("etat_compte", etatEmploye.getEtatCompte()+" $");
-        etatEmployee.accumulate("cout_fixe", etatEmploye.getCoutFixe()+" $");
-        etatEmployee.accumulate("cout_ variable",etatEmploye.getCoutVariable()+" $" );
+        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()) + " $");
+        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()) + " $");
+        etatEmployee.accumulate("cout_ variable",formatDecimal(etatEmploye.getCoutVariable()) + " $");
           
         JSONArray etatClients = new JSONArray();
         JSONObject etatClient = new JSONObject();
@@ -73,7 +81,7 @@ public class CalculEtatComptes {
         for(int i=0;i<clients.size();i++){
              
             etatClient.accumulate("code_client",clients.get(i).getCodeClient());
-            etatClient.accumulate("etat_par_client",clients.get(i).getEtatParClient()+" $");
+            etatClient.accumulate("etat_par_client",formatDecimal(clients.get(i).getEtatParClient())+ " $");
             etatClients.add(etatClient);
             etatClient.clear();      
              
