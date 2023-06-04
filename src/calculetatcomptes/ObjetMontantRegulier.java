@@ -26,6 +26,10 @@ public class ObjetMontantRegulier {
 
     }
 
+    ObjetMontantRegulier() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Methode pour apporter un code client
      *
