@@ -5,8 +5,8 @@
 package calculetatcomptes;
 
 /**
- *
- * @author LP
+ *Class des objets interventions
+ * @author lemaicirabah
  */
 public class Intervention {       
     

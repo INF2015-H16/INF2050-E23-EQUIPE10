@@ -7,8 +7,8 @@ package calculetatcomptes;
 import java.util.ArrayList;
 
 /**
- *
- * @author LP
+ *Class des objets EtatEmploye
+ * @author lemaicirabah
  */
 public class EtatEmploye {
     

@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 /**
- *
+ *Class pour lire le fichier d entree
  * @author rabahlemaici
  */
 public class FileReader {

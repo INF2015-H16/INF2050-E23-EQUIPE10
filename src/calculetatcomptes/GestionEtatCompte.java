@@ -107,13 +107,9 @@ public class GestionEtatCompte {
     }
     public static double changeFormatDecimal(double d){
         
-        //DecimalFormat df=new DecimalFormat("0.00");
-
-        //df.setMaximumFractionDigits(2);        
-        //df.setMinimumFractionDigits(2);
-        //df.setDecimalSeparatorAlwaysShown(true);
-        //String s=df.format(d);
-        String s=String.format("%.2f",d);
+        DecimalFormat df=new DecimalFormat("#.00");
+ 
+        String s=df.format(d);
         s=s.replace(",", ".");
         d=Double.parseDouble(s);
         

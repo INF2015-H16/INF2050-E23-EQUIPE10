@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- *
+ *class pour ecrire le fichier de sortie
  * @author rabahlemaici
  */
 public class FileWriter {

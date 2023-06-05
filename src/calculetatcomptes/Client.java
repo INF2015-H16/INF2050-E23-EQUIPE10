@@ -5,7 +5,7 @@
 package calculetatcomptes;
 
 /**
- *
+ *Class des objets clients
  * @author Rabahlemaici
  */
 public class Client {
