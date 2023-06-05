@@ -40,16 +40,15 @@ public class CalculeMontantSupplementairesTest {
      * Test of verifierLeCodeClient method, of class
      * CalculeMontantSupplementaires.
      */
+    
     @Test
     public void testVerifierLeCodeClient () {
         System.out.println ( "verifierLeCodeClient" );
         String code = "C123";
-        String[] tab = { "C123", "C456", "C789" };
+        String[] tab = { "C123", "C456", "C789", "C789"};
         boolean expResult = false;
         boolean result = CalculeMontantSupplementaires.verifierLeCodeClient ( code, tab );
         assertEquals ( expResult, result );
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
