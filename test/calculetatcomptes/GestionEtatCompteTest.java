@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author LP
+ * @author lemaicirabah
  */
 public class GestionEtatCompteTest {
     
@@ -45,8 +45,7 @@ public class GestionEtatCompteTest {
         EtatEmploye expResult = null;
         EtatEmploye result = GestionEtatCompte.RemplirObjetEtatCompte();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Test RemplirObjetEtatCompte");
     }
     
 }

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author LP
+ * @author lemaicirabah
  */
 public class GestionEmployeTest {
     
@@ -47,8 +47,7 @@ public class GestionEmployeTest {
         Employe expResult = null;
         Employe result = GestionEmploye.RecupererJson();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Test RecupererJson");
     }
 
     /**
@@ -61,8 +60,7 @@ public class GestionEmployeTest {
         ArrayList<Intervention> expResult = null;
         ArrayList<Intervention> result = GestionEmploye.remplireInetrventions(listInterventions);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Test RemplireInetrventions");
     }
 
     /**
@@ -75,8 +73,7 @@ public class GestionEmployeTest {
         double expResult = 0.0;
         double result = GestionEmploye.convertirString(chaine);
         assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Test ConvertirString");
     }
     
 }
