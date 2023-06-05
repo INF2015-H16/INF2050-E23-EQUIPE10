@@ -62,6 +62,13 @@ public class GestionEmploye {
         
         return objetEmploye;
     }
+    
+    /**
+     * prend l objet json qui contients les interventions  
+     * et remplir l objet intervention dans un tableau 
+     * @param listInterventions liste des objets Json
+     * @return interventions la listes de tous les interventions
+     */
     public static ArrayList<Intervention> remplireInetrventions(JSONArray listInterventions){
         JSONObject singleIntervention;
         
@@ -82,13 +89,23 @@ public class GestionEmploye {
         }    
         return interventions;
     }
-    
+    /**
+     * convert la chaine en double et supprime "$"   
+     * @param chaine la chaine de caractere
+     * @return decimal returne le decimal apres la conversion
+     */
     public static double convertirString(String chaine){
         
         chaine=chaine.replace(" $", "");
         double decimal=Double.parseDouble(chaine);
         return decimal;
     }
+    
+    /**
+     * lire le fichier d entree et gere l exception  
+     * @param args argumets des fichier d entree
+     * @throws java.io.IOException
+     */
     
     public static void lireFichierEntree(String[] args) throws IOException {
         if(args.length != 2){
