@@ -6,7 +6,7 @@
 package calculetatcomptes;
 
 /**
- *
+ *Cette class permet de construir un objet de type ObjetMontantRegulier qui contient le code du client et son montant régulier
  * @author seif saidi
  */
 public class ObjetMontantRegulier {
@@ -15,7 +15,7 @@ public class ObjetMontantRegulier {
     private double montantRegulier;
 
     /**
-     * Constructeur de l'objet montantRegulier
+     * Constructeur de l'objet montantRegulier 
      *
      * @param codeClient
      * @param montantRegulier

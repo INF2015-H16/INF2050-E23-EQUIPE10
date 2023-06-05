@@ -1,122 +1,117 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
 package calculetatcomptes;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author 256SSD
  */
 public class CalculeMontantSupplementairesTest {
-    
-    public CalculeMontantSupplementairesTest() {
+
+    public CalculeMontantSupplementairesTest () {
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
+
+    @BeforeClass
+    public static void setUpClass () {
     }
-    
-    @AfterAll
-    public static void tearDownClass() {
+
+    @AfterClass
+    public static void tearDownClass () {
     }
-    
-    @BeforeEach
-    public void setUp() {
+
+    @Before
+    public void setUp () {
     }
-    
-    @AfterEach
-    public void tearDown() {
+
+    @After
+    public void tearDown () {
     }
 
     /**
-     * Test of verifierLeCodeClient method, of class CalculeMontantSupplementaires.
+     * Test of verifierLeCodeClient method, of class
+     * CalculeMontantSupplementaires.
      */
+    
     @Test
-    public void testVerifierLeCodeClient() {
-        System.out.println("verifierLeCodeClient");
-        String code = "";
-        String[] tab = null;
+    public void testVerifierLeCodeClient () {
+        System.out.println ( "verifierLeCodeClient" );
+        String code = "C123";
+        String[] tab = { "C123", "C456", "C789", "C789"};
         boolean expResult = false;
-        boolean result = CalculeMontantSupplementaires.verifierLeCodeClient(code, tab);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean result = CalculeMontantSupplementaires.verifierLeCodeClient ( code, tab );
+        assertEquals ( expResult, result );
     }
 
     /**
-     * Test of calculeMontantSupplementaire method, of class CalculeMontantSupplementaires.
+     * Test of calculeMontantSupplementaire method, of class
+     * CalculeMontantSupplementaires.
      */
     @Test
-    public void testCalculeMontantSupplementaire() throws Exception {
-        System.out.println("calculeMontantSupplementaire");
-        CalculeMontantSupplementaires[] tableau = null;
-        CalculeMontantSupplementaires[] expResult = null;
-        CalculeMontantSupplementaires[] result = CalculeMontantSupplementaires.calculeMontantSupplementaire(tableau);
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCalculeMontantSupplementaire () throws Exception {
+        System.out.println ( "calculeMontantSupplementaire" );
+        CalculeMontantSupplementaires[] expResult = { new CalculeMontantSupplementaires ( "C123", 1050.00 ), new CalculeMontantSupplementaires ( "C456", 225.00 ), new CalculeMontantSupplementaires ( "C789", 750.00 ) };
+        CalculeMontantSupplementaires[] result = CalculeMontantSupplementaires.calculeMontantSupplementaire ();
+        System.out.println ( "Tableau de résultats attendus:" );
+
+        for ( CalculeMontantSupplementaires expResult1 : expResult ) {
+            System.out.println ( "Code du client: " + expResult1.getCodeClient () + " Montant Supplementaires: " + expResult1.getMontantHeuresSupp () );
+        }
+
+        System.out.println ( "Tableau de résultats:" );
+        for ( CalculeMontantSupplementaires result1 : result ) {
+            System.out.println ( "Code du client: " + result1.getCodeClient () + " Montant Supplementaires " + result1.getMontantHeuresSupp () );
+        }
+
+        for ( int i = 0 ;i < result.length ;i++ ) {
+            assertEquals ( expResult[ i ].getCodeClient (), result[ i ].getCodeClient () );
+            assertEquals ( expResult[ i ].getMontantHeuresSupp (), result[ i ].getMontantHeuresSupp () );
+        }
+
     }
 
     /**
      * Test of setCodeClient method, of class CalculeMontantSupplementaires.
      */
     @Test
-    public void testSetCodeClient() {
-        System.out.println("setCodeClient");
+    public void testSetCodeClient () {
+        System.out.println ( "setCodeClient" );
         String codeClient = "";
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires();
-        instance.setCodeClient(codeClient);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
+        instance.setCodeClient ( codeClient );
     }
 
     /**
-     * Test of setMontantHeuresSupp method, of class CalculeMontantSupplementaires.
+     * Test of setMontantHeuresSupp method, of class
+     * CalculeMontantSupplementaires.
      */
-    @Test
-    public void testSetMontantHeuresSupp() {
-        System.out.println("setMontantHeuresSupp");
+    //@Test
+    public void testSetMontantHeuresSupp () {
+        System.out.println ( "setMontantHeuresSupp" );
         double MontantHeuresSupp = 0.0;
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires();
-        instance.setMontantHeuresSupp(MontantHeuresSupp);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
+        instance.setMontantHeuresSupp ( MontantHeuresSupp );
     }
 
     /**
-     * Test of getCodeClient method, of class CalculeMontantSupplementaires.
+     * Test of getMontantHeuresSupp method, of class
+     * CalculeMontantSupplementaires.
      */
     @Test
-    public void testGetCodeClient() {
-        System.out.println("getCodeClient");
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires();
-        String expResult = "";
-        String result = instance.getCodeClient();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMontantHeuresSupp method, of class CalculeMontantSupplementaires.
-     */
-    @Test
-    public void testGetMontantHeuresSupp() {
-        System.out.println("getMontantHeuresSupp");
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires();
+    public void testGetMontantHeuresSupp () {
+        System.out.println ( "getMontantHeuresSupp" );
+        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
         double expResult = 0.0;
-        double result = instance.getMontantHeuresSupp();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        double result = instance.getMontantHeuresSupp ();
+        assertEquals ( expResult, result, 0 );
     }
-    
+
 }

@@ -18,6 +18,14 @@ import java.util.ArrayList;
 public class GestionEtatCompte {
     
     public static final double MANTANT_AJOUTE=733.77;
+    /**
+     * Methode pour calculer l"état de compte de chaque client en fonction du montant régulier, montant de déplacement et montant supplémentaire
+     * Elle prend les paramétre d'entrée ci-dessous :
+     * @param montantReg
+     * @param montantDep
+     * @param montantSupp
+     * @return 
+     */
     
     private static Client calculEtatClient(ObjetMontantRegulier montantReg,CalculMontantDeplacement montantDep,CalculeMontantSupplementaires montantSupp){
         
@@ -36,6 +44,15 @@ public class GestionEtatCompte {
         
         return etatClient;  
     }
+    
+    /**
+     *  Methode pour calculer l"état de compte de l'employé en fonction du montant régulier, montant de déplacement et montant supplémentaire
+     * Elle prend les paramétre d'entrée ci-dessous :
+     * @param montantReg
+     * @param montantDep
+     * @param monatantSupp
+     * @return 
+     */
     private static double calculEtatcompte(ObjetMontantRegulier [] montantReg,CalculMontantDeplacement [] montantDep,CalculeMontantSupplementaires [] monatantSupp){
         
         
@@ -53,6 +70,12 @@ public class GestionEtatCompte {
         
         return etatCompte;
     } 
+    
+    /**
+     * Cette méthode permet de calculer le montant fix en fonction de l'état de compte.
+     * @param etatCompte
+     * @return 
+     */
     private static double calculMantantFix(double etatCompte){
         
 
@@ -63,6 +86,12 @@ public class GestionEtatCompte {
         
         return mantantFix;
     } 
+    
+    /**
+     * Cette méthode permet de calculer le cout variable en fonction de l'état de compte.
+     * @param etatCompte
+     * @return 
+     */
     private static double calculCoutVariable(double etatCompte){
         
         double coutVariable;
@@ -70,7 +99,12 @@ public class GestionEtatCompte {
         coutVariable=changeFormatDecimal(coutVariable);
         
         return coutVariable;
-    } 
+    }
+    /**
+     * Cette fonction permet de remplir un objet par l"état de compte de l'employé
+     * @return
+     * @throws IOException 
+     */
     public static EtatEmploye RemplirObjetEtatCompte() throws IOException{
         
         
@@ -105,6 +139,12 @@ public class GestionEtatCompte {
         
         return objetEtatCompte;
     }
+    /**
+     * Cette méthode permet de modifier la partie décimal d'un double tel que deux chiffres aprés son virgule
+     * Elle prend comme entrée un double
+     * @param d
+     * @return 
+     */
     public static double changeFormatDecimal(double d){
         
         DecimalFormat df=new DecimalFormat("#.00");

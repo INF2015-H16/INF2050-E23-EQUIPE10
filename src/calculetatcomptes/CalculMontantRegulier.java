@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ *Cette class permet de calculer le montant régulier de chaque client
  * @author seif saidi
  */
 public class CalculMontantRegulier {
@@ -63,9 +63,6 @@ public class CalculMontantRegulier {
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
         int compteur = 0;
 
-        /*
-        Remplir les codes clients à partir de intervention dans un tableau "tabCodesClient"
-         */
         for (int i = 0; i < interventions.size(); i++) {
             intervention = interventions.get(i);
             tabCodesClient[i] = intervention.getCodeClient();
@@ -73,9 +70,7 @@ public class CalculMontantRegulier {
         }
 
         switch (typeEmploye) {
-            /*
-            Clacul du montant régulier d'un client dont le type d'employé est Superviseur
-             */
+           
             case 0:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
@@ -106,10 +101,7 @@ public class CalculMontantRegulier {
                 tabObjet = null;
 
                 break;
-            /*
-            Clacul du montant régulier d'un client dont le type d'employé est Permanent
-             */
-
+           
             case 1:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
@@ -139,10 +131,7 @@ public class CalculMontantRegulier {
                 }
                 tabObjet = null;
                 break;
-            /*
-            Clacul du montant régulier d'un client dont le type d'employé est Contractuel
-             */
-
+           
             case 2:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
