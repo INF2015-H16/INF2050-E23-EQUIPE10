@@ -1,17 +1,17 @@
 # INF2050-E23-EQUIPE10
 
 
-# Calcul état de compte d'un employée
+# Calcul état de compte d'un employé
 
 
-Ce logiciel vous permettra de calculer l'état de compte d'un employée.
+Ce logiciel vous permettra de calculer l'état de compte d'un employé.
 
 
 ## Description
 
-Ce programme prend en argument un fichier d'entrée JSON qui contient tous informations sur un seul employée et ces interventions pour ces propres clients.
-Le programme commence par calculer l'état par client qui est la somme de "Montant régulier, Montant de déplacement et le montant supplémentaire" ces montant son calculer selon le type de l'employée.
-Le calcul de l'état de compte de l'employée se fait en fonction de l'état de compte par client.
+Ce programme prend en argument un fichier d'entrée JSON qui contient tous informations sur un seul employé et ces interventions pour ces propres clients.
+Le programme commence par calculer l'état par client qui est la somme de "Montant régulier, Montant de déplacement et le montant supplémentaire" ces montant son calculer selon le type de l'employé.
+Le calcul de l'état de compte de l'employé se fait en fonction de l'état de compte par client.
 
 ## Pour commencer
 
