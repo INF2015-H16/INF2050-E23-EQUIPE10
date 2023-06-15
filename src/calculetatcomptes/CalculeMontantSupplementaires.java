@@ -128,7 +128,9 @@ public class CalculeMontantSupplementaires {
                                 MontantHeuresSupp = 1500;
                             }
                         }
-                    }
+                    }if ( employe.getTypeEmploye () == 0 ) {
+                       MontantHeuresSupp = 0;
+                         }
                     CalculeMontantSupplementaires intervention1 = new CalculeMontantSupplementaires ();
                     intervention1.setCodeClient ( codeCL );
                     intervention1.setMontantHeuresSupp ( MontantHeuresSupp );
@@ -138,8 +140,6 @@ public class CalculeMontantSupplementaires {
                 }
             }
 
-        } else if ( employe.getTypeEmploye () == 0 ) {
-            MontantHeuresSupp = 0;
         }
         tableau = new CalculeMontantSupplementaires[ tailleTableau ];
         for ( int k = 0 ;k < tabo.length ;k++ ) {
