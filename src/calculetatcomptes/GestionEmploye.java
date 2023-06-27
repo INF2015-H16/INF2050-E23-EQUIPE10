@@ -37,12 +37,12 @@ public class GestionEmploye {
      * @throws java.io.IOException
      */
     
-    public static Employe RecupererJson() throws IOException {
+    public static Employe RecupererJson() throws IOException, ClassExceptions {
     
         Employe objetEmploye=new Employe();
         try{
             JSONObject employe=JSONObject.fromObject(source);
-            int matriculeLocal= employe.getInt(MATRICULE_EMPLOYE);
+            int matriculeLocal=GestionErreurs.surfaceTriangle(employe.getInt(MATRICULE_EMPLOYE)) ;
             objetEmploye.setMatricule(matriculeLocal);
             int typeEmployeLocal= employe.getInt(TYPE_EMPLOYE);
             objetEmploye.setTypeEmploye(typeEmployeLocal);
@@ -51,6 +51,7 @@ public class GestionEmploye {
             objetEmploye.setTauxMin(tauxMinLocal1);
             String tauxMaxLocal= employe.getString(TAUX_HORAIRES_MAX);
             double tauxMaxLocal1=convertirString(tauxMaxLocal);
+            
             objetEmploye.setTauxMax(tauxMaxLocal1);
             JSONArray listInterventions=employe.getJSONArray(INTERVENTION);
             ArrayList<Intervention> interventions;
