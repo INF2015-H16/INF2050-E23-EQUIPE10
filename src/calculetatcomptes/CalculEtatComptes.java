@@ -34,19 +34,6 @@ public class CalculEtatComptes {
         //******Fichier Sortie***********    
         ecrireFichierSortie(args[1]);
         
-        /*client=clients.get(1);
-             
-        ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
-        CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
-        CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
-        
-        System.out.println("monatant déplacement de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[1].getCodeClient()+" est : "+montantSupp[1].getMontantHeuresSupp());
-        double s=(double)Math.round(4.4567*100.0)/100.0;
-        System.out.print("etat compte de "+ etatEmploye.getMatriculeEmploye()+ " est :  "+etatEmploye.getEtatCompte() +" et l'etat compte du client "+client.getCodeClient()+" est : "+client.getEtatParClient());
-
-        //System.out.print("test projet");
-        // TODO code application logic here
-     */
     }
     
     //Methode pour donner le format 0.00$ a une valeur double

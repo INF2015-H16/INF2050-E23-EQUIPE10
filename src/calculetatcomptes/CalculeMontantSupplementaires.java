@@ -90,7 +90,7 @@ public class CalculeMontantSupplementaires {
         String codecl[] = new String[ interventions.size () ];
         CalculeMontantSupplementaires[] tabo = new CalculeMontantSupplementaires[ interventions.size () ];
 
-        if ( employe.getTypeEmploye () == 1 || employe.getTypeEmploye () == 2 ) {
+        if ( employe.getTypeEmploye () == 1 || employe.getTypeEmploye () == 2 || employe.getTypeEmploye () == 0) {
             for ( int i = 0 ;i < interventions.size () ;i++ ) {
                 intervention = interventions.get ( i );
                 codeCL = intervention.getCodeClient ();
