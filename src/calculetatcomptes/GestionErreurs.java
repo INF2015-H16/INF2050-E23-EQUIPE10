@@ -5,17 +5,22 @@
  */
 package calculetatcomptes;
 
+
+
 /**
  *
  * @author seif saidi
  */
 public class GestionErreurs {
 
-    public static int surfaceTriangle(int cdClient) throws ClassExceptions {
-        if (cdClient < 0) {
-            throw new ClassExceptions("neg");
+    public static void verifierEntierNegative(int nombre) throws ClassExceptions {
+        if (nombre < 0) {
+            throw new ClassExceptions("Le code employée est invalide !!");
         }
-        return cdClient;
+        
     }
-
+    
+   
+   
+   
 }

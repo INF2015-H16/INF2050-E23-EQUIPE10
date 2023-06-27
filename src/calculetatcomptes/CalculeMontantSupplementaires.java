@@ -69,7 +69,7 @@ public class CalculeMontantSupplementaires {
      *
      * @throws IOException
      */
-    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire () throws IOException {
+    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire () throws IOException, ClassExceptions {
         CalculeMontantSupplementaires[] tableau;
 
         String codeCL = "";

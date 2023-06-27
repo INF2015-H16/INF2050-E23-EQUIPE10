@@ -105,7 +105,7 @@ public class GestionEtatCompte {
      * @return
      * @throws IOException 
      */
-    public static EtatEmploye RemplirObjetEtatCompte() throws IOException{
+    public static EtatEmploye RemplirObjetEtatCompte() throws IOException, ClassExceptions{
         
         
         EtatEmploye objetEtatCompte=new EtatEmploye();
