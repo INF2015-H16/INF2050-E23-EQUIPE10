@@ -81,7 +81,7 @@ public class GestionEtatCompte {
 
         double mantantFix;
 
-        mantantFix=etatCompte*1.2;
+        mantantFix=etatCompte*0.012;
         mantantFix=changeFormatDecimal(mantantFix);
         
         return mantantFix;
@@ -95,7 +95,7 @@ public class GestionEtatCompte {
     private static double calculCoutVariable(double etatCompte){
         
         double coutVariable;
-        coutVariable=etatCompte*2.5;
+        coutVariable=etatCompte*0.025;
         coutVariable=changeFormatDecimal(coutVariable);
         
         return coutVariable;
