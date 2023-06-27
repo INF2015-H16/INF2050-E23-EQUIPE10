@@ -49,6 +49,7 @@ public class GestionEmploye {
             GestionErreurs.verifierEntierNegative(matriculeLocal);
             objetEmploye.setMatricule(matriculeLocal);
             int typeEmployeLocal = employe.getInt(TYPE_EMPLOYE);
+            GestionErreurs.validerTypeEmploye(typeEmployeLocal);
             objetEmploye.setTypeEmploye(typeEmployeLocal);
             String tauxMinLocal = employe.getString(TAUX_HORAIRES_MIN);
             double tauxMinLocal1 = convertirString(tauxMinLocal);
