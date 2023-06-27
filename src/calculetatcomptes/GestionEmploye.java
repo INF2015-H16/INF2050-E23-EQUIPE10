@@ -62,6 +62,7 @@ public class GestionEmploye {
             JSONArray listInterventions = employe.getJSONArray(INTERVENTION);
             ArrayList<Intervention> interventions;
             interventions = remplireInetrventions(listInterventions);
+            GestionErreurs.validerIntervention(interventions);
             objetEmploye.setInterventions(interventions);
         } catch (JSONException e) {
             System.out.println("Verifie la syntaxe de votre fichier Json SVP !");

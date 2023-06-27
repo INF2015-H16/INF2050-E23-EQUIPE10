@@ -5,6 +5,8 @@
  */
 package calculetatcomptes;
 
+import java.util.ArrayList;
+
 
 
 /**
@@ -18,6 +20,34 @@ public class GestionErreurs {
             throw new ClassExceptions("Le code employée est invalide !!");
         }
         
+    }
+    
+     public static void validerTypeEmploye(int type)  throws ClassExceptions{
+    if(type != 0 && type != 1 && type != 2 ){
+        throw new ClassExceptions("Type employée est invalide !!");
+    
+    }
+   
+    }
+     
+      public static void validerTauxHoraires(double tauxHoraire)  throws ClassExceptions{
+         if (tauxHoraire < 0) {
+            throw new ClassExceptions("Taux horaire négative !!");
+        }
+         
+    }
+    
+      public static void validerIntervention(ArrayList<Intervention> objetEmploye) throws ClassExceptions{
+        
+        if(objetEmploye.isEmpty()){
+             throw new ClassExceptions("Auccune intervention !!");
+        } 
+        
+        else if(objetEmploye.size()>10){
+            throw new ClassExceptions("Les interventions dépasse 10 !!");
+        
+        }
+    
     }
     
    
