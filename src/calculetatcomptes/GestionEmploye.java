@@ -53,9 +53,11 @@ public class GestionEmploye {
             objetEmploye.setTypeEmploye(typeEmployeLocal);
             String tauxMinLocal = employe.getString(TAUX_HORAIRES_MIN);
             double tauxMinLocal1 = convertirString(tauxMinLocal);
+            GestionErreurs.validerTauxHoraires(tauxMinLocal1);
             objetEmploye.setTauxMin(tauxMinLocal1);
             String tauxMaxLocal = employe.getString(TAUX_HORAIRES_MAX);
             double tauxMaxLocal1 = convertirString(tauxMaxLocal);
+            GestionErreurs.validerTauxHoraires(tauxMaxLocal1);
             objetEmploye.setTauxMax(tauxMaxLocal1);
             JSONArray listInterventions = employe.getJSONArray(INTERVENTION);
             ArrayList<Intervention> interventions;
