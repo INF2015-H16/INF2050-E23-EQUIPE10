@@ -64,9 +64,22 @@ public class GestionErreurs {
         String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
         if (!maDate.matches(pattern)) {
         throw new ClassExceptions("Format de date invalide !!");
+        
         }
     
     }
-   
+    public static void validerOvertime(int overT) throws ClassExceptions{
+       
+        if(overT<0 || overT>4 ){ 
+       
+            throw new ClassExceptions("Overtime doit etre entre 0 et 4 !!");
+        }
+        
+    }
+    public static void validerNombreHeures(double nbrHeure)  throws ClassExceptions{
+         if (nbrHeure < 0) {
+            throw new ClassExceptions("nombre heures negative !!");
+        }
+    }     
    
 }
