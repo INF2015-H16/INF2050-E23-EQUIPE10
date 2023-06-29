@@ -93,7 +93,8 @@ public class GestionEmploye {
             intervention.setOvertime(singleIntervention.getInt(OVERTIME));
             intervention.setNombresHeures(singleIntervention.getInt(NOMBRES_HEURES));
             intervention.setDateIntervention(singleIntervention.getString(DATE_INTERVENTION));
-
+            GestionErreurs.validerDate(singleIntervention.getString(DATE_INTERVENTION));
+            
             interventions.add(intervention);
         }
         return interventions;

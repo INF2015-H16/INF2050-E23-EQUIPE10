@@ -5,7 +5,10 @@
  */
 package calculetatcomptes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
@@ -54,10 +57,16 @@ public class GestionErreurs {
         if(distanceDep<0 || distanceDep>100){
              throw new ClassExceptions("La distance de deplacement doit etre entre 0 et 100 !!");
         } 
-        
     
     }
-   
+    public static void validerDate(String maDate) throws ClassExceptions{
+       
+        String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
+        if (!maDate.matches(pattern)) {
+        throw new ClassExceptions("Format de date invalide !!");
+        }
+    
+    }
    
    
 }
