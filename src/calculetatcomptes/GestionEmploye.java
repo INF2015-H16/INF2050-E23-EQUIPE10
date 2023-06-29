@@ -78,7 +78,7 @@ public class GestionEmploye {
      * @param listInterventions liste des objets Json
      * @return interventions la listes de tous les interventions
      */
-    public static ArrayList<Intervention> remplireInetrventions(JSONArray listInterventions) {
+    public static ArrayList<Intervention> remplireInetrventions(JSONArray listInterventions) throws ClassExceptions{
         JSONObject singleIntervention;
 
         ArrayList<Intervention> interventions = new ArrayList<>();
@@ -89,6 +89,7 @@ public class GestionEmploye {
             Intervention intervention = new Intervention();
             intervention.setCodeClient(singleIntervention.getString(CODE_CLIENT));
             intervention.setDistanceDeplacement(singleIntervention.getInt(DISTANCE_DEPLACEMENT));
+            GestionErreurs.validerDistanceDeplacement(singleIntervention.getInt(DISTANCE_DEPLACEMENT));
             intervention.setOvertime(singleIntervention.getInt(OVERTIME));
             intervention.setNombresHeures(singleIntervention.getInt(NOMBRES_HEURES));
             intervention.setDateIntervention(singleIntervention.getString(DATE_INTERVENTION));

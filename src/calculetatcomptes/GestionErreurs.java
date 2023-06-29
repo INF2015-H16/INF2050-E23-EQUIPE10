@@ -49,7 +49,14 @@ public class GestionErreurs {
         }
     
     }
+    public static void validerDistanceDeplacement(int distanceDep) throws ClassExceptions{
+        
+        if(distanceDep<0 || distanceDep>100){
+             throw new ClassExceptions("La distance de deplacement doit etre entre 0 et 100 !!");
+        } 
+        
     
+    }
    
    
    
