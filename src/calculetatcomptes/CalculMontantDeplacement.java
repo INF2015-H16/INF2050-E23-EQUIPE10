@@ -168,7 +168,7 @@ public class CalculMontantDeplacement {
     public static CalculMontantDeplacement[] calculMontanDeplacement() throws IOException, ClassExceptions  {
 
         Employe employe;
-        employe = GestionEmploye.RecupererJson();
+        employe = GestionEmploye.creerEmployeFromJson();
 
         ArrayList<Intervention> interventions;
         interventions = employe.getInterventions();

@@ -110,7 +110,7 @@ public class GestionEtatCompte {
         
         EtatEmploye objetEtatCompte=new EtatEmploye();
         Employe employe;
-        employe=GestionEmploye.RecupererJson();
+        employe=GestionEmploye.creerEmployeFromJson();
         objetEtatCompte.setMatriculeEmploye(employe.getMatricule());
              
         ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
