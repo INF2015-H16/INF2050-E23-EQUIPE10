@@ -25,7 +25,7 @@ public class CalculEtatComptes {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassExceptions {
         
         //********Fichier Entree*********    
         GestionEmploye.lireFichierEntree(args);
@@ -50,7 +50,7 @@ public class CalculEtatComptes {
      * @throws java.io.IOException
      * @return etatEmployee objet de type Json pour creer notre fichier de sortie
      */
-    public static JSONObject creationJson()  throws IOException{
+    public static JSONObject creationJson()  throws IOException, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;
@@ -83,7 +83,7 @@ public class CalculEtatComptes {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void ecrireFichierSortie(String args) throws IOException {
+    public static void ecrireFichierSortie(String args) throws IOException, ClassExceptions {
        try  {
           FileWriter.saveStringIntoFile(args, creationJson().toString());
         

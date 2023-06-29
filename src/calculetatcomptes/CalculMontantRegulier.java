@@ -44,7 +44,7 @@ public class CalculMontantRegulier {
      * @return
      * @throws IOException
      */
-    public static ObjetMontantRegulier[] calculMontant() throws IOException {
+    public static ObjetMontantRegulier[] calculMontant() throws IOException , ClassExceptions {
         Employe employe;
         Intervention intervention;
         employe = GestionEmploye.RecupererJson();
