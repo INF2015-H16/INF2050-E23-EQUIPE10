@@ -49,13 +49,13 @@ public class CalculEtatComptesTest {
     }
 
     /**
-     * Test of creationJson method, of class CalculEtatComptes.
+     * Test of creerJson method, of class CalculEtatComptes.
      */
     @Test
     public void testCreationJson() throws Exception {
         System.out.println("creationJson");
         JSONObject expResult = null;
-        JSONObject result = CalculEtatComptes.creationJson();
+        JSONObject result = CalculEtatComptes.creerJson();
         assertEquals(expResult, result);
         fail("Test CreationJson");
     }

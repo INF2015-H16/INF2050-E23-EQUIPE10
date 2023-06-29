@@ -27,7 +27,7 @@ public class GestionEtatCompte {
      * @return 
      */
     
-    private static Client calculEtatClient(ObjetMontantRegulier montantReg,CalculMontantDeplacement montantDep,CalculeMontantSupplementaires montantSupp){
+    private static Client calculEtatClient(ObjetMontantRegulier montantReg,CalculerMontantDeplacement montantDep,CalculeMontantSupplementaires montantSupp){
         
         
         Client etatClient=new Client();
@@ -53,7 +53,7 @@ public class GestionEtatCompte {
      * @param monatantSupp
      * @return 
      */
-    private static double calculEtatcompte(ObjetMontantRegulier [] montantReg,CalculMontantDeplacement [] montantDep,CalculeMontantSupplementaires [] monatantSupp){
+    private static double calculEtatcompte(ObjetMontantRegulier [] montantReg,CalculerMontantDeplacement [] montantDep,CalculeMontantSupplementaires [] monatantSupp){
         
         
         double etatCompte ;
@@ -115,7 +115,7 @@ public class GestionEtatCompte {
              
         ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
         CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
-        CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
+        CalculerMontantDeplacement [] montantDep=CalculerMontantDeplacement.calculerMontanDeplacement();
         
         double etatCompte=calculEtatcompte(montantReg,montantDep,montantSupp);
         etatCompte=changeFormatDecimal(etatCompte);
