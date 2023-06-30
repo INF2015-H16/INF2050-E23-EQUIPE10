@@ -25,13 +25,13 @@ public class CalculerMontantDeplacement {
     private String codeClient;
     private double montantDeplacement;
 
-    //Constructeur
+  
     public CalculerMontantDeplacement(String codeClient, double montantDeplacement) {
         this.codeClient = codeClient;
         this.montantDeplacement = montantDeplacement;
     }
 
-    //Getters
+
     public String getCodeClient() {
         return codeClient;
     }
@@ -40,7 +40,7 @@ public class CalculerMontantDeplacement {
         return montantDeplacement;
     }
     
-    //Setters
+  
     public void setCodeClient(String codeClient) {
         this.codeClient = codeClient;
     }
@@ -164,6 +164,7 @@ public class CalculerMontantDeplacement {
      /**
      * @return 
      * @throws java.io.IOException
+     * @throws calculetatcomptes.ClassExceptions
      */
     public static CalculerMontantDeplacement[] calculerMontanDeplacement() throws IOException, ClassExceptions  {
 

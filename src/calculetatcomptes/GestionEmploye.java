@@ -79,7 +79,7 @@ public class GestionEmploye {
      * @return interventions la listes de tous les interventions
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static ArrayList<Intervention> remplireTableauInterventions(JSONArray listInterventions) throws ClassExceptions{
+    public static ArrayList<Intervention> remplireTableauInterventions(JSONArray listInterventions) throws ClassExceptions, IOException{
         JSONObject singleIntervention;
 
         ArrayList<Intervention> interventions = new ArrayList<>();

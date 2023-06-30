@@ -27,13 +27,19 @@ public class CalculEtatComptes {
      * @throws calculetatcomptes.ClassExceptions
      */
     public static void main(String[] args) throws IOException, ClassExceptions {
-        
-        //********Fichier Entree*********    
-        GestionEmploye.lireFichierEntree(args);
-        //******Calculs******************    
-        creerJson();
+         GestionEmploye.lireFichierEntree(args);
+       try{
+           creerJson();
         //******Fichier Sortie***********    
-        ecrireFichierSortie(args[1]);
+        ecrireFichierSortie(args[1],creerJson());
+       
+       }
+       catch (IOException e){
+           System.out.println("sas");
+       }
+       
+        //******Calculs******************    
+        
         
     }
     
@@ -43,7 +49,15 @@ public class CalculEtatComptes {
         return decimalFormat.format(valeur);
     }
     
-   
+    public static JSONObject creerJsonErreurMessage(String message){
+    
+     JSONObject messageErr= new JSONObject();
+     
+    messageErr.accumulate("message", message);
+     return messageErr;
+    }
+    
+    
     public static JSONObject creerJson()  throws IOException, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
@@ -75,16 +89,19 @@ public class CalculEtatComptes {
      * methode qui prends le chemin envoyer en argument 
      * pour ecrire le fichier Json en sortie 
      * @param args the command line arguments
+     * @param json
      * @throws java.io.IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static void ecrireFichierSortie(String args) throws IOException, ClassExceptions {
+    public static void ecrireFichierSortie(String args,JSONObject json) throws IOException, ClassExceptions {
        try  {
-          FileWriter.saveStringIntoFile(args, creerJson().toString());
+          FileWriter.saveStringIntoFile(args, json.toString());
         
        } catch (IOException e) {
            throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
        }
     }
+
+   
     
 }

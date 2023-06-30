@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *Cette class permet de calculer le montant régulier de chaque client
+ * Cette class permet de calculer le montant régulier de chaque client
+ *
  * @author seif saidi
  */
 public class CalculMontantRegulier {
@@ -43,8 +44,9 @@ public class CalculMontantRegulier {
      *
      * @return
      * @throws IOException
+     * @throws calculetatcomptes.ClassExceptions
      */
-    public static ObjetMontantRegulier[] calculMontant() throws IOException , ClassExceptions {
+    public static ObjetMontantRegulier[] calculMontant() throws IOException, ClassExceptions {
         Employe employe;
         Intervention intervention;
         employe = GestionEmploye.creerEmployeFromJson();
@@ -70,7 +72,7 @@ public class CalculMontantRegulier {
         }
 
         switch (typeEmploye) {
-           
+
             case 0:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
@@ -101,7 +103,7 @@ public class CalculMontantRegulier {
                 tabObjet = null;
 
                 break;
-           
+
             case 1:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
@@ -131,7 +133,7 @@ public class CalculMontantRegulier {
                 }
                 tabObjet = null;
                 break;
-           
+
             case 2:
                 for (int i = 0; i < tabCodesClient.length; i++) {
                     nbHeure = 0;
