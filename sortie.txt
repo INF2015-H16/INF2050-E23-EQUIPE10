@@ -1,1 +1,0 @@
-{"matricule_employe":123456789,"etat_compte":"8884,97 $","cout_fixe":"106,62 $","cout_ variable":"222,12 $","clients":[{"code_client":"C123","etat_par_client":"8151,20 $"}]}
