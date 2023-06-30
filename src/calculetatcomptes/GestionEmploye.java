@@ -40,7 +40,7 @@ public class GestionEmploye {
      * @throws java.io.IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static Employe creerEmployeFromJson() throws IOException, ClassExceptions {
+    public static Employe creerEmployeFromJson() throws IOException, ClassExceptions, Exception {
 
         Employe objetEmploye = new Employe();
         try {
