@@ -5,7 +5,6 @@
  */
 package calculetatcomptes;
 
-import static calculetatcomptes.CalculEtatComptes.creerJson;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONObject;

@@ -79,7 +79,7 @@ public class GestionEmploye {
      * @return interventions la listes de tous les interventions
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static ArrayList<Intervention> remplireTableauInterventions(JSONArray listInterventions) throws ClassExceptions, IOException{
+    public static ArrayList<Intervention> remplireTableauInterventions(JSONArray listInterventions) throws ClassExceptions, IOException {
         JSONObject singleIntervention;
 
         ArrayList<Intervention> interventions = new ArrayList<>();
@@ -95,10 +95,37 @@ public class GestionEmploye {
             intervention.setNombresHeures(singleIntervention.getInt(nombres_heures));
             intervention.setDateIntervention(singleIntervention.getString(date_intervention));
             GestionErreurs.validerDate(singleIntervention.getString(date_intervention));
-            
+
             interventions.add(intervention);
         }
         return interventions;
+    }
+
+    public static boolean verifierConflitIntervention(ArrayList<Intervention> interventions) {
+        String tabCodesClient[] = new String[interventions.size()];
+        String tabDateIntervention[] = new String[interventions.size()];
+         boolean isValid = false;
+        
+        for(int k=0;k<interventions.size();k++){
+        tabCodesClient[k]=interventions.get(k).getCodeClient();
+        tabDateIntervention[k]=interventions.get(k).getDateIntervention();
+        }
+        
+        for (int i = 0; i < tabCodesClient.length; i++) {
+            for (int j = i + 1; j < tabCodesClient.length; j++) {
+                if (tabCodesClient[i] == tabCodesClient[j]) {
+                    if (tabDateIntervention[i] == tabDateIntervention[j]) {
+                        isValid = true;
+                        break;
+
+                    }
+
+                }
+            }
+
+        }
+
+        return isValid;
     }
 
     /**

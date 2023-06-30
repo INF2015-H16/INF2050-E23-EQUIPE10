@@ -27,16 +27,19 @@ public class CalculEtatComptes {
      * @throws calculetatcomptes.ClassExceptions
      */
     public static void main(String[] args) throws IOException, ClassExceptions {
+        
+       
+       
+         
          GestionEmploye.lireFichierEntree(args);
-       try{
+      
            creerJson();
         //******Fichier Sortie***********    
         ecrireFichierSortie(args[1],creerJson());
        
-       }
-       catch (IOException e){
-           System.out.println("sas");
-       }
+      
+         
+       
        
         //******Calculs******************    
         
