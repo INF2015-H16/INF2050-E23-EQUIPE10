@@ -26,42 +26,38 @@ public class CalculEtatComptes {
      * @throws java.io.IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static void main(String[] args) throws IOException, ClassExceptions {
+    public static void main(String[] args) throws Exception,ClassExceptions {
         
-       
-       
-         
-         GestionEmploye.lireFichierEntree(args);
-      
-           creerJson();
-        //******Fichier Sortie***********    
-        ecrireFichierSortie(args[1],creerJson());
-       
-      
-         
-       
-       
+        //********Fichier Entree*********    
+        try{
+            
+        GestionEmploye.lireFichierEntree(args);
         //******Calculs******************    
-        
+        creationJson();
+        ecrireFichierSortie(args[1],creationJson());
+        }catch(Exception e){
+        //******Fichier Sortie***********    
+        ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
+        throw e;
+        }
         
     }
     
+    //Methode pour donner le format 0.00$ a une valeur double
     static String formatDecimal(double valeur) {
         String pattern = "#.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(valeur);
     }
     
-    public static JSONObject creerJsonErreurMessage(String message){
-    
-     JSONObject messageErr= new JSONObject();
-     
-    messageErr.accumulate("message", message);
-     return messageErr;
-    }
-    
-    
-    public static JSONObject creerJson()  throws IOException, ClassExceptions{
+    /**
+     * Methode fait la creation de 
+     * l'objet Json et le retourner
+     * 
+     * @throws java.io.IOException
+     * @return etatEmployee objet de type Json pour creer notre fichier de sortie
+     */
+    public static JSONObject creationJson()  throws IOException, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;
@@ -94,7 +90,6 @@ public class CalculEtatComptes {
      * @param args the command line arguments
      * @param json
      * @throws java.io.IOException
-     * @throws calculetatcomptes.ClassExceptions
      */
     public static void ecrireFichierSortie(String args,JSONObject json) throws IOException, ClassExceptions {
        try  {
@@ -104,7 +99,13 @@ public class CalculEtatComptes {
            throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
        }
     }
-
-   
+   public static JSONObject creerJsonErreurMessage(String message){
+    
+     JSONObject messageErr= new JSONObject();
+     
+    messageErr.accumulate("message", message);
+     return messageErr;
+    
+    }
     
 }

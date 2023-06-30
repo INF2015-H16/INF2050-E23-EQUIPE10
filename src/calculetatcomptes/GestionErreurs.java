@@ -14,65 +14,65 @@ import net.sf.json.JSONObject;
  * @author seif saidi
  */
 public class GestionErreurs {
+    
+    static public String messageErreur;
 
     public static void verifierEntierNegative(int nombre) throws ClassExceptions {
         if (nombre < 0) {
-            // throw new ClassExceptions("Le code employée est invalide !!");
+            messageErreur="Le code employée est invalide !!";
+            throw new ClassExceptions("Le code employée est invalide !!");
 
         }
 
     }
 
-    public static void validerTypeEmploye(int type) throws ClassExceptions, IOException {
-        JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("Type employée est invalide !!");
+    public static void validerTypeEmploye(int type) throws Exception, ClassExceptions {
+        
         if (type != 0 && type != 1 && type != 2) {
-
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+           messageErreur="Type employée est invalide !!";
+           throw new ClassExceptions("Type employée est invalide !!");
         }
 
     }
 
     public static void validerTauxHoraires(double tauxHoraire) throws ClassExceptions, IOException {
-        JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("Taux horaires est invalide !!");
-
+        
         if (tauxHoraire < 0) {
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+            messageErreur="Taux horaires est invalide !!";
+            throw new ClassExceptions("Taux horaires est invalide !!");
         }
 
     }
 
     public static void validerIntervention(ArrayList<Intervention> objetEmploye) throws ClassExceptions, IOException {
-        JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("Auccune intervention !!");
-        JSONObject objetMessageErreur1 = CalculEtatComptes.creerJsonErreurMessage("Les interventions dépasse 10 !!");
-
+        
         if (objetEmploye.isEmpty()) {
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+            messageErreur="Auccune intervention !!";
+            throw new ClassExceptions("Auccune intervention !!");
 
         } else if (objetEmploye.size() > 10) {
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur1);
-
-           
+            messageErreur="Les interventions dépasse 10 !!";
+            throw new ClassExceptions("Les interventions dépasse 10 !!");     
 
         }
-
     }
-
     public static void validerDistanceDeplacement(int distanceDep) throws ClassExceptions, IOException {
-        JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("La distance de deplacement doit etre entre 0 et 100 !!");
 
         if (distanceDep < 0 || distanceDep > 100) {
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+            messageErreur="la distance doit etre entre 0 et 100 !!";
+            throw new ClassExceptions("la distance doit etre entre 0 et 100 !!");
 
         }
 
     }
 
     public static void validerDate(String maDate) throws ClassExceptions, IOException {
-        JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("Format de date invalide !!");
+        //JSONObject objetMessageErreur = CalculEtatComptes.creerJsonErreurMessage("Format de date invalide !!");
 
         String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
         if (!maDate.matches(pattern)) {
-            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+            messageErreur="Format de date invalide !!";
+            throw new ClassExceptions("Format de date invalide !!");
 
         }
         
@@ -80,15 +80,24 @@ public class GestionErreurs {
     public static void validerOvertime(int overT) throws ClassExceptions{
        
         if(overT<0 || overT>4 ){ 
-       
+            messageErreur="Overtime doit etre entre 0 et 4 !!";
             throw new ClassExceptions("Overtime doit etre entre 0 et 4 !!");
         }
         
     }
     public static void validerNombreHeures(double nbrHeure)  throws ClassExceptions{
          if (nbrHeure < 0) {
+            messageErreur="nombre heures negative !!"; 
             throw new ClassExceptions("nombre heures negative !!");
         }
     } 
-
+public String getMessageErr(){
+    
+    
+  return this.messageErreur;  
+}
+public void setMessageErr(String s){
+    this.messageErreur=s;
+    
+}
 }
