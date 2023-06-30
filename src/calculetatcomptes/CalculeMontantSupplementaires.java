@@ -64,10 +64,10 @@ public class CalculeMontantSupplementaires {
      * faire des calcule de montant
      * supplimentaire de chaque intervention.
      *
-     * @param tableau
      * @return > tableau
      *
      * @throws IOException
+     * @throws calculetatcomptes.ClassExceptions
      */
     public static CalculeMontantSupplementaires[] calculeMontantSupplementaire () throws IOException, ClassExceptions {
         CalculeMontantSupplementaires[] tableau;
