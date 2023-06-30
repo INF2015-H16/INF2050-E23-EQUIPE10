@@ -24,33 +24,27 @@ public class CalculEtatComptes {
      * Methode main
      * @param args the command line arguments
      * @throws java.io.IOException
+     * @throws calculetatcomptes.ClassExceptions
      */
     public static void main(String[] args) throws IOException, ClassExceptions {
         
         //********Fichier Entree*********    
         GestionEmploye.lireFichierEntree(args);
         //******Calculs******************    
-        creationJson();
+        creerJson();
         //******Fichier Sortie***********    
         ecrireFichierSortie(args[1]);
         
     }
     
-    //Methode pour donner le format 0.00$ a une valeur double
     static String formatDecimal(double valeur) {
         String pattern = "#.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(valeur);
     }
     
-    /**
-     * Methode fait la creation de 
-     * l'objet Json et le retourner
-     * 
-     * @throws java.io.IOException
-     * @return etatEmployee objet de type Json pour creer notre fichier de sortie
-     */
-    public static JSONObject creationJson()  throws IOException, ClassExceptions{
+   
+    public static JSONObject creerJson()  throws IOException, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;
@@ -82,10 +76,11 @@ public class CalculEtatComptes {
      * pour ecrire le fichier Json en sortie 
      * @param args the command line arguments
      * @throws java.io.IOException
+     * @throws calculetatcomptes.ClassExceptions
      */
     public static void ecrireFichierSortie(String args) throws IOException, ClassExceptions {
        try  {
-          FileWriter.saveStringIntoFile(args, creationJson().toString());
+          FileWriter.saveStringIntoFile(args, creerJson().toString());
         
        } catch (IOException e) {
            throw new IOException("Erreur dans l'ecriture du fichier de sortie.");

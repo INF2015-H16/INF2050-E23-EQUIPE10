@@ -81,7 +81,7 @@ public class CalculeMontantSupplementaires {
 
         Employe employe;
         Intervention intervention;
-        employe = GestionEmploye.RecupererJson ();
+        employe = GestionEmploye.creerEmployeFromJson ();
         ArrayList<Intervention> interventions;
         interventions = employe.getInterventions ();
 
