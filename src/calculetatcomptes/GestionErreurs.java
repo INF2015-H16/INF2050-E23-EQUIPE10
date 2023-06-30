@@ -73,12 +73,17 @@ public class GestionErreurs {
 
         String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
         if (!maDate.matches(pattern)) {
+<<<<<<< HEAD
 
             CalculEtatComptes.ecrireFichierSortie("sortie.json", objetMessageErreur);
+=======
+            CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
+>>>>>>> de5c423cb893ad8d15a8a9795ff8f4bf20fcca58
 
         }
 
     }
+<<<<<<< HEAD
     public static void validerOvertime(int overT) throws ClassExceptions{
        
         if(overT<0 || overT>4 ){ 
@@ -93,4 +98,7 @@ public class GestionErreurs {
         }
     }     
    
+=======
+
+>>>>>>> de5c423cb893ad8d15a8a9795ff8f4bf20fcca58
 }
