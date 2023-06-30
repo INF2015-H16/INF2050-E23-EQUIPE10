@@ -75,7 +75,20 @@ public class GestionErreurs {
             CalculEtatComptes.ecrireFichierSortie("C:\\Users\\seif saidi\\Desktop\\Tp session d'été\\projet inf2050\\INF2050-E23-EQUIPE10\\sortiee.txt", objetMessageErreur);
 
         }
-
+        
     }
+    public static void validerOvertime(int overT) throws ClassExceptions{
+       
+        if(overT<0 || overT>4 ){ 
+       
+            throw new ClassExceptions("Overtime doit etre entre 0 et 4 !!");
+        }
+        
+    }
+    public static void validerNombreHeures(double nbrHeure)  throws ClassExceptions{
+         if (nbrHeure < 0) {
+            throw new ClassExceptions("nombre heures negative !!");
+        }
+    } 
 
 }

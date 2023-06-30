@@ -92,7 +92,9 @@ public class GestionEmploye {
             intervention.setDistanceDeplacement(singleIntervention.getInt(distance_deplacement));
             GestionErreurs.validerDistanceDeplacement(singleIntervention.getInt(distance_deplacement));
             intervention.setOvertime(singleIntervention.getInt(overtime));
+            GestionErreurs.validerOvertime(singleIntervention.getInt(overtime));
             intervention.setNombresHeures(singleIntervention.getInt(nombres_heures));
+            GestionErreurs.validerNombreHeures(singleIntervention.getInt(nombres_heures));
             intervention.setDateIntervention(singleIntervention.getString(date_intervention));
             GestionErreurs.validerDate(singleIntervention.getString(date_intervention));
 
