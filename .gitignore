@@ -3,3 +3,4 @@ build.xml
 /dist/
 /build/
 /lib/
+manifest.mf
