@@ -57,7 +57,7 @@ public class CalculEtatComptes {
      * @throws java.io.IOException
      * @return etatEmployee objet de type Json pour creer notre fichier de sortie
      */
-    public static JSONObject creationJson()  throws IOException, ClassExceptions{
+    public static JSONObject creationJson()  throws Exception, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
         ArrayList<Client> clients;

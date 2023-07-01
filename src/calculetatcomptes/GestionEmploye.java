@@ -40,33 +40,35 @@ public class GestionEmploye {
      * @throws java.io.IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static Employe creerEmployeFromJson() throws IOException, ClassExceptions, Exception {
+    public static Employe creerEmployeFromJson() throws Exception, ClassExceptions {
 
         Employe objetEmploye = new Employe();
-        try {
+        
             JSONObject employe = JSONObject.fromObject(source);
-            int matriculeLocal = employe.getInt(matricule_employe);
-            GestionErreurs.verifierEntierNegative(matriculeLocal);
+            GestionErreurs.validerMatriculeEmploye(employe);
+            int matriculeLocal = employe.getInt(matricule_employe);            
             objetEmploye.setMatricule(matriculeLocal);
+            
+            GestionErreurs.validerTypeEmploye(employe);
             int typeEmployeLocal = employe.getInt(type_employe);
-            GestionErreurs.validerTypeEmploye(typeEmployeLocal);
             objetEmploye.setTypeEmploye(typeEmployeLocal);
+            
+            GestionErreurs.validerTauxHorairesMin(employe);
             String tauxMinLocal = employe.getString(taux_horaires_min);
             double tauxMinLocal1 = convertirStringEnDouble(tauxMinLocal);
-            GestionErreurs.validerTauxHoraires(tauxMinLocal1);
             objetEmploye.setTauxMin(tauxMinLocal1);
+            
+            GestionErreurs.validerTauxHorairesMax(employe);
             String tauxMaxLocal = employe.getString(taux_horaires_max);
             double tauxMaxLocal1 = convertirStringEnDouble(tauxMaxLocal);
-            GestionErreurs.validerTauxHoraires(tauxMaxLocal1);
             objetEmploye.setTauxMax(tauxMaxLocal1);
+            
+            GestionErreurs.validerIntervention(employe);
             JSONArray listInterventions = employe.getJSONArray(intervention);
             ArrayList<Intervention> interventions;
             interventions = remplireTableauInterventions(listInterventions);
-            GestionErreurs.validerIntervention(interventions);
             objetEmploye.setInterventions(interventions);
-        } catch (JSONException e) {
-            System.out.println("Verifie la syntaxe de votre fichier Json SVP !");
-        }
+        
 
         return objetEmploye;
     }
@@ -88,18 +90,27 @@ public class GestionEmploye {
 
             singleIntervention = listInterventions.getJSONObject(i);
             Intervention intervention = new Intervention();
+            
+            GestionErreurs.validerCodeClient(singleIntervention);
             intervention.setCodeClient(singleIntervention.getString(code_client));
+           
+            GestionErreurs.validerDistanceDeplacement(singleIntervention);
             intervention.setDistanceDeplacement(singleIntervention.getInt(distance_deplacement));
-            GestionErreurs.validerDistanceDeplacement(singleIntervention.getInt(distance_deplacement));
+            
+            GestionErreurs.validerOvertime(singleIntervention);
             intervention.setOvertime(singleIntervention.getInt(overtime));
-            GestionErreurs.validerOvertime(singleIntervention.getInt(overtime));
+            
+            GestionErreurs.validerNombreHeures(singleIntervention);
             intervention.setNombresHeures(singleIntervention.getInt(nombres_heures));
-            GestionErreurs.validerNombreHeures(singleIntervention.getInt(nombres_heures));
+            
+            GestionErreurs.validerDate(singleIntervention);
             intervention.setDateIntervention(singleIntervention.getString(date_intervention));
-            GestionErreurs.validerDate(singleIntervention.getString(date_intervention));
-
+            
             interventions.add(intervention);
         }
+        boolean isvalid=verifierConflitIntervention(interventions);
+        GestionErreurs.validerConflitInetrventions(isvalid);
+        
         return interventions;
     }
 
@@ -109,14 +120,15 @@ public class GestionEmploye {
          boolean isValid = false;
         
         for(int k=0;k<interventions.size();k++){
-        tabCodesClient[k]=interventions.get(k).getCodeClient();
-        tabDateIntervention[k]=interventions.get(k).getDateIntervention();
+            
+            tabCodesClient[k]=interventions.get(k).getCodeClient();
+            tabDateIntervention[k]=interventions.get(k).getDateIntervention();
         }
         
         for (int i = 0; i < tabCodesClient.length; i++) {
             for (int j = i + 1; j < tabCodesClient.length; j++) {
-                if (tabCodesClient[i] == tabCodesClient[j]) {
-                    if (tabDateIntervention[i] == tabDateIntervention[j]) {
+                if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                    if (tabDateIntervention[i].equals(tabDateIntervention[j])) {
                         isValid = true;
                         break;
 
