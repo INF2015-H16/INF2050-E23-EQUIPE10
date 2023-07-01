@@ -122,7 +122,7 @@ public class CalculerMontantDeplacement {
     //     ArrayList<Entry<String, Integer>> listeUnique : liste des clients et leur distance 
     //                                                     total de deplacement
     //     int type : type d'employé
-    private static CalculerMontantDeplacement[] calculerMontantType(ArrayList<Entry<String, Integer>> listeUnique, int type) throws IOException, ClassExceptions  {
+    private static CalculerMontantDeplacement[] calculerMontantType(ArrayList<Entry<String, Integer>> listeUnique, int type) throws Exception, ClassExceptions  {
         double montantTotal, montantReg, montantDep;
         String codeClMonReg, codeClMonDep;
         
@@ -166,7 +166,7 @@ public class CalculerMontantDeplacement {
      * @throws java.io.IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static CalculerMontantDeplacement[] calculerMontanDeplacement() throws IOException, ClassExceptions  {
+    public static CalculerMontantDeplacement[] calculerMontanDeplacement() throws Exception, ClassExceptions  {
 
         Employe employe;
         employe = GestionEmploye.creerEmployeFromJson();

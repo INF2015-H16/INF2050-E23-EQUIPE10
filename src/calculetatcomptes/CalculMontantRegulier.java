@@ -46,7 +46,7 @@ public class CalculMontantRegulier {
      * @throws IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static ObjetMontantRegulier[] calculMontant() throws IOException, ClassExceptions {
+    public static ObjetMontantRegulier[] calculMontant() throws Exception, ClassExceptions {
         Employe employe;
         Intervention intervention;
         employe = GestionEmploye.creerEmployeFromJson();
