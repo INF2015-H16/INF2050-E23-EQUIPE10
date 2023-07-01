@@ -19,8 +19,8 @@ public class GestionErreurs {
 
     public static void verifierEntierNegative(int nombre) throws ClassExceptions {
         if (nombre < 0) {
-            messageErreur="Le code employée est invalide !!";
-            throw new ClassExceptions("Le code employée est invalide !!");
+            messageErreur="Code employée est invalide !!";
+            throw new ClassExceptions("Code employée invalide !!");
 
         }
 
@@ -29,8 +29,8 @@ public class GestionErreurs {
     public static void validerTypeEmploye(int type) throws Exception, ClassExceptions {
         
         if (type != 0 && type != 1 && type != 2) {
-           messageErreur="Type employée est invalide !!";
-           throw new ClassExceptions("Type employée est invalide !!");
+           messageErreur="Type employée invalide !!";
+           throw new ClassExceptions("Type employée invalide !!");
         }
 
     }
@@ -38,8 +38,8 @@ public class GestionErreurs {
     public static void validerTauxHoraires(double tauxHoraire) throws ClassExceptions, IOException {
         
         if (tauxHoraire < 0) {
-            messageErreur="Taux horaires est invalide !!";
-            throw new ClassExceptions("Taux horaires est invalide !!");
+            messageErreur="Taux horaires invalide !!";
+            throw new ClassExceptions("Taux horaires invalide !!");
         }
 
     }
@@ -91,9 +91,7 @@ public class GestionErreurs {
             throw new ClassExceptions("nombre heures negative !!");
         }
     } 
-public String getMessageErr(){
-    
-    
+public String getMessageErr(){  
   return this.messageErreur;  
 }
 public void setMessageErr(String s){
