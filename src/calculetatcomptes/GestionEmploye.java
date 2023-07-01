@@ -138,7 +138,7 @@ public class GestionEmploye {
      */
     public static double convertirStringEnDouble(String chaine) {
 
-        chaine = chaine.replace(" $", "");
+        chaine = chaine.split(" ")[0].replaceAll(",",".");
         double decimal = Double.parseDouble(chaine);
         return decimal;
     }
