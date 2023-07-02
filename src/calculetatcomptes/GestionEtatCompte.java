@@ -5,155 +5,150 @@
 package calculetatcomptes;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- *class de methodes qui permet de gerer 
- * tous les montant calculer dans les autres class
- * et les regrouper dans un seul objet etatEmploye
- * 
+ * class de méthodes qui permet de gérer tous les montant calculées dans les
+ * autres class et de les regrouper dans un seul objet etatEmploye
+ *
  * @author rabahlemici
  */
 public class GestionEtatCompte {
-    
-    public static final double MANTANT_AJOUTE=733.77;
+
+    private static final double MONTANT_AJOUTE = 733.77;
+
     /**
-     * Methode pour calculer l"état de compte de chaque client en fonction du montant régulier, montant de déplacement et montant supplémentaire
-     * Elle prend les paramétre d'entrée ci-dessous :
+     * @return @throws IOException
+     * @throws calculetatcomptes.ClassExceptions
+     */
+    public static EtatEmploye RemplirObjetEtatCompte() throws IOException, ClassExceptions, Exception {
+   
+        Employe employe = GestionEmploye.creerEmployeFromJson();
+
+        ObjetMontantRegulier[] montantReg = CalculMontantRegulier.calculMontant();
+        CalculeMontantSupplementaires[] montantSupp = CalculeMontantSupplementaires.calculeMontantSupplementaire();
+        CalculerMontantDeplacement[] montantDep = CalculerMontantDeplacement.calculerMontanDeplacement();
+               
+        double etatCompte = calculEtatcompte(montantReg, montantDep, montantSupp);
+
+        ArrayList<Client> clients;
+        clients = RemplirListeClients(montantReg, montantDep, montantSupp);
+
+        EtatEmploye objetEtatCompte = CreerObjetEtatCompte(employe, etatCompte, clients);
+
+        return objetEtatCompte;
+    }
+
+    /**
      * @param montantReg
      * @param montantDep
      * @param montantSupp
-     * @return 
+     * @return
      */
-    
-    private static Client calculEtatClient(ObjetMontantRegulier montantReg,CalculerMontantDeplacement montantDep,CalculeMontantSupplementaires montantSupp){
-        
-        
-        Client etatClient=new Client();
-        double montantRegulier=montantReg.getMontantRegulier();
-        montantRegulier=changeFormatDecimal(montantRegulier);
-        double montantDeplacement=montantDep.getMontantDeplacement();
-        montantDeplacement=changeFormatDecimal(montantDeplacement);
-        double montantHeuresSupp=montantSupp.getMontantHeuresSupp();
-        montantHeuresSupp=changeFormatDecimal(montantHeuresSupp);
-        double resultat=montantRegulier + montantDeplacement + montantHeuresSupp;
-        resultat=changeFormatDecimal(resultat);
-        etatClient.setEtatParClient(resultat);
-        etatClient.setCodeClient(montantReg.getCodeClient());
-        
-        return etatClient;  
+    private static double calculEtatcompte(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {//
+
+        double etatCompte;
+        double etatClient = 0;
+
+        for (int i = 0; i < montantReg.length; i++) {
+            etatClient += montantReg[i].getMontantRegulier()
+                    + montantDep[i].getMontantDeplacement()
+                    + montantSupp[i].getMontantHeuresSupp();
+        }
+        etatCompte = etatClient + MONTANT_AJOUTE;
+
+        return (arrondiSuperieur(etatCompte));
     }
-    
+
     /**
-     *  Methode pour calculer l"état de compte de l'employé en fonction du montant régulier, montant de déplacement et montant supplémentaire
-     * Elle prend les paramétre d'entrée ci-dessous :
      * @param montantReg
      * @param montantDep
-     * @param monatantSupp
-     * @return 
-     */
-    private static double calculEtatcompte(ObjetMontantRegulier [] montantReg,CalculerMontantDeplacement [] montantDep,CalculeMontantSupplementaires [] monatantSupp){
-        
-        
-        double etatCompte ;
-        double etatClient=0;
-        
-        for(int i=0;i<montantReg.length;i++){
-            etatClient+=montantReg[i].getMontantRegulier() + 
-            montantDep[i].getMontantDeplacement() + 
-            monatantSupp[i].getMontantHeuresSupp();            
-        }
-        
-        etatCompte=etatClient+MANTANT_AJOUTE;
-        etatCompte=changeFormatDecimal(etatCompte);
-        
-        return etatCompte;
-    } 
-    
-    /**
-     * Cette méthode permet de calculer le montant fix en fonction de l'état de compte.
-     * @param etatCompte
-     * @return 
-     */
-    private static double calculMantantFix(double etatCompte){
-        
-
-        double mantantFix;
-
-        mantantFix=etatCompte*0.012;
-        mantantFix=changeFormatDecimal(mantantFix);
-        
-        return mantantFix;
-    } 
-    
-    /**
-     * Cette méthode permet de calculer le cout variable en fonction de l'état de compte.
-     * @param etatCompte
-     * @return 
-     */
-    private static double calculCoutVariable(double etatCompte){
-        
-        double coutVariable;
-        coutVariable=etatCompte*0.025;
-        coutVariable=changeFormatDecimal(coutVariable);
-        
-        return coutVariable;
-    }
-    /**
-     * Cette fonction permet de remplir un objet par l"état de compte de l'employé
+     * @param montantSupp
      * @return
-     * @throws IOException 
      */
-    public static EtatEmploye RemplirObjetEtatCompte() throws Exception, ClassExceptions{
-        
-        
-        EtatEmploye objetEtatCompte=new EtatEmploye();
-        Employe employe;
-        employe=GestionEmploye.creerEmployeFromJson();
-        objetEtatCompte.setMatriculeEmploye(employe.getMatricule());
-             
-        ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
-        CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
-        CalculerMontantDeplacement [] montantDep=CalculerMontantDeplacement.calculerMontanDeplacement();
-        
-        double etatCompte=calculEtatcompte(montantReg,montantDep,montantSupp);
-        etatCompte=changeFormatDecimal(etatCompte);
+    private static ArrayList<Client> RemplirListeClients(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {
 
-        
-        objetEtatCompte.setEtatCompte(etatCompte);
-        
-        objetEtatCompte.setCoutFixe(calculMantantFix(etatCompte));
-        objetEtatCompte.setCoutVariable(calculCoutVariable(etatCompte));
-        
         Client client;
-        ArrayList <Client> clients=new ArrayList<>(); 
-        
-        for(int i=0;i<montantReg.length;i++){
-            
-            client = calculEtatClient(montantReg[i],montantDep[i],montantSupp[i]);
+        ArrayList<Client> clients = new ArrayList<>();
+
+        for (int i = 0; i < montantReg.length; i++) {
+            client = calculEtatClient(montantReg[i], montantDep[i], montantSupp[i]);
             clients.add(client);
         }
+        return clients;
+    }
+
+    /**
+     * @param montantReg
+     * @param montantDep
+     * @param montantSupp
+     * @return
+     */
+    private static Client calculEtatClient(ObjetMontantRegulier montantReg, CalculerMontantDeplacement montantDep, CalculeMontantSupplementaires montantSupp) {
+
+        double montantRegulier = montantReg.getMontantRegulier();
+        double montantDeplacement = montantDep.getMontantDeplacement();
+        double montantHeuresSupp = montantSupp.getMontantHeuresSupp();
+        double resultat = montantRegulier + montantDeplacement + montantHeuresSupp;
         
+        Client etatClient = new Client();
+        etatClient.setEtatParClient(resultat);
+        etatClient.setCodeClient(montantReg.getCodeClient());
+
+        return etatClient;
+    }
+
+    /**
+     * @param employe
+     * @param etatCompte
+     * @param clients
+     * @return
+     */
+    private static EtatEmploye CreerObjetEtatCompte(Employe employe, double etatCompte, ArrayList<Client> clients) {
+
+        EtatEmploye objetEtatCompte = new EtatEmploye();
+
+        objetEtatCompte.setMatriculeEmploye(employe.getMatricule());
+        objetEtatCompte.setEtatCompte(etatCompte);
+        objetEtatCompte.setCoutFixe(calculMontantFix(etatCompte));
+        objetEtatCompte.setCoutVariable(calculCoutVariable(etatCompte));
         objetEtatCompte.setClients(clients);
-        
+
         return objetEtatCompte;
     }
+
     /**
-     * Cette méthode permet de modifier la partie décimal d'un double tel que deux chiffres aprés son virgule
-     * Elle prend comme entrée un double
-     * @param d
-     * @return 
+     * @param etatCompte
+     * @return
      */
-    public static double changeFormatDecimal(double d){
-        
-        DecimalFormat df=new DecimalFormat("#.00");
- 
-        String s=df.format(d);
-        s=s.replace(",", ".");
-        d=Double.parseDouble(s);
-        
-        return d;
+    private static double calculMontantFix(double etatCompte) {
+        final double POURCENTAGE_FIX = 0.012; //1.2%
+        double montantFix;
+
+        montantFix = etatCompte * POURCENTAGE_FIX;
+
+        return arrondiSuperieur(montantFix);
     }
-    
+
+    /**
+     * @param etatCompte
+     * @return
+     */
+    private static double calculCoutVariable(double etatCompte) {
+        final double POURCENTAGE_VARIABLE = 0.025; //2.5%
+        double coutVariable;
+
+        coutVariable = etatCompte * POURCENTAGE_VARIABLE;
+
+        return arrondiSuperieur(coutVariable);
+    }
+
+    /**
+     * @param montant
+     * @return
+     */
+    private static double arrondiSuperieur(double montant) {
+
+        return (double) Math.ceil(montant * 20) / 20d;
+    }
 }
