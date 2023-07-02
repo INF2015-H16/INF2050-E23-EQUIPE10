@@ -98,7 +98,7 @@ public class CalculMontantRegulier {
             ArrayList<Intervention> interventions, double tauxHoraire) throws IOException {
 
         String tabPourVérifier[] = new String[interventions.size()];
-        ObjetMontantRegulier tabObjet[] = new ObjetMontantRegulier[interventions.size()];
+        ObjetMontantRegulier[] tabObjet = new ObjetMontantRegulier[tabCodesClient.length];
 
         int compteur = 0;
 
@@ -115,14 +115,14 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-    
+
     /**
      * @param interventions
      * @param tabCodesClient
      * @param i
      * @param nbHeure
      * @param tauxHoraire
-     * @return 
+     * @return
      * @throws java.io.IOException
      */
     private static double montantReguliere(ArrayList<Intervention> interventions,
@@ -186,12 +186,15 @@ public class CalculMontantRegulier {
     private static ObjetMontantRegulier[] creerTableauObjet(ObjetMontantRegulier tabObjet[], int compteur) {
 
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[compteur];
+        int indice = 0;
+        for (ObjetMontantRegulier objet : tabObjet) {
+            if (objet != null) {
 
-        for (int i = 0; i < tabObjet.length; i++) {
-            if (tabObjet[i] != null) {
-                tabObjetFinal[i] = tabObjet[i];
+                tabObjetFinal[indice] = objet;
+                indice++;
             }
         }
+
         return tabObjetFinal;
     }
 }
