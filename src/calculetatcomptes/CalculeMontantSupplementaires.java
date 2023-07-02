@@ -7,11 +7,10 @@ package calculetatcomptes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 /**
- * classe qui sert à calculer le montant Supplementaire 
- *  des interventions de chaque client selon le type d'employé. 
- * appel la methode pour faire les calcules dans la classe principal du projet ( calculetatcomptes ).
+ * classe qui sert à calculer le montant Supplementaire des interventions de
+ * chaque client selon le type d'employé.
+ *
  * @author AymenMessaad
  */
 public class CalculeMontantSupplementaires {
@@ -19,173 +18,261 @@ public class CalculeMontantSupplementaires {
     private String codeClient;
     private double MontantHeuresSupp = 0;
 
-    /**
-     * constructeur de la classe CalculeMontantSupplementaires.
-     *
-     * @param codeCl
-     * @param montantHeureSupp
-     */
-    public CalculeMontantSupplementaires ( String codeCl, double montantHeureSupp ) {
+    public CalculeMontantSupplementaires(String codeCl, double montantHeureSupp) {
 
         this.MontantHeuresSupp = montantHeureSupp;
         this.codeClient = codeCl;
 
     }
 
-    public CalculeMontantSupplementaires () {
-    }
-
-    /**
-     * cette methode elle verifier si le code client (code) de l'intervention
-     * est deja disponible sur le tableau (tab). le tableau tab prends tout les
-     * codes client qu'on a deja calculer leur montant supplementaire.
-     *
-     * @param code
-     * @param tab
-     * @return boolean compatible
-     */
-    public static boolean verifierLeCodeClient ( String code, String tab[] ) {
-
-        boolean compatible = true;
-
-        for ( int i = 0 ;i < tab.length ;i++ ) {
-            if ( code.equals ( tab[ i ] ) ) {
-                compatible = false;
-            }
-        }
-
-        return compatible;
-    }
-
-    /**
-     * cette methode elle va prendre en parametre le tableau d'objet et elle va
-     * le remplir avec un objet qui contient le montant supplimentaire et le
-     * code client de chaque intervention. 
-     * faire des calcule de montant
-     * supplimentaire de chaque intervention.
-     *
-     * @return > tableau
-     *
-     * @throws IOException
-     * @throws calculetatcomptes.ClassExceptions
-     */
-    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire () throws Exception, ClassExceptions {
-        CalculeMontantSupplementaires[] tableau;
-
-        String codeCL = "";
-        int nombreDheureCl = 0;
-        int overtime = 0;
-        double MontantHeuresSupp = 0;
-        boolean var;
-        int tailleTableau = 0;
-
-        Employe employe;
-        Intervention intervention;
-        employe = GestionEmploye.creerEmployeFromJson ();
-        ArrayList<Intervention> interventions;
-        interventions = employe.getInterventions ();
-
-        String codeClientRepetitif[] = new String[ interventions.size () ];
-        int montantcd[] = new int[ interventions.size () ];
-        String codecl[] = new String[ interventions.size () ];
-        CalculeMontantSupplementaires[] tabo = new CalculeMontantSupplementaires[ interventions.size () ];
-
-        if ( employe.getTypeEmploye () == 1 || employe.getTypeEmploye () == 2 || employe.getTypeEmploye () == 0) {
-            for ( int i = 0 ;i < interventions.size () ;i++ ) {
-                intervention = interventions.get ( i );
-                codeCL = intervention.getCodeClient ();
-                nombreDheureCl = intervention.getNombresHeures ();
-                overtime = intervention.getOvertime () + 2;
-                if ( verifierLeCodeClient ( codeCL, codeClientRepetitif ) ) {
-                    tailleTableau += 1;
-                    for ( int j = i + 1 ;j < interventions.size () ;j++ ) {
-                        intervention = interventions.get ( j );
-                        var = verifierLeCodeClient ( codeCL, codeClientRepetitif );
-                        if ( codeCL.equals ( intervention.getCodeClient () ) && var ) {
-                            nombreDheureCl += intervention.getNombresHeures ();
-                            overtime += intervention.getOvertime () + 2;
-                            montantcd[ i ] = nombreDheureCl;
-                        }
-                    }
-                    if ( employe.getTypeEmploye () == 1 ) {
-
-                        if ( nombreDheureCl <= 4 ) {
-                            MontantHeuresSupp = 0;
-                        } else if ( nombreDheureCl > 4 && nombreDheureCl <= 8 ) {
-                            MontantHeuresSupp = overtime * 50;
-                        } else if ( nombreDheureCl > 8 ) {
-                            MontantHeuresSupp = overtime * 100;
-                        }
-
-                    }
-                    if ( employe.getTypeEmploye () == 2 ) {
-
-                        if ( overtime <= 4 ) {
-                            MontantHeuresSupp = overtime * 75;
-                        } else if ( overtime > 4 ) {
-                            MontantHeuresSupp = overtime * 150;
-                            if ( MontantHeuresSupp >= 1500 ) {
-                                MontantHeuresSupp = 1500;
-                            }
-                        }
-                    }if ( employe.getTypeEmploye () == 0 ) {
-                       MontantHeuresSupp = 0;
-                         }
-                    CalculeMontantSupplementaires intervention1 = new CalculeMontantSupplementaires ();
-                    intervention1.setCodeClient ( codeCL );
-                    intervention1.setMontantHeuresSupp ( MontantHeuresSupp );
-                    tabo[ i ] = intervention1;
-                    codeClientRepetitif[ i ] = codeCL;
-
-                }
-            }
-
-        }
-        tableau = new CalculeMontantSupplementaires[ tailleTableau ];
-        for ( int k = 0 ;k < tabo.length ;k++ ) {
-            if ( tabo[ k ] != null ) {
-                tableau[ k ] = tabo[ k ];
-            }
-
-        }
-        return tableau;
-    }
-
-    /**
-     *
-     * @param codeClient
-     */
-    public void setCodeClient ( String codeClient ) {
+    public void setCodeClient(String codeClient) {
 
         this.codeClient = codeClient;
     }
 
-    /**
-     *
-     * @param MontantHeuresSupp
-     */
-    public void setMontantHeuresSupp ( double MontantHeuresSupp ) {
+    public void setMontantHeuresSupp(double MontantHeuresSupp) {
 
         this.MontantHeuresSupp = MontantHeuresSupp;
     }
 
-    /**
-     *
-     * @return codeClient
-     */
-    public String getCodeClient () {
+    public String getCodeClient() {
 
         return codeClient;
     }
 
-    /**
-     *
-     * @return MontantHeuresSupp
-     */
-    public double getMontantHeuresSupp () {
+    public double getMontantHeuresSupp() {
 
         return MontantHeuresSupp;
 
     }
 
+    /**
+     * @return @throws java.lang.Exception
+     * @throws calculetatcomptes.ClassExceptions
+     */
+    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire() throws Exception, ClassExceptions {
+
+        Employe employe = GestionEmploye.creerEmployeFromJson();
+        int typeEmploye = employe.getTypeEmploye();
+
+        ArrayList<Intervention> interventions = employe.getInterventions();
+        String tabCodesClient[] = new String[interventions.size()];
+        int tabOvertime[] = new int[interventions.size()];
+
+        for (int i = 0; i < interventions.size(); i++) {
+            tabCodesClient[i] = interventions.get(i).getCodeClient();
+            tabOvertime[i] = interventions.get(i).getOvertime() + 2;// 2heures suplementaires de base
+        }
+
+        CalculeMontantSupplementaires tabFinalMontantSuppl[] = creerTableauMontantSuppl(tabCodesClient, tabOvertime, interventions, typeEmploye);
+
+        return tabFinalMontantSuppl;
+    }
+
+    /**
+     * @param tabCodesClient
+     * @param tabOvertime
+     * @param interventions
+     * @param typeEmploye
+     * @return
+     */
+    private static CalculeMontantSupplementaires[] creerTableauMontantSuppl(String tabCodesClient[], int tabOvertime[],
+            ArrayList<Intervention> interventions, int typeEmploye) throws IOException {
+
+        String tabPourVérifier[] = new String[interventions.size()];
+        CalculeMontantSupplementaires[] tabObjet = new CalculeMontantSupplementaires[tabCodesClient.length];
+
+        int compteur = 0;
+
+        for (int i = 0; i < tabCodesClient.length; i++) {
+            if (isNouveauCodeClient(tabCodesClient, tabPourVérifier, i)) {
+                compteur++;
+                tabObjet[i] = creerObjetMontantSuplementaire(tabCodesClient, tabOvertime, interventions, typeEmploye, i);
+            }
+            tabPourVérifier[i] = tabCodesClient[i];
+        }
+
+        CalculeMontantSupplementaires tabObjetFinal[] = creerTableauObjet(tabObjet, compteur);
+
+        return tabObjetFinal;
+    }
+
+    /**
+     * @param tabCodesClient
+     * @param tabOvertime
+     * @param interventions
+     * @param typeEmploye
+     * @param i
+     * @return
+     */
+    private static CalculeMontantSupplementaires creerObjetMontantSuplementaire(String tabCodesClient[], int tabOvertime[],
+            ArrayList<Intervention> interventions, int typeEmploye, int i) throws IOException {
+
+        CalculeMontantSupplementaires[] tabObjet = new CalculeMontantSupplementaires[tabCodesClient.length];
+        int nbHeure = 0;
+        int overtime = 0;
+
+        int nombreHeure = nombreHeures(interventions, tabCodesClient, i, nbHeure);
+        int nbOvertime = nombreHeuresOvertime(tabCodesClient, tabOvertime, i, overtime);
+        double montantHeureSuplementaire = montantHeuresSuppType(typeEmploye, nombreHeure, nbOvertime);
+
+        tabObjet[i] = new CalculeMontantSupplementaires(tabCodesClient[i], montantHeureSuplementaire);
+
+        return tabObjet[i];
+    }
+
+    /**
+     * @param tabMontantSuppl
+     * @param tailleTableau
+     * @return
+     */
+    private static CalculeMontantSupplementaires[] creerTableauObjet(CalculeMontantSupplementaires[] tabMontantSuppl, int tailleTableau) {
+
+        CalculeMontantSupplementaires[] tableauFinal = new CalculeMontantSupplementaires[tailleTableau];
+
+        int indice = 0;
+        for (CalculeMontantSupplementaires objet : tabMontantSuppl) {
+            if (objet != null) {
+                tableauFinal[indice] = objet;
+                indice++;
+            }
+        }
+        return tableauFinal;
+    }
+
+    /**
+     * @param interventions
+     * @param tabCodesClient
+     * @param i
+     * @param nbHeure
+     * @return
+     * @throws java.io.IOException
+     */
+    private static int nombreHeures(ArrayList<Intervention> interventions,
+            String[] tabCodesClient, int i, int nbHeure) {
+
+        for (int j = i + 1; j < tabCodesClient.length; j++) {
+            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                nbHeure += interventions.get(j).getNombresHeures();
+            }
+        }
+        nbHeure += interventions.get(i).getNombresHeures();
+
+        return nbHeure;
+    }
+
+    /**
+     * @param tabCodesClient
+     * @param tabOvertime
+     * @param i
+     * @param overtime
+     * @return
+     */
+    private static int nombreHeuresOvertime(String[] tabCodesClient, int tabOvertime[], int i, int overtime) {
+
+        for (int j = i + 1; j < tabCodesClient.length; j++) {
+            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                overtime += tabOvertime[j];
+            }
+        }
+        overtime += tabOvertime[i];
+
+        return overtime;
+    }
+
+    /**
+     * @param typeEmploye
+     * @param nombreDheureCl
+     * @param overtime
+     * @return
+     */
+    private static double montantHeuresSuppType(int typeEmploye, int nombreDheureCl, int overtime) {
+
+        double MontantHeuresSupp = 0;
+
+        switch (typeEmploye) {
+            case 0:
+                MontantHeuresSupp = 0;//0.00$
+                break;
+            case 1:
+                MontantHeuresSupp = montanHeuresType1(nombreDheureCl, overtime);
+                break;
+            case 2:
+                MontantHeuresSupp = montanHeuresType2(overtime);
+                break;
+        }
+        return MontantHeuresSupp;
+    }
+
+    /**
+     * @param nombreDheureCl
+     * @param overtime
+     * @return
+     */
+    private static double montanHeuresType1(int nombreDheureCl, int overtime) {
+        double MontantHeuresSupp = 0;
+        if (nombreDheureCl <= 4) {
+            MontantHeuresSupp = 0;//0.00$
+        } else if (nombreDheureCl > 4 && nombreDheureCl <= 8) {
+            MontantHeuresSupp = overtime * 50;//50$par heure d'overtime
+        } else if (nombreDheureCl > 8) {
+            MontantHeuresSupp = overtime * 100;//100$par heure d'overtime
+        }
+        return MontantHeuresSupp;
+    }
+
+    /**
+     * @param overtime
+     * @return
+     */
+    private static double montanHeuresType2(int overtime) {
+        double MontantHeuresSupp = 0;
+        if (overtime <= 4) {
+            MontantHeuresSupp = overtime * 75;//75$par heure d'overtime
+        } else if (overtime > 4) {
+            MontantHeuresSupp = overtime * 150;//150$par heure d'overtime
+            if (MontantHeuresSupp >= 1500) {
+                MontantHeuresSupp = 1500;//1500$
+            }
+        }
+        return MontantHeuresSupp;
+    }
+
+    /**
+     * @param tabCodesClient
+     * @param tabPourVérifier
+     * @param i
+     * @return
+     * @throws java.io.IOException
+     */
+    private static boolean isNouveauCodeClient(String[] tabCodesClient, String[] tabPourVérifier, int i) throws IOException {
+
+        boolean nouveauCodeClient = false;
+        boolean verification = verifierLeCodeClient(tabCodesClient[i], tabPourVérifier);
+
+        if (verification == false) {
+            nouveauCodeClient = true;
+        }
+
+        return nouveauCodeClient;
+    }
+
+    /**
+     * @param codeClient
+     * @param tabCodesClient
+     * @return
+     */
+    public static boolean verifierLeCodeClient(String codeClient, String[] tabCodesClient) {
+
+        boolean verifier = false;
+
+        for (String numCodeClient : tabCodesClient) {
+            if (codeClient.equals(numCodeClient)) {
+                verifier = true;
+                break;
+            }
+        }
+
+        return verifier;
+    }
 }
