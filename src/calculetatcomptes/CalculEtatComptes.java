@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *Class principal du projet
@@ -47,6 +49,8 @@ public class CalculEtatComptes {
     static String formatDecimal(double valeur) {
         String pattern = "#.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        
+        
         return decimalFormat.format(valeur);
     }
     
@@ -65,9 +69,9 @@ public class CalculEtatComptes {
         
         JSONObject etatEmployee= new JSONObject();
         etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
-        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()) + " $");
-        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()) + " $");
-        etatEmployee.accumulate("cout_ variable",formatDecimal(etatEmploye.getCoutVariable()) + " $");
+        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()).replace(",", ".")+" $");
+        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()).replace(",", ".")+" $");
+        etatEmployee.accumulate("cout_ variable",formatDecimal(etatEmploye.getCoutVariable()).replace(",", ".")+" $");
           
         JSONArray etatClients = new JSONArray();
         JSONObject etatClient = new JSONObject();
@@ -75,7 +79,7 @@ public class CalculEtatComptes {
         for(int i=0;i<clients.size();i++){
              
             etatClient.accumulate("code_client",clients.get(i).getCodeClient());
-            etatClient.accumulate("etat_par_client",formatDecimal(clients.get(i).getEtatParClient())+ " $");
+            etatClient.accumulate("etat_par_client",formatDecimal(clients.get(i).getEtatParClient()).replace(",", ".")+" $");
             etatClients.add(etatClient);
             etatClient.clear();      
              
