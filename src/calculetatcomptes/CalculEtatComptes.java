@@ -59,7 +59,7 @@ public class CalculEtatComptes {
      */
     public static JSONObject creationJson()  throws Exception, ClassExceptions{
         
-        EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
+        EtatEmploye etatEmploye=GestionEtatCompte.remplirObjetEtatCompte();
         ArrayList<Client> clients;
         clients=etatEmploye.getClients();
         

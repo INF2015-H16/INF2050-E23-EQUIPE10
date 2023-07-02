@@ -21,7 +21,7 @@ public class GestionEtatCompte {
      * @return @throws IOException
      * @throws calculetatcomptes.ClassExceptions
      */
-    public static EtatEmploye RemplirObjetEtatCompte() throws IOException, ClassExceptions, Exception {
+    public static EtatEmploye remplirObjetEtatCompte() throws IOException, ClassExceptions, Exception {
    
         Employe employe = GestionEmploye.creerEmployeFromJson();
 
@@ -32,9 +32,9 @@ public class GestionEtatCompte {
         double etatCompte = calculEtatcompte(montantReg, montantDep, montantSupp);
 
         ArrayList<Client> clients;
-        clients = RemplirListeClients(montantReg, montantDep, montantSupp);
+        clients = remplirListeClients(montantReg, montantDep, montantSupp);
 
-        EtatEmploye objetEtatCompte = CreerObjetEtatCompte(employe, etatCompte, clients);
+        EtatEmploye objetEtatCompte = creerObjetEtatCompte(employe, etatCompte, clients);
 
         return objetEtatCompte;
     }
@@ -66,7 +66,7 @@ public class GestionEtatCompte {
      * @param montantSupp
      * @return
      */
-    private static ArrayList<Client> RemplirListeClients(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {
+    private static ArrayList<Client> remplirListeClients(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {
 
         Client client;
         ArrayList<Client> clients = new ArrayList<>();
@@ -104,7 +104,7 @@ public class GestionEtatCompte {
      * @param clients
      * @return
      */
-    private static EtatEmploye CreerObjetEtatCompte(Employe employe, double etatCompte, ArrayList<Client> clients) {
+    private static EtatEmploye creerObjetEtatCompte(Employe employe, double etatCompte, ArrayList<Client> clients) {
 
         EtatEmploye objetEtatCompte = new EtatEmploye();
 
