@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class CalculMontantRegulier {
 
     /**
-     * @return
-     * @throws calculetatcomptes.ClassExceptions
+     * @return @throws calculetatcomptes.ClassExceptions
      */
     public static ObjetMontantRegulier[] calculMontant() throws Exception, ClassExceptions {
 
@@ -43,7 +42,7 @@ public class CalculMontantRegulier {
      * @return
      * @throws java.io.IOException
      */
-    private static ObjetMontantRegulier[] creerTableauObjetFinal(Employe employe, 
+    private static ObjetMontantRegulier[] creerTableauObjetFinal(Employe employe,
             String tabCodesClient[], ArrayList<Intervention> interventions) throws Exception {
 
         int typeEmploye = employe.getTypeEmploye();
@@ -52,12 +51,12 @@ public class CalculMontantRegulier {
         double tauxHoraireMoyen = (tauxHoraireMax + tauxHoraireMin) / 2;
 
         ObjetMontantRegulier tabObjetFinal[];
-        tabObjetFinal = creertableauObjetFinalType(tabCodesClient, interventions, 
+        tabObjetFinal = creerTableauObjetFinalType(tabCodesClient, interventions,
                 typeEmploye, tauxHoraireMin, tauxHoraireMax, tauxHoraireMoyen);
 
         return tabObjetFinal;
     }
-       
+
     /**
      * @param tabCodesClient
      * @param interventions
@@ -68,8 +67,8 @@ public class CalculMontantRegulier {
      * @return
      * @throws java.io.IOException
      */
-    private static ObjetMontantRegulier[] creertableauObjetFinalType(String tabCodesClient[],
-            ArrayList<Intervention> interventions, int typeEmploye, double tauxHoraireMin, 
+    private static ObjetMontantRegulier[] creerTableauObjetFinalType(String tabCodesClient[],
+            ArrayList<Intervention> interventions, int typeEmploye, double tauxHoraireMin,
             double tauxHoraireMax, double tauxHoraireMoyen) throws IOException {
 
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
@@ -95,25 +94,19 @@ public class CalculMontantRegulier {
      * @return
      * @throws java.io.IOException
      */
-    private static ObjetMontantRegulier[] calculMontantReguliere(String tabCodesClient[], 
+    private static ObjetMontantRegulier[] calculMontantReguliere(String tabCodesClient[],
             ArrayList<Intervention> interventions, double tauxHoraire) throws IOException {
-
-        int compteur = 0;
 
         String tabPourVérifier[] = new String[interventions.size()];
         ObjetMontantRegulier tabObjet[] = new ObjetMontantRegulier[interventions.size()];
 
+        int compteur = 0;
+
         for (int i = 0; i < tabCodesClient.length; i++) {
             int nbHeure = 0;
-            boolean verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
-            if (verification == false) {
+            if (isNouveauCodeClient(tabCodesClient, tabPourVérifier, i)) {
                 compteur++;
-                for (int j = i + 1; j < tabCodesClient.length; j++) {
-                    nbHeure = calculNbHeures(interventions, tabCodesClient, i, j);
-                }
-                nbHeure += interventions.get(i).getNombresHeures();
-                double montantRegulier = nbHeure * tauxHoraire;
-
+                double montantRegulier = montantReguliere(interventions, tabCodesClient, i, nbHeure, tauxHoraire);
                 tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
             }
             tabPourVérifier[i] = tabCodesClient[i];
@@ -122,38 +115,67 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-
-    /**
-     * @param codeClient
-     * @param tab
-     * @return
-     * @throws java.io.IOException
-     */
-    public static boolean verifierCodesClient(String codeClient, String tab[]) throws IOException {
-        boolean verif = false;
-        for (String tab1 : tab) {
-            if (codeClient.equals(tab1)) {
-                verif = true;
-                break;
-            }
-        }
-        return verif;
-    }
-
+    
     /**
      * @param interventions
      * @param tabCodesClient
-     * @return
+     * @param i
+     * @param nbHeure
+     * @param tauxHoraire
+     * @return 
+     * @throws java.io.IOException
      */
-    private static int calculNbHeures(ArrayList<Intervention> interventions, String tabCodesClient[], int i, int j) {
+    private static double montantReguliere(ArrayList<Intervention> interventions,
+            String[] tabCodesClient, int i, int nbHeure, double tauxHoraire) {
 
-        int nbHeure = 0;
+        for (int j = i + 1; j < tabCodesClient.length; j++) {
+            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                nbHeure += interventions.get(j).getNombresHeures();
+            }
+        }
+        nbHeure += interventions.get(i).getNombresHeures();
+        double montantRegulier = nbHeure * tauxHoraire;
 
-        if (tabCodesClient[i].equals(tabCodesClient[j])) {
-            nbHeure += interventions.get(j).getNombresHeures();
+        return montantRegulier;
+    }
+
+    /**
+     * @param tabPourVérifier
+     * @param i
+     * @param tabCodesClient
+     * @return
+     * @throws java.io.IOException
+     */
+    private static boolean isNouveauCodeClient(String[] tabCodesClient, String[] tabPourVérifier, int i) throws IOException {
+
+        boolean nouveauCodeClient = false;
+        boolean verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
+
+        if (verification == false) {
+            nouveauCodeClient = true;
         }
 
-        return nbHeure;
+        return nouveauCodeClient;
+    }
+
+    /**
+     * @param codeClient
+     * @param tabCodesClient
+     * @return
+     * @throws java.io.IOException
+     */
+    private static boolean verifierCodesClient(String codeClient, String[] tabCodesClient) throws IOException {
+
+        boolean verifier = false;
+
+        for (String numCodeClient : tabCodesClient) {
+            if (codeClient.equals(numCodeClient)) {
+                verifier = true;
+                break;
+            }
+        }
+
+        return verifier;
     }
 
     /**
