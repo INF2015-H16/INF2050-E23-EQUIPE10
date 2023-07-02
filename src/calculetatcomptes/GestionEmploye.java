@@ -109,7 +109,7 @@ public class GestionEmploye {
             interventions.add(intervention);
         }
         boolean isvalid=verifierConflitIntervention(interventions);
-        GestionErreurs.validerConflitInetrventions(isvalid);
+        GestionErreurs.validerConflitInterventions(isvalid);
         
         return interventions;
     }
