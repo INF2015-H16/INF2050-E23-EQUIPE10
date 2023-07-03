@@ -133,12 +133,12 @@ public class GestionErreurs {
     }
 
     public static void validerCodeClient(JSONObject jsonObject) throws ClassExceptions {
-        try {
+       try {
             String codeClient = jsonObject.getString(CODE_CLIENT).trim();
             
             if (codeClient.equals("")) {
                 throw new ClassExceptions("La propriete <code_client> ne doit pas etre vide.");
-            } 
+            }
         } catch (JSONException e) {
             messageErreur = "La propriété <code_client> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
