@@ -7,12 +7,7 @@ package calculetatcomptes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * classe qui sert à calculer le montant Supplementaire des interventions de
- * chaque client selon le type d'employé.
- *
- * @author AymenMessaad
- */
+
 public class CalculeMontantSupplementaires {
 
     private String codeClient;
@@ -46,10 +41,7 @@ public class CalculeMontantSupplementaires {
 
     }
 
-    /**
-     * @return @throws java.lang.Exception
-     * @throws calculetatcomptes.ClassExceptions
-     */
+    
     public static CalculeMontantSupplementaires[] calculeMontantSupplementaire() throws Exception, ClassExceptions {
 
         Employe employe = GestionEmploye.creerEmployeFromJson();
@@ -69,13 +61,7 @@ public class CalculeMontantSupplementaires {
         return tabFinalMontantSuppl;
     }
 
-    /**
-     * @param tabCodesClient
-     * @param tabOvertime
-     * @param interventions
-     * @param typeEmploye
-     * @return
-     */
+    
     private static CalculeMontantSupplementaires[] creerTableauMontantSuppl(String tabCodesClient[], int tabOvertime[],
             ArrayList<Intervention> interventions, int typeEmploye) throws IOException {
 
@@ -97,14 +83,7 @@ public class CalculeMontantSupplementaires {
         return tabObjetFinal;
     }
 
-    /**
-     * @param tabCodesClient
-     * @param tabOvertime
-     * @param interventions
-     * @param typeEmploye
-     * @param i
-     * @return
-     */
+    
     private static CalculeMontantSupplementaires creerObjetMontantSuplementaire(String tabCodesClient[], int tabOvertime[],
             ArrayList<Intervention> interventions, int typeEmploye, int i) throws IOException {
 
@@ -121,11 +100,7 @@ public class CalculeMontantSupplementaires {
         return tabObjet[i];
     }
 
-    /**
-     * @param tabMontantSuppl
-     * @param tailleTableau
-     * @return
-     */
+    
     private static CalculeMontantSupplementaires[] creerTableauObjet(CalculeMontantSupplementaires[] tabMontantSuppl, int tailleTableau) {
 
         CalculeMontantSupplementaires[] tableauFinal = new CalculeMontantSupplementaires[tailleTableau];
@@ -140,14 +115,7 @@ public class CalculeMontantSupplementaires {
         return tableauFinal;
     }
 
-    /**
-     * @param interventions
-     * @param tabCodesClient
-     * @param i
-     * @param nbHeure
-     * @return
-     * @throws java.io.IOException
-     */
+    
     private static int nombreHeures(ArrayList<Intervention> interventions,
             String[] tabCodesClient, int i, int nbHeure) {
 
@@ -161,13 +129,7 @@ public class CalculeMontantSupplementaires {
         return nbHeure;
     }
 
-    /**
-     * @param tabCodesClient
-     * @param tabOvertime
-     * @param i
-     * @param overtime
-     * @return
-     */
+    
     private static int nombreHeuresOvertime(String[] tabCodesClient, int tabOvertime[], int i, int overtime) {
 
         for (int j = i + 1; j < tabCodesClient.length; j++) {
@@ -180,12 +142,7 @@ public class CalculeMontantSupplementaires {
         return overtime;
     }
 
-    /**
-     * @param typeEmploye
-     * @param nombreDheureCl
-     * @param overtime
-     * @return
-     */
+    
     private static double montantHeuresSuppType(int typeEmploye, int nombreDheureCl, int overtime) {
 
         double MontantHeuresSupp = 0;
@@ -204,11 +161,7 @@ public class CalculeMontantSupplementaires {
         return MontantHeuresSupp;
     }
 
-    /**
-     * @param nombreDheureCl
-     * @param overtime
-     * @return
-     */
+    
     private static double montanHeuresType1(int nombreDheureCl, int overtime) {
         double MontantHeuresSupp = 0;
         if (nombreDheureCl <= 4) {
@@ -221,10 +174,7 @@ public class CalculeMontantSupplementaires {
         return MontantHeuresSupp;
     }
 
-    /**
-     * @param overtime
-     * @return
-     */
+    
     private static double montanHeuresType2(int overtime) {
         double MontantHeuresSupp = 0;
         if (overtime <= 4) {
@@ -238,13 +188,7 @@ public class CalculeMontantSupplementaires {
         return MontantHeuresSupp;
     }
 
-    /**
-     * @param tabCodesClient
-     * @param tabPourVérifier
-     * @param i
-     * @return
-     * @throws java.io.IOException
-     */
+    
     private static boolean isNouveauCodeClient(String[] tabCodesClient, String[] tabPourVérifier, int i) throws IOException {
 
         boolean nouveauCodeClient = false;
@@ -257,11 +201,7 @@ public class CalculeMontantSupplementaires {
         return nouveauCodeClient;
     }
 
-    /**
-     * @param codeClient
-     * @param tabCodesClient
-     * @return
-     */
+    
     public static boolean verifierLeCodeClient(String codeClient, String[] tabCodesClient) {
 
         boolean verifier = false;
