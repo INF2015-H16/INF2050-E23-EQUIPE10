@@ -12,22 +12,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- *Class principal du projet
- * lit le fichier d entree passee en argument
- * appel la methode pour faire les calculs 
- * envoie de ficier de sortie en argument
- * 
- * @author lemaicirabah
- */
+
 public class CalculEtatComptes {
 
-    /**
-     * Methode main
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     * @throws calculetatcomptes.ClassExceptions
-     */
+    
     public static void main(String[] args) throws Exception,ClassExceptions {
         
         //********Fichier Entree*********    
