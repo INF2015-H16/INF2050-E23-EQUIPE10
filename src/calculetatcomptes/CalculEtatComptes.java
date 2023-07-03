@@ -11,10 +11,7 @@ import net.sf.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-
 public class CalculEtatComptes {
-
     
     public static void main(String[] args) throws Exception,ClassExceptions {
         
@@ -42,13 +39,6 @@ public class CalculEtatComptes {
         return decimalFormat.format(valeur);
     }
     
-    /**
-     * Methode fait la creation de 
-     * l'objet Json et le retourner
-     * 
-     * @throws java.io.IOException
-     * @return etatEmployee objet de type Json pour creer notre fichier de sortie
-     */
     public static JSONObject creationJson()  throws Exception, ClassExceptions{
         
         EtatEmploye etatEmploye=GestionEtatCompte.remplirObjetEtatCompte();
@@ -76,13 +66,7 @@ public class CalculEtatComptes {
          
         return etatEmployee;
     }
-    /**
-     * methode qui prends le chemin envoyer en argument 
-     * pour ecrire le fichier Json en sortie 
-     * @param args the command line arguments
-     * @param json
-     * @throws java.io.IOException
-     */
+   
     public static void ecrireFichierSortie(String args,JSONObject json) throws IOException, ClassExceptions {
        try  {
           FileWriter.saveStringIntoFile(args, json.toString());

@@ -7,20 +7,10 @@ package calculetatcomptes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * class de méthodes qui permet de gérer tous les montant calculées dans les
- * autres class et de les regrouper dans un seul objet etatEmploye
- *
- * @author rabahlemici
- */
 public class GestionEtatCompte {
 
     private static final double MONTANT_AJOUTE = 733.77;
 
-    /**
-     * @return @throws IOException
-     * @throws calculetatcomptes.ClassExceptions
-     */
     public static EtatEmploye remplirObjetEtatCompte() throws IOException, ClassExceptions, Exception {
    
         Employe employe = GestionEmploye.creerEmployeFromJson();
@@ -39,12 +29,6 @@ public class GestionEtatCompte {
         return objetEtatCompte;
     }
 
-    /**
-     * @param montantReg
-     * @param montantDep
-     * @param montantSupp
-     * @return
-     */
     private static double calculEtatcompte(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {//
 
         double etatCompte;
@@ -60,12 +44,6 @@ public class GestionEtatCompte {
         return (arrondiSuperieur(etatCompte));
     }
 
-    /**
-     * @param montantReg
-     * @param montantDep
-     * @param montantSupp
-     * @return
-     */
     private static ArrayList<Client> remplirListeClients(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {
 
         Client client;
@@ -78,12 +56,6 @@ public class GestionEtatCompte {
         return clients;
     }
 
-    /**
-     * @param montantReg
-     * @param montantDep
-     * @param montantSupp
-     * @return
-     */
     private static Client calculEtatClient(ObjetMontantRegulier montantReg, CalculerMontantDeplacement montantDep, CalculeMontantSupplementaires montantSupp) {
 
         double montantRegulier = montantReg.getMontantRegulier();
@@ -98,12 +70,6 @@ public class GestionEtatCompte {
         return etatClient;
     }
 
-    /**
-     * @param employe
-     * @param etatCompte
-     * @param clients
-     * @return
-     */
     private static EtatEmploye creerObjetEtatCompte(Employe employe, double etatCompte, ArrayList<Client> clients) {
 
         EtatEmploye objetEtatCompte = new EtatEmploye();
@@ -117,10 +83,6 @@ public class GestionEtatCompte {
         return objetEtatCompte;
     }
 
-    /**
-     * @param etatCompte
-     * @return
-     */
     private static double calculMontantFix(double etatCompte) {
         final double POURCENTAGE_FIX = 0.012; //1.2%
         double montantFix;
@@ -129,11 +91,6 @@ public class GestionEtatCompte {
 
         return arrondiSuperieur(montantFix);
     }
-
-    /**
-     * @param etatCompte
-     * @return
-     */
     private static double calculCoutVariable(double etatCompte) {
         final double POURCENTAGE_VARIABLE = 0.025; //2.5%
         double coutVariable;
@@ -143,10 +100,6 @@ public class GestionEtatCompte {
         return arrondiSuperieur(coutVariable);
     }
 
-    /**
-     * @param montant
-     * @return
-     */
     private static double arrondiSuperieur(double montant) {
 
         return (double) Math.ceil(montant * 20) / 20d;

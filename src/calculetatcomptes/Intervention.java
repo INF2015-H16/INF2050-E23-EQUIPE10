@@ -4,10 +4,6 @@
  */
 package calculetatcomptes;
 
-/**
- *Class des objets interventions
- * @author lemaicirabah
- */
 public class Intervention {       
     
     private String codeClient;

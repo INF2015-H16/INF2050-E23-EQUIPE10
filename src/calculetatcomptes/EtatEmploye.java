@@ -6,10 +6,7 @@ package calculetatcomptes;
 
 import java.util.ArrayList;
 
-/**
- *Class des objets EtatEmploye
- * @author lemaicirabah
- */
+
 public class EtatEmploye {
     
     private int matriculeEmploye;

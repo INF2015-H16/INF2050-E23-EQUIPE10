@@ -8,10 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
- *class pour ecrire le fichier de sortie
- * @author rabahlemaici
- */
+
 public class FileWriter {
     
     public static void saveStringIntoFile(String filePath, String contentToSave)

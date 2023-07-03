@@ -28,8 +28,6 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-
-    
     private static ObjetMontantRegulier[] creerTableauObjetFinal(Employe employe,
             String tabCodesClient[], ArrayList<Intervention> interventions) throws Exception {
 
@@ -44,8 +42,6 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-
-    
     private static ObjetMontantRegulier[] creerTableauObjetFinalType(String tabCodesClient[],
             ArrayList<Intervention> interventions, int typeEmploye, double tauxHoraireMin,
             double tauxHoraireMax, double tauxHoraireMoyen) throws IOException {
@@ -66,7 +62,6 @@ public class CalculMontantRegulier {
         return tabObjetFinal;
     }
 
-    
     private static ObjetMontantRegulier[] calculMontantReguliere(String tabCodesClient[],
             ArrayList<Intervention> interventions, double tauxHoraire) throws IOException {
 
@@ -88,8 +83,7 @@ public class CalculMontantRegulier {
 
         return tabObjetFinal;
     }
-
-    
+ 
     private static double montantReguliere(ArrayList<Intervention> interventions,
             String[] tabCodesClient, int i, int nbHeure, double tauxHoraire) {
 
@@ -103,8 +97,6 @@ public class CalculMontantRegulier {
 
         return montantRegulier;
     }
-
-    
     private static boolean isNouveauCodeClient(String[] tabCodesClient, String[] tabPourVérifier, int i) throws IOException {
 
         boolean nouveauCodeClient = false;
@@ -116,8 +108,6 @@ public class CalculMontantRegulier {
 
         return nouveauCodeClient;
     }
-
-    
     private static boolean verifierCodesClient(String codeClient, String[] tabCodesClient) throws IOException {
 
         boolean verifier = false;
@@ -131,8 +121,6 @@ public class CalculMontantRegulier {
 
         return verifier;
     }
-    
-    
     private static ObjetMontantRegulier[] creerTableauObjet(ObjetMontantRegulier tabObjet[], int compteur) {
 
         ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[compteur];

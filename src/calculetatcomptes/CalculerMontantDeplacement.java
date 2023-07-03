@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package calculetatcomptes;
 
 import java.util.ArrayList;
@@ -11,13 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-/**
- * Class CalculerMontantDeplacement: Description: classe qui sert à calculer le
- * montant pour le déplacement des interventions pour les clients selon le type
- * d'employé
- *
- * @author Luz Enith Suarez Gonzalez
- */
 public class CalculerMontantDeplacement {
 
     private String codeClient;
@@ -43,11 +32,7 @@ public class CalculerMontantDeplacement {
     public void setMontantDeplacement(double montantDeplacement) {
         this.montantDeplacement = montantDeplacement;
     }
-
-    /**
-     * @return @throws java.lang.Exception
-     * @throws calculetatcomptes.ClassExceptions
-     */
+   
     public static CalculerMontantDeplacement[] calculerMontanDeplacement() throws Exception, ClassExceptions {
 
         Employe employe = GestionEmploye.creerEmployeFromJson();
@@ -63,10 +48,7 @@ public class CalculerMontantDeplacement {
 
         return calculMontant;
     }
-
-    /**
-     * @return
-     */
+  
     private static ArrayList<Entry<String, Integer>> listeClientsUnique(ArrayList<Intervention> interventions) {
 
         HashMap<String, Integer> mapUnique = creerMapClientsUnique(interventions);
@@ -80,9 +62,6 @@ public class CalculerMontantDeplacement {
         return listeUnique;
     }
 
-    /**
-     * @return
-     */
     private static HashMap<String, Integer> creerMapClientsUnique(ArrayList<Intervention> interventions) {
 
         HashMap<String, Integer> mapUnique = new HashMap<>();
@@ -100,9 +79,6 @@ public class CalculerMontantDeplacement {
         return mapUnique;
     }
 
-    /**
-     * @return
-     */
     private static CalculerMontantDeplacement[] calculerMontantType(ArrayList<Entry<String, Integer>> listeUnique, int type) throws Exception, ClassExceptions {
 
         CalculerMontantDeplacement[] deplacementClient = new CalculerMontantDeplacement[listeUnique.size()];
@@ -120,9 +96,6 @@ public class CalculerMontantDeplacement {
         return montant;
     }
 
-    /**
-     * @return
-     */
     private static CalculerMontantDeplacement[] calculerMontantListeUnique(ArrayList<Entry<String, Integer>> listeUnique, ObjetMontantRegulier[] montantReguliere, CalculerMontantDeplacement[] deplacementClient, int type) {
 
         CalculerMontantDeplacement[] montant = new CalculerMontantDeplacement[listeUnique.size()];
@@ -141,9 +114,6 @@ public class CalculerMontantDeplacement {
         return montant;
     }
 
-     /**
-     * @return
-     */
     private static double calculerMontantTotal(double montantRegulier, double distanceDeplacement, int type) {
         double montantTotal = 0;
         switch (type) {

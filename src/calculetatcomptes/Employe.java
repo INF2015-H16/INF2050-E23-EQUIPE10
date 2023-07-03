@@ -6,10 +6,7 @@ package calculetatcomptes;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author rabahlemaici
- */
+
 public class Employe {
     
     private int matricule;

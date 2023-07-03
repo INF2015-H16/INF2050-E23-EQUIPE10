@@ -160,8 +160,7 @@ public class CalculeMontantSupplementaires {
         }
         return MontantHeuresSupp;
     }
-
-    
+ 
     private static double montanHeuresType1(int nombreDheureCl, int overtime) {
         double MontantHeuresSupp = 0;
         if (nombreDheureCl <= 4) {
@@ -174,7 +173,6 @@ public class CalculeMontantSupplementaires {
         return MontantHeuresSupp;
     }
 
-    
     private static double montanHeuresType2(int overtime) {
         double MontantHeuresSupp = 0;
         if (overtime <= 4) {
