@@ -135,14 +135,10 @@ public class GestionErreurs {
     public static void validerCodeClient(JSONObject jsonObject) throws ClassExceptions {
         try {
             String codeClient = jsonObject.getString(CODE_CLIENT).trim();
-            String pattern = "^[C]\\d{3}$";
             
             if (codeClient.equals("")) {
                 throw new ClassExceptions("La propriete <code_client> ne doit pas etre vide.");
-            } else if (!codeClient.matches(pattern)) {
-                messageErreur = "Format de code de client invalide!!";
-                throw new ClassExceptions(messageErreur);
-            }
+            } 
         } catch (JSONException e) {
             messageErreur = "La propriété <code_client> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
@@ -171,7 +167,7 @@ public class GestionErreurs {
                 messageErreur = "nombres heures negative ou supérieur a 8 heures!!";
                 throw new ClassExceptions(messageErreur);
             }
-        } catch (NumberFormatException | JSONException e) {
+        } catch (net.sf.json.JSONException | NumberFormatException e) {
             messageErreur = "La propriété <nombres_heures> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
         }
