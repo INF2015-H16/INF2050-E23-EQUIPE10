@@ -14,12 +14,14 @@ import static calculetatcomptes.GestionErreurs.OVERTIME;
 import static calculetatcomptes.GestionErreurs.TAUX_HORAIRES_MAX;
 import static calculetatcomptes.GestionErreurs.TAUX_HORAIRES_MIN;
 import static calculetatcomptes.GestionErreurs.TYPE_EMPLOYE;
+import static calculetatcomptes.GestionErreurs.messageErreur;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 
@@ -30,14 +32,18 @@ public class GestionEmploye {
     public static Employe creerEmployeFromJson() throws Exception, ClassExceptions {
 
         Employe objetEmploye = new Employe();
-        JSONObject employe = JSONObject.fromObject(source);
+        JSONObject employe = null;
+        try{
+        employe = JSONObject.fromObject(source);
         validerProprietesEmploye(employe);
-
+        }catch(JSONException e){
+           messageErreur ="Verifier la Syntaxe de votre Fichier JSON !!!!";  
+           throw new ClassExceptions(messageErreur);
+        }
         objetEmploye.setMatricule(employe.getInt(MATRICULE_EMPLOYE));
         objetEmploye.setTypeEmploye(employe.getInt(TYPE_EMPLOYE));
-        objetEmploye.setTauxMin(convertirStringEnDouble(employe.getString(TAUX_HORAIRES_MIN)));  
-        double tauxMaxLocal1 = convertirStringEnDouble(employe.getString(TAUX_HORAIRES_MAX));
-        objetEmploye.setTauxMax(tauxMaxLocal1);    
+        objetEmploye.setTauxMin((double)convertirStringEnDouble(employe.getString(TAUX_HORAIRES_MIN)));  
+        objetEmploye.setTauxMax((double)convertirStringEnDouble(employe.getString(TAUX_HORAIRES_MAX)));    
         JSONArray listInterventions = employe.getJSONArray(INTERVENTION);
         ArrayList<Intervention> interventions = remplireTableauInterventions(listInterventions);
         objetEmploye.setInterventions(interventions);
@@ -52,7 +58,7 @@ public class GestionEmploye {
         GestionErreurs.validerTauxHorairesMin(employe);
         GestionErreurs.validerTauxHorairesMax(employe);
         GestionErreurs.validerIntervention(employe);
-        
+ 
     }
     
     private static ArrayList<Intervention> remplireTableauInterventions(JSONArray listInterventions) throws Exception ,ClassExceptions  {
@@ -111,7 +117,6 @@ public class GestionEmploye {
         }
         return isValid;
     }
-
    
     public static double convertirStringEnDouble(String chaine) {
 

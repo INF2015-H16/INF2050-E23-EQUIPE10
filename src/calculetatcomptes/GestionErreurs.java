@@ -37,7 +37,7 @@ public class GestionErreurs {
                 messageErreur = "Matricule employée est invalide!!";
                 throw new ClassExceptions(messageErreur);
             }
-        } catch (JSONException e) {
+        } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <matricule_employe> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
         }
@@ -50,7 +50,7 @@ public class GestionErreurs {
                 messageErreur = "Type employée invalide!!";
                 throw new ClassExceptions(messageErreur);
             }
-        } catch (JSONException e) {
+        } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <type_employe> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
         }
@@ -111,7 +111,7 @@ public class GestionErreurs {
                 messageErreur = "La distance de deplacement doit etre entre 0 et 100 kilomètres!!";
                 throw new ClassExceptions(messageErreur);
             }
-        } catch (JSONException e) {
+        } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <distance_deplacement> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
         }
@@ -167,7 +167,7 @@ public class GestionErreurs {
                 messageErreur = "nombres heures negative ou supérieur a 8 heures!!";
                 throw new ClassExceptions(messageErreur);
             }
-        } catch (net.sf.json.JSONException | NumberFormatException e) {
+        } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <nombres_heures> n'existe pas ou le format du texte est incorrecte!!";
             throw new ClassExceptions(messageErreur);
         }
