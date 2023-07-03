@@ -166,9 +166,9 @@ public class CalculeMontantSupplementaires {
         if (nombreDheureCl <= 4) {
             MontantHeuresSupp = 0;//0.00$
         } else if (nombreDheureCl > 4 && nombreDheureCl <= 8) {
-            MontantHeuresSupp = overtime * 50;//50$par heure d'overtime
+            MontantHeuresSupp = overtime * 50;//50$par heure d'overtime.
         } else if (nombreDheureCl > 8) {
-            MontantHeuresSupp = overtime * 100;//100$par heure d'overtime
+            MontantHeuresSupp = overtime * 100;//100$par heure d'overtime.
         }
         return MontantHeuresSupp;
     }
@@ -176,11 +176,11 @@ public class CalculeMontantSupplementaires {
     private static double montanHeuresType2(int overtime) {
         double MontantHeuresSupp = 0;
         if (overtime <= 4) {
-            MontantHeuresSupp = overtime * 75;//75$par heure d'overtime
+            MontantHeuresSupp = overtime * 75;//75$par heure d'overtime.
         } else if (overtime > 4) {
-            MontantHeuresSupp = overtime * 150;//150$par heure d'overtime
+            MontantHeuresSupp = overtime * 150;//150$par heure d'overtime.
             if (MontantHeuresSupp >= 1500) {
-                MontantHeuresSupp = 1500;//1500$
+                MontantHeuresSupp = 1500;//1500$.
             }
         }
         return MontantHeuresSupp;
