@@ -39,39 +39,39 @@ public class GestionEmployeTest {
     }
 
     /**
-     * Test of RecupererJson method, of class GestionEmploye.
+     * Test of creerEmployeFromJson method, of class GestionEmploye.
      */
     @Test
     public void testRecupererJson() throws Exception {
         System.out.println("RecupererJson");
         Employe expResult = null;
-        Employe result = GestionEmploye.RecupererJson();
+        Employe result = GestionEmploye.creerEmployeFromJson();
         assertEquals(expResult, result);
         fail("Test RecupererJson");
     }
 
     /**
-     * Test of remplireInetrventions method, of class GestionEmploye.
+     * Test of remplireTableauInterventions method, of class GestionEmploye.
      */
     @Test
     public void testRemplireInetrventions() {
         System.out.println("remplireInetrventions");
         JSONArray listInterventions = null;
         ArrayList<Intervention> expResult = null;
-        ArrayList<Intervention> result = GestionEmploye.remplireInetrventions(listInterventions);
+        ArrayList<Intervention> result = GestionEmploye.remplireTableauInterventions(listInterventions);
         assertEquals(expResult, result);
         fail("Test RemplireInetrventions");
     }
 
     /**
-     * Test of convertirString method, of class GestionEmploye.
+     * Test of convertirStringEnDouble method, of class GestionEmploye.
      */
     @Test
     public void testConvertirString() {
         System.out.println("convertirString");
         String chaine = "";
         double expResult = 0.0;
-        double result = GestionEmploye.convertirString(chaine);
+        double result = GestionEmploye.convertirStringEnDouble(chaine);
         assertEquals(expResult, result, 0);
         fail("Test ConvertirString");
     }

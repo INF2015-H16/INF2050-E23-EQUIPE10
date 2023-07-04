@@ -8,160 +8,129 @@ package calculetatcomptes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *Cette class permet de calculer le montant régulier de chaque client
- * @author seif saidi
- */
+
 public class CalculMontantRegulier {
 
-    /**
-     * Méthode pour la vérification si un code client existe dans un tableau
-     * rempli avec des codes clients aprés le calcul de son montant reguliér
-     * Elle prend comme parmétre un code client pour le véridier et le tableau
-     * qui contient les codes clients
-     *
-     * @param codeClient
-     * @param tab
-     * @return
-     * @throws java.io.IOException
-     */
-    public static boolean verifierCodesClient(String codeClient, String tab[]) throws IOException {
-        boolean verif = false;
-        for (String tab1 : tab) {
-            if (codeClient.equals(tab1)) {
-                verif = true;
-                break;
-            }
-        }
-        return verif;
-    }
+    
+    public static ObjetMontantRegulier[] calculMontant() throws Exception, ClassExceptions {
 
-    /**
-     * La méthode calculMontant permet de faire le calcul du montant régulier
-     * selon le type d'employé et retourne un tableau d'objet qui contient le
-     * code du client et son montatnt régulier
-     *
-     * @return
-     * @throws IOException
-     */
-    public static ObjetMontantRegulier[] calculMontant() throws IOException {
-        Employe employe;
-        Intervention intervention;
-        employe = GestionEmploye.RecupererJson();
-        ArrayList<Intervention> interventions;
-        interventions = employe.getInterventions();
-        boolean verification;
+        Employe employe = GestionEmploye.creerEmployeFromJson();
+
+        ArrayList<Intervention> interventions = employe.getInterventions();
         String tabCodesClient[] = new String[interventions.size()];
-        String tabPourVérifier[] = new String[interventions.size()];
+
+        for (int i = 0; i < interventions.size(); i++) {
+            tabCodesClient[i] = interventions.get(i).getCodeClient();
+        }
+
+        ObjetMontantRegulier tabObjetFinal[];
+        tabObjetFinal = creerTableauObjetFinal(employe, tabCodesClient, interventions);
+
+        return tabObjetFinal;
+    }
+    private static ObjetMontantRegulier[] creerTableauObjetFinal(Employe employe,
+            String tabCodesClient[], ArrayList<Intervention> interventions) throws Exception {
+
+        int typeEmploye = employe.getTypeEmploye();
         double tauxHoraireMin = employe.getTauxMin();
         double tauxHoraireMax = employe.getTauxMax();
         double tauxHoraireMoyen = (tauxHoraireMax + tauxHoraireMin) / 2;
-        int nbHeure;
-        int typeEmploye = employe.getTypeEmploye();
-        double montantRegulier;
-        ObjetMontantRegulier tabObjet[] = new ObjetMontantRegulier[interventions.size()];
-        ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
-        int compteur = 0;
 
-        for (int i = 0; i < interventions.size(); i++) {
-            intervention = interventions.get(i);
-            tabCodesClient[i] = intervention.getCodeClient();
-            // System.out.println(tabCodesClient[i]);
-        }
+        ObjetMontantRegulier tabObjetFinal[];
+        tabObjetFinal = creerTableauObjetFinalType(tabCodesClient, interventions,
+                typeEmploye, tauxHoraireMin, tauxHoraireMax, tauxHoraireMoyen);
+
+        return tabObjetFinal;
+    }
+    private static ObjetMontantRegulier[] creerTableauObjetFinalType(String tabCodesClient[],
+            ArrayList<Intervention> interventions, int typeEmploye, double tauxHoraireMin,
+            double tauxHoraireMax, double tauxHoraireMoyen) throws IOException {
+
+        ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[0];
 
         switch (typeEmploye) {
-           
             case 0:
-                for (int i = 0; i < tabCodesClient.length; i++) {
-                    nbHeure = 0;
-                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
-                    if (verification == false) {
-                        compteur++;
-                        for (int j = i + 1; j < tabCodesClient.length; j++) {
-                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
-                                nbHeure += interventions.get(j).getNombresHeures();
-                            }
-                        }
-
-                        nbHeure += interventions.get(i).getNombresHeures();
-                        montantRegulier = nbHeure * tauxHoraireMin;
-
-                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
-                    }
-                    tabPourVérifier[i] = tabCodesClient[i];
-
-                }
-                tabObjetFinal = new ObjetMontantRegulier[compteur];
-
-                for (int i = 0; i < tabObjet.length; i++) {
-                    if (tabObjet[i] != null) {
-                        tabObjetFinal[i] = tabObjet[i];
-                    }
-                }
-                tabObjet = null;
-
+                tabObjetFinal = calculMontantReguliere(tabCodesClient, interventions, tauxHoraireMin);
                 break;
-           
             case 1:
-                for (int i = 0; i < tabCodesClient.length; i++) {
-                    nbHeure = 0;
-                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
-                    if (verification == false) {
-                        compteur++;
-                        for (int j = i + 1; j < tabCodesClient.length; j++) {
-                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
-                                nbHeure += interventions.get(j).getNombresHeures();
-                            }
-                        }
-
-                        nbHeure += interventions.get(i).getNombresHeures();
-                        montantRegulier = nbHeure * tauxHoraireMoyen;
-
-                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
-                    }
-                    tabPourVérifier[i] = tabCodesClient[i];
-
-                }
-                tabObjetFinal = new ObjetMontantRegulier[compteur];
-
-                for (int i = 0; i < tabObjet.length; i++) {
-                    if (tabObjet[i] != null) {
-                        tabObjetFinal[i] = tabObjet[i];
-                    }
-                }
-                tabObjet = null;
+                tabObjetFinal = calculMontantReguliere(tabCodesClient, interventions, tauxHoraireMoyen);
                 break;
-           
             case 2:
-                for (int i = 0; i < tabCodesClient.length; i++) {
-                    nbHeure = 0;
-                    verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
-                    if (verification == false) {
-                        compteur++;
-                        for (int j = i + 1; j < tabCodesClient.length; j++) {
-                            if (tabCodesClient[i].equals(tabCodesClient[j])) {
-                                nbHeure += interventions.get(j).getNombresHeures();
-                            }
-                        }
-
-                        nbHeure += interventions.get(i).getNombresHeures();
-                        montantRegulier = nbHeure * tauxHoraireMax;
-
-                        tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
-                    }
-                    tabPourVérifier[i] = tabCodesClient[i];
-
-                }
-                tabObjetFinal = new ObjetMontantRegulier[compteur];
-
-                for (int i = 0; i < tabObjet.length; i++) {
-                    if (tabObjet[i] != null) {
-                        tabObjetFinal[i] = tabObjet[i];
-                    }
-                }
-                tabObjet = null;
+                tabObjetFinal = calculMontantReguliere(tabCodesClient, interventions, tauxHoraireMax);
                 break;
+        }
+        return tabObjetFinal;
+    }
 
+    private static ObjetMontantRegulier[] calculMontantReguliere(String tabCodesClient[],
+            ArrayList<Intervention> interventions, double tauxHoraire) throws IOException {
+
+        String tabPourVérifier[] = new String[interventions.size()];
+        ObjetMontantRegulier[] tabObjet = new ObjetMontantRegulier[tabCodesClient.length];
+
+        int compteur = 0;
+
+        for (int i = 0; i < tabCodesClient.length; i++) {
+            int nbHeure = 0;
+            if (isNouveauCodeClient(tabCodesClient, tabPourVérifier, i)) {
+                compteur++;
+                double montantRegulier = montantReguliere(interventions, tabCodesClient, i, nbHeure, tauxHoraire);
+                tabObjet[i] = new ObjetMontantRegulier(tabCodesClient[i], montantRegulier);
+            }
+            tabPourVérifier[i] = tabCodesClient[i];
+        }
+        ObjetMontantRegulier tabObjetFinal[] = creerTableauObjet(tabObjet, compteur);
+
+        return tabObjetFinal;
+    }
+ 
+    private static double montantReguliere(ArrayList<Intervention> interventions,
+            String[] tabCodesClient, int i, int nbHeure, double tauxHoraire) {
+
+        for (int j = i + 1; j < tabCodesClient.length; j++) {
+            if (tabCodesClient[i].equals(tabCodesClient[j])) {
+                nbHeure += interventions.get(j).getNombresHeures();
+            }
+        }
+        nbHeure += interventions.get(i).getNombresHeures();
+        double montantRegulier = nbHeure * tauxHoraire;
+
+        return montantRegulier;
+    }
+    private static boolean isNouveauCodeClient(String[] tabCodesClient, String[] tabPourVérifier, int i) throws IOException {
+
+        boolean nouveauCodeClient = false;
+        boolean verification = verifierCodesClient(tabCodesClient[i], tabPourVérifier);
+
+        if (verification == false) {
+            nouveauCodeClient = true;
+        }
+
+        return nouveauCodeClient;
+    }
+    private static boolean verifierCodesClient(String codeClient, String[] tabCodesClient) throws IOException {
+
+        boolean verifier = false;
+
+        for (String numCodeClient : tabCodesClient) {
+            if (codeClient.equals(numCodeClient)) {
+                verifier = true;
+                break;
+            }
+        }
+
+        return verifier;
+    }
+    private static ObjetMontantRegulier[] creerTableauObjet(ObjetMontantRegulier tabObjet[], int compteur) {
+
+        ObjetMontantRegulier tabObjetFinal[] = new ObjetMontantRegulier[compteur];
+        int indice = 0;
+        for (ObjetMontantRegulier objet : tabObjet) {
+            if (objet != null) {
+
+                tabObjetFinal[indice] = objet;
+                indice++;
+            }
         }
 
         return tabObjetFinal;

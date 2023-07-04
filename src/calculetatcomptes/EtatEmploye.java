@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package calculetatcomptes;
 
 import java.util.ArrayList;
 
-/**
- *Class des objets EtatEmploye
- * @author lemaicirabah
- */
+
 public class EtatEmploye {
     
     private int matriculeEmploye;

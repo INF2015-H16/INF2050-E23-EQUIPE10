@@ -9,71 +9,47 @@ import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.text.DecimalFormat;
-
-/**
- *Class principal du projet
- * lit le fichier d entree passee en argument
- * appel la methode pour faire les calculs 
- * envoie de ficier de sortie en argument
- * 
- * @author lemaicirabah
- */
+import java.text.NumberFormat;
+import java.util.Locale;
 public class CalculEtatComptes {
-
-    /**
-     * Methode main
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-    public static void main(String[] args) throws IOException {
+    
+    public static void main(String[] args) throws Exception,ClassExceptions {
         
         //********Fichier Entree*********    
+        try{
+            
         GestionEmploye.lireFichierEntree(args);
         //******Calculs******************    
         creationJson();
+        ecrireFichierSortie(args[1],creationJson());
+        }catch(Exception e){
         //******Fichier Sortie***********    
-        ecrireFichierSortie(args[1]);
+        ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
+        throw e;
+        }
         
-        /*client=clients.get(1);
-             
-        ObjetMontantRegulier[] montantReg= CalculMontantRegulier.calculMontant();
-        CalculeMontantSupplementaires [] montantSupp=CalculeMontantSupplementaires.calculeMontantSupplementaire();
-        CalculMontantDeplacement [] montantDep=CalculMontantDeplacement.calculMontanDeplacement();
-        
-        System.out.println("monatant déplacement de "+montantDep[0].getCodeClient()+" est : "+montantDep[0].getMontantDeplacement()+"monat supp de "+montantSupp[1].getCodeClient()+" est : "+montantSupp[1].getMontantHeuresSupp());
-        double s=(double)Math.round(4.4567*100.0)/100.0;
-        System.out.print("etat compte de "+ etatEmploye.getMatriculeEmploye()+ " est :  "+etatEmploye.getEtatCompte() +" et l'etat compte du client "+client.getCodeClient()+" est : "+client.getEtatParClient());
-
-        //System.out.print("test projet");
-        // TODO code application logic here
-     */
     }
     
     //Methode pour donner le format 0.00$ a une valeur double
     static String formatDecimal(double valeur) {
         String pattern = "#.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        
+        
         return decimalFormat.format(valeur);
     }
     
-    /**
-     * Methode fait la creation de 
-     * l'objet Json et le retourner
-     * 
-     * @throws java.io.IOException
-     * @return etatEmployee objet de type Json pour creer notre fichier de sortie
-     */
-    public static JSONObject creationJson()  throws IOException{
+    public static JSONObject creationJson()  throws Exception, ClassExceptions{
         
-        EtatEmploye etatEmploye=GestionEtatCompte.RemplirObjetEtatCompte();
+        EtatEmploye etatEmploye=GestionEtatCompte.remplirObjetEtatCompte();
         ArrayList<Client> clients;
         clients=etatEmploye.getClients();
         
         JSONObject etatEmployee= new JSONObject();
         etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
-        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()) + " $");
-        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()) + " $");
-        etatEmployee.accumulate("cout_ variable",formatDecimal(etatEmploye.getCoutVariable()) + " $");
+        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()).replace(",", ".")+" $");
+        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()).replace(",", ".")+" $");
+        etatEmployee.accumulate("cout_ variable",formatDecimal(etatEmploye.getCoutVariable()).replace(",", ".")+" $");
           
         JSONArray etatClients = new JSONArray();
         JSONObject etatClient = new JSONObject();
@@ -81,7 +57,7 @@ public class CalculEtatComptes {
         for(int i=0;i<clients.size();i++){
              
             etatClient.accumulate("code_client",clients.get(i).getCodeClient());
-            etatClient.accumulate("etat_par_client",formatDecimal(clients.get(i).getEtatParClient())+ " $");
+            etatClient.accumulate("etat_par_client",formatDecimal(clients.get(i).getEtatParClient()).replace(",", ".")+" $");
             etatClients.add(etatClient);
             etatClient.clear();      
              
@@ -90,19 +66,22 @@ public class CalculEtatComptes {
          
         return etatEmployee;
     }
-    /**
-     * methode qui prends le chemin envoyer en argument 
-     * pour ecrire le fichier Json en sortie 
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-    public static void ecrireFichierSortie(String args) throws IOException {
+   
+    public static void ecrireFichierSortie(String args,JSONObject json) throws IOException, ClassExceptions {
        try  {
-          FileWriter.saveStringIntoFile(args, creationJson().toString());
+          FileWriter.saveStringIntoFile(args, json.toString());
         
        } catch (IOException e) {
            throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
        }
+    }
+   public static JSONObject creerJsonErreurMessage(String message){
+    
+     JSONObject messageErr= new JSONObject();
+     
+    messageErr.accumulate("message", message);
+     return messageErr;
+    
     }
     
 }
