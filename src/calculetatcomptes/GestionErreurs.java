@@ -2,6 +2,10 @@
 package calculetatcomptes;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
@@ -77,11 +81,13 @@ public class GestionErreurs {
             double tauxHoraire = GestionEmploye.convertirStringEnDouble(jsonObject.getString(TAUX_HORAIRES_MAX).trim());
             if (tauxHoraire < 0) {
                 messageErreur = "Taux horaires max invalide!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <taux_horaires_max> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -90,14 +96,17 @@ public class GestionErreurs {
             JSONArray interventions = jsonObject.getJSONArray(INTERVENTION);
             if (interventions.isEmpty()) {
                 messageErreur = "Aucune intervention!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             } else if (interventions.size() > 10) {
                 messageErreur = "Les nombre d'interventions dépasse 10!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (JSONException e) {
             messageErreur = "La propriété <intervention> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -107,11 +116,13 @@ public class GestionErreurs {
 
             if (distanceDep < 0 || distanceDep > 100) {
                 messageErreur = "La distance de deplacement doit etre entre 0 et 100 kilomètres!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <distance_deplacement> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -122,11 +133,13 @@ public class GestionErreurs {
             String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
             if (!maDate.matches(pattern)) {
                 messageErreur = "Format de date invalide!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (JSONException e) {
             messageErreur = "La propriété <date_intervention> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -135,11 +148,13 @@ public class GestionErreurs {
             String codeClient = jsonObject.getString(CODE_CLIENT).trim();
             
             if (codeClient.equals("")) {
-                throw new ClassExceptions("La propriete <code_client> ne doit pas etre vide.");
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (JSONException e) {
             messageErreur = "La propriété <code_client> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -149,11 +164,13 @@ public class GestionErreurs {
 
             if (overT < 0 || overT > 4) {
                 messageErreur = "Overtime doit etre entre 0 et 4!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <overtime> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -163,11 +180,13 @@ public class GestionErreurs {
 
             if (nbrHeure < 0 || nbrHeure > 8) {
                 messageErreur = "nombres heures negative ou supérieur a 8 heures!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <nombres_heures> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -176,8 +195,42 @@ public class GestionErreurs {
         if (isvalide) {
             messageErreur = "La combinaison des valeurs des champs <code_client> et <date_intervention> "
                     + "intervention n\'est pas unique !! ";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
 
     }
+    private static boolean isValideDate(LocalDate date1 ,LocalDate date2) {
+
+        long monthsApart = ChronoUnit.MONTHS.between(date1, date2);
+        return Math.abs(monthsApart) >= 6;
+    }
+    public static LocalDate convertStringToLocalDate(String dateString) {
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern
+        ("yyyy-MM-dd");
+        
+        return LocalDate.parse(dateString, formatter);
+    }
+    public static void validerEcartDate(ArrayList<Intervention> interventions) throws ClassExceptions {
+  
+            Intervention singleIntervention1;
+            Intervention singleIntervention2;            
+        for (int i = 0; i < interventions.size(); i++) {
+            singleIntervention1 = interventions.get(i);
+            LocalDate date1=convertStringToLocalDate(singleIntervention1.getDateIntervention());
+            
+            for(int j = i; j < interventions.size(); j++) {
+                singleIntervention2 = interventions.get(j);
+                LocalDate date2=convertStringToLocalDate(singleIntervention2.getDateIntervention());
+                if(isValideDate(date1,date2)){
+                   messageErreur = "ecart de plus de 6 mois";
+                   System.err.print(messageErreur);
+                   System.exit(0);  
+                      
+                }
+            }
+        }  
+    }
+    
 }
