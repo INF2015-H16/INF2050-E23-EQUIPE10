@@ -27,11 +27,13 @@ public class GestionErreurs {
 
             if (matriculeEmploye < 0) {
                 messageErreur = "Matricule employée est invalide!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <matricule_employe> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -40,11 +42,13 @@ public class GestionErreurs {
             int typeEmploye = jsonObject.getInt(TYPE_EMPLOYE);
             if (isValideTypeEmploye(typeEmploye)) {
                 messageErreur = "Type employée invalide!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <type_employe> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
@@ -58,11 +62,13 @@ public class GestionErreurs {
             double tauxHoraire = GestionEmploye.convertirStringEnDouble(jsonObject.getString(TAUX_HORAIRES_MIN).trim());
             if (tauxHoraire < 0) {
                 messageErreur = "Taux horaire min invalide!!";
-                throw new ClassExceptions(messageErreur);
+                System.err.print(messageErreur);
+                System.exit(0); 
             }
         } catch (NumberFormatException | JSONException e) {
             messageErreur = "La propriété <taux_horaires_min> n'existe pas ou le format du texte est incorrecte!!";
-            throw new ClassExceptions(messageErreur);
+            System.err.print(messageErreur);
+            System.exit(0); 
         }
     }
 
