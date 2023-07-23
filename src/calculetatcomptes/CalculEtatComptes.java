@@ -4,6 +4,7 @@
  */
 package calculetatcomptes;
 
+import static calculetatcomptes.GestionEmploye.creerEmployeFromJson;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
@@ -21,6 +22,8 @@ public class CalculEtatComptes {
         GestionEmploye.lireFichierEntree(args);
         //******Calculs******************    
         creationJson();
+        GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
+        
         ecrireFichierSortie(args[1],creationJson());
         }catch(Exception e){
         //******Fichier Sortie***********    
@@ -63,9 +66,12 @@ public class CalculEtatComptes {
              
         }  
         etatEmployee.accumulate("clients", etatClients);
-         
+        //System.out.println(GestionErreurs.observations.size());
+        etatEmployee.put("observations", GestionErreurs.observations); 
         return etatEmployee;
     }
+    
+    
    
     public static void ecrireFichierSortie(String args,JSONObject json) throws IOException, ClassExceptions {
        try  {
@@ -77,8 +83,8 @@ public class CalculEtatComptes {
     }
    public static JSONObject creerJsonErreurMessage(String message){
     
-     JSONObject messageErr= new JSONObject();
-     
+    JSONObject messageErr= new JSONObject();
+      
     messageErr.accumulate("message", message);
      return messageErr;
     

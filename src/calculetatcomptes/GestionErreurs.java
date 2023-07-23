@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 public class GestionErreurs {
 
     static public String messageErreur;
+    static public JSONArray observations =new JSONArray();
 
     public static final String MATRICULE_EMPLOYE = "matricule_employe";
     public static final String TYPE_EMPLOYE = "type_employe";
@@ -224,10 +225,8 @@ public class GestionErreurs {
                 singleIntervention2 = interventions.get(j);
                 LocalDate date2=convertStringToLocalDate(singleIntervention2.getDateIntervention());
                 if(isValideDate(date1,date2)){
-                   messageErreur = "ecart de plus de 6 mois";
-                   System.err.print(messageErreur);
-                   System.exit(0);  
-                      
+                  String message = "L’écart maximal entre les dates d’intervention doit être de moins de 6 mois."; 
+                  observations.add(message);
                 }
             }
         }  

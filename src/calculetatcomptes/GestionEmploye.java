@@ -79,7 +79,6 @@ public class GestionEmploye {
         }
         boolean isvalid=verifierConflitIntervention(interventions);
         GestionErreurs.validerConflitInterventions(isvalid);
-        GestionErreurs.validerEcartDate(interventions);
         
         return interventions;
     }
