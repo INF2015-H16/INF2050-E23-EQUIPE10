@@ -5,6 +5,7 @@
 package calculetatcomptes;
 
 import static calculetatcomptes.GestionEmploye.creerEmployeFromJson;
+import static calculetatcomptes.GestionEtatCompte.remplirObjetEtatCompte;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
@@ -23,6 +24,7 @@ public class CalculEtatComptes {
         //******Calculs******************    
         creationJson();
         GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
+        GestionErreurs.depasserCoutFix(remplirObjetEtatCompte().getCoutFixe());
         
         ecrireFichierSortie(args[1],creationJson());
         }catch(Exception e){

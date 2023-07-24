@@ -232,4 +232,14 @@ public class GestionErreurs {
         }  
     }
     
+    public static void depasserCoutFix(double coutFix){
+        
+        if(coutFix>1500){    
+            String message = "Le cout fix payable nécessite des ajustements."; 
+            observations.add(message);
+        }
+        
+        
+    }
+    
 }
