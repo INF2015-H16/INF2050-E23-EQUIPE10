@@ -125,11 +125,11 @@ public class GestionEmploye {
     }
 
     public static void lireFichierEntree(String[] args) throws IOException {
-        if (args.length != 2) {
+        if (args.length != 3) {
             throw new IOException("Fichier d'entree manquant.");
         }
         try {
-            String texteSource = new String(Files.readAllBytes(Paths.get(args[0])));
+            String texteSource = new String(Files.readAllBytes(Paths.get(args[1])));
             source = texteSource;
 
         } catch (IOException e) {

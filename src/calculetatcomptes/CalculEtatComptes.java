@@ -20,17 +20,28 @@ public class CalculEtatComptes {
         //********Fichier Entree*********    
         try{
             
+          
+            
         GestionEmploye.lireFichierEntree(args);
         //******Calculs******************    
         creationJson();
+        if (args.length > 0) {
+            if (args[0].equals("-S")) {
+                // Affichez les statistiques à la console
+                displayStatistics();
+            } else if (args[0].equals("-SR")) {
+                // Réinitialisez les statistiques en les remettant à zéro
+                
+            }
+        }  
         GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
         GestionErreurs.depasserCoutFix(remplirObjetEtatCompte().getCoutFixe());
         GestionErreurs.depasserEtatCompte(remplirObjetEtatCompte().getEtatCompte());
         
-        ecrireFichierSortie(args[1],creationJson());
+        ecrireFichierSortie(args[2],creationJson());
         }catch(Exception e){
         //******Fichier Sortie***********    
-        ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
+        ecrireFichierSortie(args[2],creerJsonErreurMessage(GestionErreurs.messageErreur));
         throw e;
         }
         
@@ -69,7 +80,6 @@ public class CalculEtatComptes {
              
         }  
         etatEmployee.accumulate("clients", etatClients);
-        //System.out.println(GestionErreurs.observations.size());
         etatEmployee.put("observations", GestionErreurs.observations); 
         return etatEmployee;
     }
@@ -91,6 +101,79 @@ public class CalculEtatComptes {
     messageErr.accumulate("message", message);
      return messageErr;
     
+    }
+   
+   private static void displayStatistics() throws Exception {
+        Statistiques statistiques=loadStatistics();
+        System.out.println("Statistiques :");
+        System.out.println("--------------------------");
+        System.out.println("Nombre total d'interventions : " + statistiques.getNombreTotalInterventions());
+        System.out.println("Occurrences avec un état par client :");
+        System.out.println("- Moins de 1000$ : " + statistiques.getNombreOccurrencesMoins1000());
+        System.out.println("- Entre 1000 et 10000$ : " + statistiques.getNombreOccurrencesEntre1000Et10000());
+        System.out.println("- Plus de 10000$ : " + statistiques.getNombreOccurrencesPlus10000());
+        System.out.println("Nombre d'interventions par type d'employé :"+ statistiques.getInterventionsParTypeEmploye());
+        System.out.println("Nombre d'heures maximal soumis pour une intervention : " + statistiques.getNombreHeuresMaximal());
+        System.out.println("État par client maximal retourné pour un client : " + statistiques.getEtatMaximalPourClient());
+    }
+   private static Statistiques loadStatistics() throws ClassExceptions, Exception {
+        
+        EtatEmploye etatEmploye = GestionEtatCompte.remplirObjetEtatCompte();
+        Statistiques statistique=new Statistiques();
+        
+        statistique.setNombreTotalInterventions(etatEmploye.getClients().size());
+        statistique.setNombreOccurrencesMoins1000(calculStatOccurrences().getNombreOccurrencesMoins1000());
+        statistique.setNombreOccurrencesEntre1000Et10000(calculStatOccurrences().getNombreOccurrencesEntre1000Et10000());
+        statistique.setNombreOccurrencesPlus10000(calculStatOccurrences().getNombreOccurrencesPlus10000());
+ 
+       return statistique;
+        
+    }
+   private static ArrayList calculStatsOccurrencesArray(ArrayList<Client> clients) {
+       
+       ArrayList<Integer> stats =new ArrayList<>();
+       
+       int moinsMilles=0;
+       int plusDixMille=0;
+       int entreMilleEtDiXMille=0;
+       
+       for(int i=0;i<clients.size();i++){
+            
+            if(clients.get(i).getEtatParClient()<1000){
+                
+                moinsMilles =moinsMilles + 1;   
+            }
+            if(clients.get(i).getEtatParClient()>=1000 
+                    && clients.get(i).getEtatParClient()<= 10000){
+                entreMilleEtDiXMille+=1;
+            }if(clients.get(i).getEtatParClient()>10000 ){
+                
+                plusDixMille+=1;
+            }
+        }
+       stats.add(moinsMilles);
+       stats.add(entreMilleEtDiXMille);
+       stats.add(plusDixMille);
+       return stats; 
+   }
+   
+   private static Statistiques calculStatOccurrences() throws ClassExceptions, Exception {
+        
+       EtatEmploye etatEmploye = GestionEtatCompte.remplirObjetEtatCompte();
+        Statistiques statistique=new Statistiques();
+        ArrayList<Client> clients;
+        clients=etatEmploye.getClients();
+        
+        Integer moinsMilles=(Integer)calculStatsOccurrencesArray(clients).get(0);
+        Integer plusDixMille=(Integer)calculStatsOccurrencesArray(clients).get(2);
+        Integer entreMilleEtDiXMille=(Integer)calculStatsOccurrencesArray(clients).get(1);
+        
+        statistique.setNombreOccurrencesMoins1000(moinsMilles );
+        statistique.setNombreOccurrencesEntre1000Et10000(entreMilleEtDiXMille);
+        statistique.setNombreOccurrencesPlus10000(plusDixMille);
+        
+       return statistique;
+        
     }
     
 }
