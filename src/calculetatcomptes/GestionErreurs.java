@@ -238,8 +238,14 @@ public class GestionErreurs {
             String message = "Le cout fix payable nécessite des ajustements."; 
             observations.add(message);
         }
-        
+
         
     }
-    
+    public static void depasserEtatCompte(double etatCompte){
+        
+        if(etatCompte>3000){    
+            String message = "L'etat de compte nécessite des ajustements."; 
+            observations.add(message);
+        }
+    }
 }
