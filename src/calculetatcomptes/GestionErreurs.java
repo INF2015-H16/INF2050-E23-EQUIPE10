@@ -244,7 +244,7 @@ public class GestionErreurs {
 
     public static void depasserEtatCompte(double etatCompte) {
 
-        if (etatCompte > 3000) {
+        if (etatCompte > 30000) {
             String message = "L'etat de compte nécessite des ajustements.";
             observations.add(message);
         }

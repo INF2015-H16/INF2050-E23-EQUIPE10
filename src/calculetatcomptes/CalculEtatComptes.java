@@ -34,6 +34,7 @@ public class CalculEtatComptes {
         GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
         GestionErreurs.depasserCoutFix(remplirObjetEtatCompte().getCoutFixe());
         GestionErreurs.depasserEtatCompte(remplirObjetEtatCompte().getEtatCompte());
+        GestionErreurs.depasserTauxHoraire(creerEmployeFromJson().getTauxMin(), creerEmployeFromJson().getTauxMax());
         
         ecrireFichierSortie(args[2],creationJson());
         }catch(Exception e){
