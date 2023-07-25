@@ -242,7 +242,10 @@ public class GestionErreurs {
 
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 724a8eb307d9a789b10e81b9215a5cee619c7565
     public static void depasserEtatCompte(double etatCompte) {
 
         if (etatCompte > 3000) {

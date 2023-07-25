@@ -18,6 +18,7 @@ public class CalculEtatComptes {
 
         //********Fichier Entree*********    
 <<<<<<< HEAD
+<<<<<<< HEAD
         try{
             
           
@@ -44,6 +45,8 @@ public class CalculEtatComptes {
         ecrireFichierSortie(args[2],creerJsonErreurMessage(GestionErreurs.messageErreur));
         throw e;
 =======
+=======
+>>>>>>> 724a8eb307d9a789b10e81b9215a5cee619c7565
         try {
 
             GestionEmploye.lireFichierEntree(args);
@@ -59,6 +62,9 @@ public class CalculEtatComptes {
             //******Fichier Sortie***********    
             ecrireFichierSortie(args[1], creerJsonErreurMessage(GestionErreurs.messageErreur));
             throw e;
+<<<<<<< HEAD
+>>>>>>> 724a8eb307d9a789b10e81b9215a5cee619c7565
+=======
 >>>>>>> 724a8eb307d9a789b10e81b9215a5cee619c7565
         }
 
@@ -75,6 +81,7 @@ public class CalculEtatComptes {
     public static JSONObject creationJson() throws Exception, ClassExceptions {
 
         EtatEmploye etatEmploye = GestionEtatCompte.remplirObjetEtatCompte();
+<<<<<<< HEAD
         ArrayList<Client> clients;
         clients = etatEmploye.getClients();
 
@@ -195,6 +202,50 @@ public class CalculEtatComptes {
         
        return statistique;
         
+=======
+        ArrayList<Client> clients;
+        clients = etatEmploye.getClients();
+
+        JSONObject etatEmployee = new JSONObject();
+        etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
+        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()).replace(",", ".") + " $");
+        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()).replace(",", ".") + " $");
+        etatEmployee.accumulate("cout_ variable", formatDecimal(etatEmploye.getCoutVariable()).replace(",", ".") + " $");
+
+        JSONArray etatClients = new JSONArray();
+        JSONObject etatClient = new JSONObject();
+
+        for (int i = 0; i < clients.size(); i++) {
+
+            etatClient.accumulate("code_client", clients.get(i).getCodeClient());
+            etatClient.accumulate("etat_par_client", formatDecimal(clients.get(i).getEtatParClient()).replace(",", ".") + " $");
+            etatClients.add(etatClient);
+            etatClient.clear();
+
+        }
+        etatEmployee.accumulate("clients", etatClients);
+        //System.out.println(GestionErreurs.observations.size());
+        etatEmployee.put("observations", GestionErreurs.observations);
+        return etatEmployee;
     }
-    
+
+    public static void ecrireFichierSortie(String args, JSONObject json) throws IOException, ClassExceptions {
+        try {
+            FileWriter.saveStringIntoFile(args, json.toString());
+
+        } catch (IOException e) {
+            throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
+        }
+    }
+
+    public static JSONObject creerJsonErreurMessage(String message) {
+
+        JSONObject messageErr = new JSONObject();
+
+        messageErr.accumulate("message", message);
+        return messageErr;
+
+>>>>>>> 724a8eb307d9a789b10e81b9215a5cee619c7565
+    }
+
 }
