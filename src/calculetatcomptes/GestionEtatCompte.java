@@ -41,7 +41,7 @@ public class GestionEtatCompte {
         }
         etatCompte = etatClient + MONTANT_AJOUTE;
 
-        return (arrondiSuperieur(etatCompte));
+        return (arrondiAuPlusProche(etatCompte));
     }
 
     private static ArrayList<Client> remplirListeClients(ObjetMontantRegulier[] montantReg, CalculerMontantDeplacement[] montantDep, CalculeMontantSupplementaires[] montantSupp) {
@@ -89,7 +89,7 @@ public class GestionEtatCompte {
 
         montantFix = etatCompte * POURCENTAGE_FIX;
 
-        return arrondiSuperieur(montantFix);
+        return arrondiAuPlusProche(montantFix);
     }
     private static double calculCoutVariable(double etatCompte) {
         final double POURCENTAGE_VARIABLE = 0.025; //2.5%
@@ -97,11 +97,11 @@ public class GestionEtatCompte {
 
         coutVariable = etatCompte * POURCENTAGE_VARIABLE;
 
-        return arrondiSuperieur(coutVariable);
+        return arrondiAuPlusProche(coutVariable);
     }
 
-    private static double arrondiSuperieur(double montant) {
+    private static double arrondiAuPlusProche(double montant) {
 
-        return (double) Math.ceil(montant * 20) / 20d;
+        return (double) Math.round(montant * 20) / 20;
     }
 }
