@@ -124,16 +124,16 @@ public class GestionEmploye {
         return decimal;
     }
 
-    public static void lireFichierEntree(String[] args) throws IOException {
+    public static void lireFichierEntree(String[] args) throws Exception {
         if (args.length != 3) {
-            throw new IOException("Fichier d'entree manquant.");
+            throw new Exception("Fichier d'entree manquant.");
         }
         try {
             String texteSource = new String(Files.readAllBytes(Paths.get(args[1])));
             source = texteSource;
 
-        } catch (IOException e) {
-            throw new IOException("Erreur dans la lecture du fichier d'entree.");
+        } catch (Exception e) {
+            throw new Exception("Erreur dans la lecture du fichier d'entree.");
         }
     }
 

@@ -6,6 +6,8 @@ package calculetatcomptes;
 
 import static calculetatcomptes.GestionEmploye.creerEmployeFromJson;
 import static calculetatcomptes.GestionEtatCompte.remplirObjetEtatCompte;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
@@ -26,9 +28,13 @@ public class CalculEtatComptes {
         if (args.length > 0) {
             if (args[0].equals("-S")) {
                 // Affichez les statistiques à la console
-                displayStatistics();
+                
+                
+                displayStatistics(loadStatisticsFromFile(loadStatistics()));
+            
             } else if (args[0].equals("-SR")) {
-                // Réinitialisez les statistiques en les remettant à zéro   
+                // Réinitialisez les statistiques en les remettant à zéro
+                
             }
         }  
         GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
@@ -106,8 +112,8 @@ public class CalculEtatComptes {
     }
 
    
-   private static void displayStatistics() throws Exception {
-        Statistiques statistiques=loadStatistics();
+   private static void displayStatistics(Statistiques statistiques) throws Exception {
+        
         System.out.println("Statistiques :");
         System.out.println("--------------------------");
         System.out.println("Nombre total d'interventions : " + statistiques.getNombreTotalInterventions());
@@ -178,6 +184,33 @@ public class CalculEtatComptes {
        return statistique;
         
     }
-    
+   private static Statistiques loadStatisticsFromFile(Statistiques statistique) throws Exception {
+        File file = new File("statistiques.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        boolean exist=false;
+        // Vérifiez si le fichier existe et chargez les statistiques s'il existe
+        
+        Statistiques existingStatistics =new  Statistiques();
+        if (file.exists()) {
+            existingStatistics = objectMapper.readValue(file, Statistiques.class);
+            // Mettre à jour les statistiques existantes avec les nouvelles statistiques
+            existingStatistics.setNombreTotalInterventions(existingStatistics.getNombreTotalInterventions() + statistique.getNombreTotalInterventions());
+            existingStatistics.setNombreOccurrencesMoins1000(existingStatistics.getNombreOccurrencesMoins1000() + statistique.getNombreOccurrencesMoins1000());
+            existingStatistics.setNombreOccurrencesEntre1000Et10000(existingStatistics.getNombreOccurrencesEntre1000Et10000() + statistique.getNombreOccurrencesEntre1000Et10000());
+            existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
+            // Mettre à jour les autres statistiques de manière similaire
 
-}
+            // Sauvegarder les statistiques mises à jour dans le fichier JSON
+            objectMapper.writeValue(file, existingStatistics);
+            exist=true;
+        }else{
+            
+            objectMapper.writeValue(file, statistique);
+        }
+        if(!exist){
+            existingStatistics=statistique;
+        }
+         return existingStatistics;
+        }
+        
+    }
