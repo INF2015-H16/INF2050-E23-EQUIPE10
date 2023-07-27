@@ -135,7 +135,8 @@ public class CalculEtatComptes {
         statistique.setNombreOccurrencesEntre1000Et10000(calculStatOccurrences().getNombreOccurrencesEntre1000Et10000());
         statistique.setNombreOccurrencesPlus10000(calculStatOccurrences().getNombreOccurrencesPlus10000());
         statistique.setNombreHeuresMaximal(calculHeureMaxInter(creerEmployeFromJson()));
-       return statistique;
+        statistique.setEtatMaximalPourClient(calculMaxEtatCompte(etatEmploye.getClients()));    
+        return statistique;
         
     }
    private static int calculHeureMaxInter(Employe employe) {
@@ -150,6 +151,33 @@ public class CalculEtatComptes {
        return max;
    }
    
+    private static double max1(double a,double b) {
+        double max=a;
+        if(a<b){
+            
+            max=b;
+        }
+        return max;
+    }
+   private static int max2(int a,int b) {
+        int max=a;
+        if(a<b){
+            
+            max=b;
+        }
+        return max;
+    }
+   private static double calculMaxEtatCompte(ArrayList<Client> clients) {
+       double max=clients.get(0).getEtatParClient();
+       
+       for(int i=0;i<clients.size();i++){
+           
+           if(max<clients.get(i).getEtatParClient()){
+               max=clients.get(i).getEtatParClient();
+           }
+       }
+       return max;
+   }
    private static ArrayList calculStatsOccurrencesArray(ArrayList<Client> clients) {
        
        ArrayList<Integer> stats =new ArrayList<>();
@@ -204,14 +232,15 @@ public class CalculEtatComptes {
         
         Statistiques existingStatistics =new  Statistiques();
         if (file.exists()) {
+            
             existingStatistics = objectMapper.readValue(file, Statistiques.class);
             // Mettre à jour les statistiques existantes avec les nouvelles statistiques
             existingStatistics.setNombreTotalInterventions(existingStatistics.getNombreTotalInterventions() + statistique.getNombreTotalInterventions());
             existingStatistics.setNombreOccurrencesMoins1000(existingStatistics.getNombreOccurrencesMoins1000() + statistique.getNombreOccurrencesMoins1000());
             existingStatistics.setNombreOccurrencesEntre1000Et10000(existingStatistics.getNombreOccurrencesEntre1000Et10000() + statistique.getNombreOccurrencesEntre1000Et10000());
             existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
-            existingStatistics.setNombreHeuresMaximal(existingStatistics.getNombreHeuresMaximal() + statistique.getNombreHeuresMaximal());
-// Mettre à jour les autres statistiques de manière similaire
+            existingStatistics.setNombreHeuresMaximal( max2(existingStatistics.getNombreHeuresMaximal() , statistique.getNombreHeuresMaximal()));
+            existingStatistics.setEtatMaximalPourClient(max1(existingStatistics.getEtatMaximalPourClient(),statistique.getEtatMaximalPourClient()));   
 
             // Sauvegarder les statistiques mises à jour dans le fichier JSON
             objectMapper.writeValue(file, existingStatistics);
