@@ -134,10 +134,22 @@ public class CalculEtatComptes {
         statistique.setNombreOccurrencesMoins1000(calculStatOccurrences().getNombreOccurrencesMoins1000());
         statistique.setNombreOccurrencesEntre1000Et10000(calculStatOccurrences().getNombreOccurrencesEntre1000Et10000());
         statistique.setNombreOccurrencesPlus10000(calculStatOccurrences().getNombreOccurrencesPlus10000());
- 
+        statistique.setNombreHeuresMaximal(calculHeureMaxInter(creerEmployeFromJson()));
        return statistique;
         
     }
+   private static int calculHeureMaxInter(Employe employe) {
+       int max=employe.getInterventions().get(0).getNombresHeures();
+       
+       for(int i=0;i<employe.getInterventions().size();i++){
+           
+           if(max<employe.getInterventions().get(i).getNombresHeures()){
+               max=employe.getInterventions().get(i).getNombresHeures();
+           }
+       }
+       return max;
+   }
+   
    private static ArrayList calculStatsOccurrencesArray(ArrayList<Client> clients) {
        
        ArrayList<Integer> stats =new ArrayList<>();
@@ -198,7 +210,8 @@ public class CalculEtatComptes {
             existingStatistics.setNombreOccurrencesMoins1000(existingStatistics.getNombreOccurrencesMoins1000() + statistique.getNombreOccurrencesMoins1000());
             existingStatistics.setNombreOccurrencesEntre1000Et10000(existingStatistics.getNombreOccurrencesEntre1000Et10000() + statistique.getNombreOccurrencesEntre1000Et10000());
             existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
-            // Mettre à jour les autres statistiques de manière similaire
+            existingStatistics.setNombreHeuresMaximal(existingStatistics.getNombreHeuresMaximal() + statistique.getNombreHeuresMaximal());
+// Mettre à jour les autres statistiques de manière similaire
 
             // Sauvegarder les statistiques mises à jour dans le fichier JSON
             objectMapper.writeValue(file, existingStatistics);
