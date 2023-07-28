@@ -258,4 +258,18 @@ public class GestionErreurs {
         }
     }
 
+     public static void depasserDistanceDeplacement(Employe employe) {
+      
+        ArrayList<Intervention> interventions=employe.getInterventions();
+        for(Intervention intervention : interventions){
+            
+            if(intervention.getDistanceDeplacement() > 50){
+                String message ="Client ("+ intervention.getCodeClient() +")"
+                + " avec la date d’intervention "+intervention.getDateIntervention()
+                + " a une distance trop grande.";
+                
+                observations.add(message);
+            }
+        }
+    }
 }
