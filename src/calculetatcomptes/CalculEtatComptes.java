@@ -15,40 +15,45 @@ import net.sf.json.JSONObject;
 import java.text.DecimalFormat;
 
 public class CalculEtatComptes {
+    
+    private static final File file = new File("statistiques.json");
 
     public static void main(String[] args) throws Exception, ClassExceptions {
 
         //********Fichier Entree*********    
-
+        if(!args[0].equals("-S")&& !args[0].equals("-SR")){
         try{
               
-        GestionEmploye.lireFichierEntree(args);
-        //******Calculs******************    
-        creationJson();
+                GestionEmploye.lireFichierEntree(args);
+                //******Calculs****************** 
+                creationJson();
+                GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
+                GestionErreurs.depasserCoutFix(remplirObjetEtatCompte().getCoutFixe());
+                GestionErreurs.depasserEtatCompte(remplirObjetEtatCompte().getEtatCompte());
+                GestionErreurs.depasserTauxHoraire(creerEmployeFromJson().getTauxMin(), creerEmployeFromJson().getTauxMax());
+                ecrireFichierSortie(args[1],creationJson());
+                storeStatisticsFromFile(loadStatistics());
+            }catch(Exception e){
+        //******Fichier Sortie***********    
+        ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
+        throw e;
+        }
+    }
         if (args.length > 0) {
-            if (args[0].equals("-S")) {
-                // Affichez les statistiques à la console
-                
-                
-                displayStatistics(loadStatisticsFromFile(loadStatistics()));
+            
+        if (args[0].equals("-S")) {
+            // Affichez les statistiques à la console
+            displayStatistics(loadStatisticsFromFile());
             
             } else if (args[0].equals("-SR")) {
                 // Réinitialisez les statistiques en les remettant à zéro
+                resetStatistics(loadStatisticsFromFile());
                 
             }
+            
         }  
-        GestionErreurs.validerEcartDate( creerEmployeFromJson().getInterventions());
-        GestionErreurs.depasserCoutFix(remplirObjetEtatCompte().getCoutFixe());
-        GestionErreurs.depasserEtatCompte(remplirObjetEtatCompte().getEtatCompte());
-        GestionErreurs.depasserTauxHoraire(creerEmployeFromJson().getTauxMin(), creerEmployeFromJson().getTauxMax());
         
-        ecrireFichierSortie(args[2],creationJson());
-        }catch(Exception e){
-        //******Fichier Sortie***********    
-        ecrireFichierSortie(args[2],creerJsonErreurMessage(GestionErreurs.messageErreur));
-        throw e;
-
-        }
+        
 
     }
 
@@ -224,8 +229,8 @@ public class CalculEtatComptes {
        return statistique;
         
     }
-   private static Statistiques loadStatisticsFromFile(Statistiques statistique) throws Exception {
-        File file = new File("statistiques.json");
+   private static Statistiques storeStatisticsFromFile(Statistiques statistique) throws Exception {
+        
         ObjectMapper objectMapper = new ObjectMapper();
         boolean exist=false;
         // Vérifiez si le fichier existe et chargez les statistiques s'il existe
@@ -254,5 +259,35 @@ public class CalculEtatComptes {
         }
          return existingStatistics;
         }
-        
+   private static void resetStatistics(Statistiques statistiques) {
+        ObjectMapper objectMapper = new ObjectMapper(); 
+        statistiques.setNombreTotalInterventions(0);
+        statistiques.setNombreOccurrencesMoins1000(0);
+        statistiques.setNombreOccurrencesEntre1000Et10000(0);
+        statistiques.setNombreOccurrencesPlus10000(0);
+        statistiques.setNombreHeuresMaximal(0);
+        statistiques.setEtatMaximalPourClient(0);
+        statistiques.setNombreTotalInterventions(0);
+        statistiques.setEtatMaximalPourClient(0);
+        if (file.exists()) {
+            try {
+                objectMapper.writeValue(file, Statistiques.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+   private static Statistiques loadStatisticsFromFile() {
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Vérifiez si le fichier existe et chargez les statistiques s'il existe
+        if (file.exists()) {
+            try {
+                return objectMapper.readValue(file, Statistiques.class);
+            } catch (IOException e) {
+            }
+        }
+        // Si le fichier n'existe pas ou s'il y a une erreur de lecture, retournez une nouvelle instance de Statistiques
+        return new Statistiques();
+    }
+}
