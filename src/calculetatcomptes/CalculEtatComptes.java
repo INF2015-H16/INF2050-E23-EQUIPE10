@@ -48,7 +48,7 @@ public class CalculEtatComptes {
             } else if (args[0].equals("-SR")) {
                 // Réinitialisez les statistiques en les remettant à zéro
                 resetStatistics(loadStatisticsFromFile());
-                
+                System.out.println("Statistiques réinitialisées avec succès.");
             }
             
         }  
@@ -126,7 +126,9 @@ public class CalculEtatComptes {
         System.out.println("- Moins de 1000$ : " + statistiques.getNombreOccurrencesMoins1000());
         System.out.println("- Entre 1000 et 10000$ : " + statistiques.getNombreOccurrencesEntre1000Et10000());
         System.out.println("- Plus de 10000$ : " + statistiques.getNombreOccurrencesPlus10000());
-        System.out.println("Nombre d'interventions par type d'employé :"+ statistiques.getInterventionsParTypeEmploye());
+        System.out.println("Nombre d'interventions par type d'employé 1 :"+ statistiques.getNombreInterventionsParTypeEmploye1());
+        System.out.println("Nombre d'interventions par type d'employé 2 :"+ statistiques.getNombreInterventionsParTypeEmploye2());
+        System.out.println("Nombre d'interventions par type d'employé 3 :"+ statistiques.getNombreInterventionsParTypeEmploye3());        
         System.out.println("Nombre d'heures maximal soumis pour une intervention : " + statistiques.getNombreHeuresMaximal());
         System.out.println("État par client maximal retourné pour un client : " + statistiques.getEtatMaximalPourClient());
     }
@@ -141,6 +143,9 @@ public class CalculEtatComptes {
         statistique.setNombreOccurrencesPlus10000(calculStatOccurrences().getNombreOccurrencesPlus10000());
         statistique.setNombreHeuresMaximal(calculHeureMaxInter(creerEmployeFromJson()));
         statistique.setEtatMaximalPourClient(calculMaxEtatCompte(etatEmploye.getClients()));    
+        statistique.setNombreInterventionsParTypeEmploye1(calculeInterventionsTypeEmp(1,creerEmployeFromJson()));
+        statistique.setNombreInterventionsParTypeEmploye2(calculeInterventionsTypeEmp(2,creerEmployeFromJson()));
+        statistique.setNombreInterventionsParTypeEmploye3(calculeInterventionsTypeEmp(3,creerEmployeFromJson()));
         return statistique;
         
     }
@@ -172,7 +177,18 @@ public class CalculEtatComptes {
         }
         return max;
     }
+   private static int calculeInterventionsTypeEmp(int a,Employe employe) {
+        int compteur=0;
+        
+        if(employe.getTypeEmploye()==a){
+            
+           compteur= employe.getInterventions().size();
+            
+        }
+        return compteur;
+    }
    private static double calculMaxEtatCompte(ArrayList<Client> clients) {
+       
        double max=clients.get(0).getEtatParClient();
        
        for(int i=0;i<clients.size();i++){
@@ -246,7 +262,9 @@ public class CalculEtatComptes {
             existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
             existingStatistics.setNombreHeuresMaximal( max2(existingStatistics.getNombreHeuresMaximal() , statistique.getNombreHeuresMaximal()));
             existingStatistics.setEtatMaximalPourClient(max1(existingStatistics.getEtatMaximalPourClient(),statistique.getEtatMaximalPourClient()));   
-
+            existingStatistics.setNombreInterventionsParTypeEmploye1(existingStatistics.getNombreInterventionsParTypeEmploye1()+statistique.getNombreInterventionsParTypeEmploye1());
+            existingStatistics.setNombreInterventionsParTypeEmploye2(existingStatistics.getNombreInterventionsParTypeEmploye2()+statistique.getNombreInterventionsParTypeEmploye2());
+            existingStatistics.setNombreInterventionsParTypeEmploye3(existingStatistics.getNombreInterventionsParTypeEmploye3()+statistique.getNombreInterventionsParTypeEmploye3());
             // Sauvegarder les statistiques mises à jour dans le fichier JSON
             objectMapper.writeValue(file, existingStatistics);
             exist=true;
@@ -269,11 +287,14 @@ public class CalculEtatComptes {
         statistiques.setEtatMaximalPourClient(0);
         statistiques.setNombreTotalInterventions(0);
         statistiques.setEtatMaximalPourClient(0);
+        statistiques.setNombreInterventionsParTypeEmploye1(0);
+        statistiques.setNombreInterventionsParTypeEmploye2(0);
+        statistiques.setNombreInterventionsParTypeEmploye3(0);
+
         if (file.exists()) {
             try {
                 objectMapper.writeValue(file, Statistiques.class);
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

@@ -8,19 +8,16 @@ package calculetatcomptes;
  *
  * @author Lemaici Rabah
  */
-import java.util.HashMap;
-import java.util.Map;
-
 public class Statistiques {
     private int nombreTotalInterventions;
     private int nombreOccurrencesMoins1000;
     private int nombreOccurrencesEntre1000Et10000;
     private int nombreOccurrencesPlus10000;
-    private int nombreInterventionsParTypeEmploye;
+    private int nombreInterventionsParTypeEmploye1;
+    private int nombreInterventionsParTypeEmploye2;
+    private int nombreInterventionsParTypeEmploye3;
     private int nombreHeuresMaximal;
     private double etatMaximalPourClient;
-
-    
 
     public int getNombreTotalInterventions() {
         return nombreTotalInterventions;
@@ -54,12 +51,28 @@ public class Statistiques {
         this.nombreOccurrencesPlus10000 = nombreOccurrencesPlus10000;
     }
 
-    public int getInterventionsParTypeEmploye() {
-        return nombreInterventionsParTypeEmploye;
+    public int getNombreInterventionsParTypeEmploye1() {
+        return nombreInterventionsParTypeEmploye1;
     }
 
-    public void setInterventionsParTypeEmploye(int nombreInterventionsParTypeEmploye) {
-        this.nombreInterventionsParTypeEmploye = nombreInterventionsParTypeEmploye;
+    public void setNombreInterventionsParTypeEmploye1(int nombreInterventionsParTypeEmploye1) {
+        this.nombreInterventionsParTypeEmploye1 = nombreInterventionsParTypeEmploye1;
+    }
+
+    public int getNombreInterventionsParTypeEmploye2() {
+        return nombreInterventionsParTypeEmploye2;
+    }
+
+    public void setNombreInterventionsParTypeEmploye2(int nombreInterventionsParTypeEmploye2) {
+        this.nombreInterventionsParTypeEmploye2 = nombreInterventionsParTypeEmploye2;
+    }
+
+    public int getNombreInterventionsParTypeEmploye3() {
+        return nombreInterventionsParTypeEmploye3;
+    }
+
+    public void setNombreInterventionsParTypeEmploye3(int nombreInterventionsParTypeEmploye3) {
+        this.nombreInterventionsParTypeEmploye3 = nombreInterventionsParTypeEmploye3;
     }
 
     public int getNombreHeuresMaximal() {
