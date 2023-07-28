@@ -32,6 +32,7 @@ public class CalculEtatComptes {
                 GestionErreurs.depasserEtatCompte(remplirObjetEtatCompte().getEtatCompte());
                 GestionErreurs.depasserTauxHoraire(creerEmployeFromJson().getTauxMin(), creerEmployeFromJson().getTauxMax());
                 GestionErreurs.depasserDistanceDeplacement(creerEmployeFromJson());
+                GestionErreurs.depasserEtatCompteCoutVariable(remplirObjetEtatCompte());
                 ecrireFichierSortie(args[1],creationJson());
                 storeStatisticsFromFile(loadStatistics());
             }catch(Exception e){

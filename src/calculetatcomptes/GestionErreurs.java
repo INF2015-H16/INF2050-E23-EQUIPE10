@@ -272,4 +272,19 @@ public class GestionErreurs {
             }
         }
     }
+     
+     public static void depasserEtatCompteCoutVariable(EtatEmploye etatEmploye) {
+     
+            if( etatEmploye.getEtatCompte()>15000 ){
+                
+                String message ="L'etat compte nécessite des ajustements.";
+                observations.add(message);
+            }
+            if( etatEmploye.getCoutVariable()>3000 ){
+                
+                String message ="Le cout variable nécessite des ajustements.";
+                observations.add(message);
+            }
+        
+    }
 }
