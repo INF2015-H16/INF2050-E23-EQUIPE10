@@ -15,9 +15,9 @@ public class GestionEtatCompte {
    
         Employe employe = GestionEmploye.creerEmployeFromJson();
 
-        ObjetMontantRegulier[] montantReg = CalculMontantRegulier.calculMontant();
-        CalculeMontantSupplementaires[] montantSupp = CalculeMontantSupplementaires.calculeMontantSupplementaire();
-        CalculerMontantDeplacement[] montantDep = CalculerMontantDeplacement.calculerMontanDeplacement();
+        ObjetMontantRegulier[] montantReg = CalculMontantRegulier.calculMontant(employe);
+        CalculeMontantSupplementaires[] montantSupp = CalculeMontantSupplementaires.calculeMontantSupplementaire(employe);
+        CalculerMontantDeplacement[] montantDep = CalculerMontantDeplacement.calculerMontanDeplacement(employe);
                
         double etatCompte = calculEtatcompte(montantReg, montantDep, montantSupp);
 

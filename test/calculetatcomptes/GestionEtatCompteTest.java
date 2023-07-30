@@ -1,51 +1,54 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package calculetatcomptes;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author lemaicirabah
+ * @author Luz Suarez
  */
 public class GestionEtatCompteTest {
     
     public GestionEtatCompteTest() {
     }
     
-    @BeforeAll
+    @BeforeClass
     public static void setUpClass() {
     }
     
-    @AfterAll
+    @AfterClass
     public static void tearDownClass() {
     }
     
-    @BeforeEach
+    @Before
     public void setUp() {
     }
     
-    @AfterEach
+    @After
     public void tearDown() {
     }
 
     /**
-     * Test of RemplirObjetEtatCompte method, of class GestionEtatCompte.
+     * Test of remplirObjetEtatCompte method, of class GestionEtatCompte.
+     * @throws java.lang.Exception
      */
+    
     @Test
     public void testRemplirObjetEtatCompte() throws Exception {
-        System.out.println("RemplirObjetEtatCompte");
+        System.out.println("remplirObjetEtatCompte");
         EtatEmploye expResult = null;
-        EtatEmploye result = GestionEtatCompte.RemplirObjetEtatCompte();
+        EtatEmploye result = GestionEtatCompte.remplirObjetEtatCompte();
         assertEquals(expResult, result);
-        fail("Test RemplirObjetEtatCompte");
-    }
-    
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }    
 }
