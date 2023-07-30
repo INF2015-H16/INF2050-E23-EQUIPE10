@@ -14,8 +14,17 @@ public class Employe {
     private double tauxMin;
     private double tauxMax;
     private ArrayList<Intervention> interventions=new ArrayList<>();
-           
-    
+
+    public Employe(int matricule, int typeEmploye, double tauxMin, double tauxMax, ArrayList<Intervention> interventions) {
+        this.matricule = matricule;
+        this.typeEmploye = typeEmploye;
+        this.tauxMin = tauxMin;
+        this.tauxMax = tauxMax;
+        this.interventions = interventions;
+    }
+
+    public Employe() {
+    } 
     
     public void setMatricule(int matricule){
         this.matricule=matricule;
