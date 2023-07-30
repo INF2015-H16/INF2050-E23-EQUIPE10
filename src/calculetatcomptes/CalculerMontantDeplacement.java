@@ -33,9 +33,7 @@ public class CalculerMontantDeplacement {
         this.montantDeplacement = montantDeplacement;
     }
    
-    public static CalculerMontantDeplacement[] calculerMontanDeplacement() throws Exception, ClassExceptions {
-
-        Employe employe = GestionEmploye.creerEmployeFromJson();
+    public static CalculerMontantDeplacement[] calculerMontanDeplacement(Employe employe) throws Exception, ClassExceptions {
 
         ArrayList<Intervention> interventions;
         interventions = employe.getInterventions();
@@ -44,7 +42,7 @@ public class CalculerMontantDeplacement {
         listeUnique = listeClientsUnique(interventions);
 
         CalculerMontantDeplacement[] calculMontant;
-        calculMontant = calculerMontantType(listeUnique, employe.getTypeEmploye());
+        calculMontant = calculerMontantType(employe, listeUnique, employe.getTypeEmploye());
 
         return calculMontant;
     }
@@ -79,10 +77,10 @@ public class CalculerMontantDeplacement {
         return mapUnique;
     }
 
-    private static CalculerMontantDeplacement[] calculerMontantType(ArrayList<Entry<String, Integer>> listeUnique, int type) throws Exception, ClassExceptions {
+    private static CalculerMontantDeplacement[] calculerMontantType(Employe employe, ArrayList<Entry<String, Integer>> listeUnique, int type) throws Exception, ClassExceptions {
 
         CalculerMontantDeplacement[] deplacementClient = new CalculerMontantDeplacement[listeUnique.size()];
-        ObjetMontantRegulier[] montantReguliere = CalculMontantRegulier.calculMontant();
+        ObjetMontantRegulier[] montantReguliere = CalculMontantRegulier.calculMontant(employe);
 
         int compteur = 0;
 
