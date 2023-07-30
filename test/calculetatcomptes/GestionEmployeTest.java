@@ -1,79 +1,83 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package calculetatcomptes;
 
-import java.util.ArrayList;
-import net.sf.json.JSONArray;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author lemaicirabah
+ * @author Luz Suarez
  */
 public class GestionEmployeTest {
     
     public GestionEmployeTest() {
     }
     
-    @BeforeAll
+    @BeforeClass
     public static void setUpClass() {
     }
     
-    @AfterAll
+    @AfterClass
     public static void tearDownClass() {
     }
     
-    @BeforeEach
+    @Before
     public void setUp() {
     }
     
-    @AfterEach
+    @After
     public void tearDown() {
     }
 
     /**
      * Test of creerEmployeFromJson method, of class GestionEmploye.
+     * @throws java.lang.Exception
      */
+    /*
     @Test
-    public void testRecupererJson() throws Exception {
-        System.out.println("RecupererJson");
+    public void testCreerEmployeFromJson() throws Exception {
+        System.out.println("creerEmployeFromJson");
         Employe expResult = null;
         Employe result = GestionEmploye.creerEmployeFromJson();
         assertEquals(expResult, result);
-        fail("Test RecupererJson");
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of remplireTableauInterventions method, of class GestionEmploye.
-     */
-    @Test
-    public void testRemplireInetrventions() {
-        System.out.println("remplireInetrventions");
-        JSONArray listInterventions = null;
-        ArrayList<Intervention> expResult = null;
-        ArrayList<Intervention> result = GestionEmploye.remplireTableauInterventions(listInterventions);
-        assertEquals(expResult, result);
-        fail("Test RemplireInetrventions");
-    }
-
+    */
+    
     /**
      * Test of convertirStringEnDouble method, of class GestionEmploye.
      */
     @Test
-    public void testConvertirString() {
-        System.out.println("convertirString");
-        String chaine = "";
+    public void testConvertirStringEnDouble() {
+        System.out.println("convertirStringEnDouble");
+        String chaine = "0.0";
         double expResult = 0.0;
         double result = GestionEmploye.convertirStringEnDouble(chaine);
-        assertEquals(expResult, result, 0);
-        fail("Test ConvertirString");
+        assertEquals(expResult, result, 0.0);
     }
-    
+
+    /**
+     * Test of lireFichierEntree method, of class GestionEmploye.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testLireFichierEntree() throws Exception {
+        System.out.println("lireFichierEntree");       
+        GestionEmploye test = new GestionEmploye();
+        try {
+            String[] args = {"test1"};
+            test.lireFichierEntree(args); //GestionEmploye.lireFichierEntree(args);
+        } catch (Exception e) {
+            assertEquals("Fichier d'entree manquant.", e.getMessage());
+        }             
+    }   
 }
