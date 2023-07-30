@@ -9,10 +9,10 @@ import static calculetatcomptes.GestionEtatCompte.remplirObjetEtatCompte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import java.text.DecimalFormat;
 
 public class CalculEtatComptes {
     
@@ -67,7 +67,7 @@ public class CalculEtatComptes {
         return decimalFormat.format(valeur);
     }
 
-    public static JSONObject creationJson() throws Exception, ClassExceptions {
+    private static JSONObject creationJson() throws Exception, ClassExceptions {
 
         EtatEmploye etatEmploye = GestionEtatCompte.remplirObjetEtatCompte();
         ArrayList<Client> clients;
@@ -100,7 +100,7 @@ public class CalculEtatComptes {
         return etatEmployee;
     }
 
-    public static void ecrireFichierSortie(String args, JSONObject json) throws IOException, ClassExceptions {
+    private static void ecrireFichierSortie(String args, JSONObject json) throws IOException, ClassExceptions {
         try {
             FileWriter.saveStringIntoFile(args, json.toString());
 
@@ -109,7 +109,7 @@ public class CalculEtatComptes {
         }
     }
 
-    public static JSONObject creerJsonErreurMessage(String message) {
+    private static JSONObject creerJsonErreurMessage(String message) {
 
         JSONObject messageErr = new JSONObject();
 

@@ -1,74 +1,52 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package calculetatcomptes;
 
-import net.sf.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author lemaicirabah
+ * @author Luz Suarez
  */
 public class CalculEtatComptesTest {
     
     public CalculEtatComptesTest() {
     }
     
-    @BeforeAll
+    @BeforeClass
     public static void setUpClass() {
     }
     
-    @AfterAll
+    @AfterClass
     public static void tearDownClass() {
     }
     
-    @BeforeEach
+    @Before
     public void setUp() {
     }
     
-    @AfterEach
+    @After
     public void tearDown() {
     }
 
     /**
      * Test of main method, of class CalculEtatComptes.
+     * @throws java.lang.Exception
      */
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
         CalculEtatComptes.main(args);
-        fail("Test main");
-    }
-
-    /**
-     * Test of creerJson method, of class CalculEtatComptes.
-     */
-    @Test
-    public void testCreationJson() throws Exception {
-        System.out.println("creationJson");
-        JSONObject expResult = null;
-        JSONObject result = CalculEtatComptes.creerJson();
-        assertEquals(expResult, result);
-        fail("Test CreationJson");
-    }
-
-    /**
-     * Test of ecrireFichierSortie method, of class CalculEtatComptes.
-     */
-    @Test
-    public void testEcrireFichierSortie() throws Exception {
-        System.out.println("ecrireFichierSortie");
-        String args = "";
-        CalculEtatComptes.ecrireFichierSortie(args);
-        fail("Test EcrireFichierSortie");
-    }
-    
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }   
 }
