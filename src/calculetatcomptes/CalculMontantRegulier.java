@@ -12,9 +12,7 @@ import java.util.ArrayList;
 public class CalculMontantRegulier {
 
     
-    public static ObjetMontantRegulier[] calculMontant() throws Exception, ClassExceptions {
-
-        Employe employe = GestionEmploye.creerEmployeFromJson();
+    public static ObjetMontantRegulier[] calculMontant(Employe employe) throws Exception, ClassExceptions {
 
         ArrayList<Intervention> interventions = employe.getInterventions();
         String tabCodesClient[] = new String[interventions.size()];
