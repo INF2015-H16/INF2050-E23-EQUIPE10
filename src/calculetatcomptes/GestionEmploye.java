@@ -36,8 +36,9 @@ public class GestionEmploye {
         employe = JSONObject.fromObject(source);
         validerProprietesEmploye(employe);
         }catch(JSONException e){
-           messageErreur ="Verifier la Syntaxe de votre Fichier JSON !!!!";  
-           throw new ClassExceptions(messageErreur);
+            messageErreur ="Verifier la Syntaxe de votre Fichier JSON !!!!";  
+            System.err.print(messageErreur);
+            System.exit(0);
         }
         objetEmploye.setMatricule(employe.getInt(MATRICULE_EMPLOYE));
         objetEmploye.setTypeEmploye(employe.getInt(TYPE_EMPLOYE));
@@ -126,14 +127,20 @@ public class GestionEmploye {
 
     public static void lireFichierEntree(String[] args) throws Exception {
         if (args.length != 2) {
-            throw new Exception("Fichier d'entree manquant.");
+            messageErreur = "Fichier d'entree manquant.";
+            System.err.print(messageErreur);
+            System.exit(0);
+            
         }
         try {
             String texteSource = new String(Files.readAllBytes(Paths.get(args[0])));
             source = texteSource;
 
         } catch (Exception e) {
-            throw new Exception("Erreur dans la lecture du fichier d'entree.");
+            messageErreur ="Erreur dans la lecture du fichier d'entree.";
+            System.err.print(messageErreur);
+            System.exit(0);
+            
         }
     }
 
