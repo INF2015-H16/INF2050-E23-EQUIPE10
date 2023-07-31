@@ -127,7 +127,7 @@ public class GestionEmploye {
 
     public static void lireFichierEntree(String[] args) throws Exception {
         if (args.length != 2) {
-            messageErreur = "Fichier d'entree manquant.";
+            messageErreur = "Fichier d'entree ou sortie manquant.";
             System.err.print(messageErreur);
             System.exit(0);
             
