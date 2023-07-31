@@ -4,21 +4,15 @@
  */
 package calculetatcomptes;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import static calculetatcomptes.GestionEmploye.creerEmployeFromJson;
 import static calculetatcomptes.GestionEtatCompte.remplirObjetEtatCompte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class CalculEtatComptes {
     
@@ -80,39 +74,36 @@ public class CalculEtatComptes {
         clients = etatEmploye.getClients();
 
         JSONObject etatEmployee = new JSONObject();
-        etatEmployee.put("matricule_employe", etatEmploye.getMatriculeEmploye());
-        etatEmployee.put("etat_compte", formatDecimal(etatEmploye.getEtatCompte()).replace(",", ".") + " $");
-        etatEmployee.put("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()).replace(",", ".") + " $");
-        etatEmployee.put("cout_ variable", formatDecimal(etatEmploye.getCoutVariable()).replace(",", ".") + " $");
+        etatEmployee.accumulate("matricule_employe", etatEmploye.getMatriculeEmploye());
+        etatEmployee.accumulate("etat_compte", formatDecimal(etatEmploye.getEtatCompte()).replace(",", ".") + " $");
+        etatEmployee.accumulate("cout_fixe", formatDecimal(etatEmploye.getCoutFixe()).replace(",", ".") + " $");
+        etatEmployee.accumulate("cout_ variable", formatDecimal(etatEmploye.getCoutVariable()).replace(",", ".") + " $");
 
         JSONArray etatClients = new JSONArray();
         JSONObject etatClient = new JSONObject();
 
         for (int i = 0; i < clients.size(); i++) {
 
-            etatClient.put("code_client", clients.get(i).getCodeClient());
-            etatClient.put("etat_par_client", formatDecimal(clients.get(i).getEtatParClient()).replace(",", ".") + " $");
+            etatClient.accumulate("code_client", clients.get(i).getCodeClient());
+            etatClient.accumulate("etat_par_client", formatDecimal(clients.get(i).getEtatParClient()).replace(",", ".") + " $");
             etatClients.add(etatClient);
             etatClient.clear();
 
         }
-        etatEmployee.put("clients", etatClients);
+        etatEmployee.accumulate("clients", etatClients);
 
-        etatEmployee.put("observations", GestionErreurs.observations); 
-
-        //System.out.println(GestionErreurs.observations.size());
-        etatEmployee.put("observations", GestionErreurs.observations);
-
+        if(!GestionErreurs.observations.isEmpty()){
+            etatEmployee.put("observations", GestionErreurs.observations); 
+        }
+       
         return etatEmployee;
     }
 
     private static void ecrireFichierSortie(String args, JSONObject json) throws IOException, ClassExceptions {
-        
-        File file = new File(args);
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(json.toString());
-           
-        }catch (IOException e) {
+        try {
+            FileWriter.saveStringIntoFile(args, json.toString());
+
+        } catch (IOException e) {
             throw new IOException("Erreur dans l'ecriture du fichier de sortie.");
         }
     }
@@ -121,7 +112,7 @@ public class CalculEtatComptes {
 
         JSONObject messageErr = new JSONObject();
 
-        messageErr.put("message", message);
+        messageErr.accumulate("message", message);
         return messageErr;
 
     }
@@ -151,7 +142,7 @@ public class CalculEtatComptes {
         statistique.setNombreOccurrencesEntre1000Et10000(calculStatOccurrences().getNombreOccurrencesEntre1000Et10000());
         statistique.setNombreOccurrencesPlus10000(calculStatOccurrences().getNombreOccurrencesPlus10000());
         statistique.setNombreHeuresMaximal(calculHeureMaxInter(creerEmployeFromJson()));
-        statistique.setEtatMaximalPourClient((Double)calculMaxEtatCompte(etatEmploye.getClients()));    
+        statistique.setEtatMaximalPourClient(calculMaxEtatCompte(etatEmploye.getClients()));    
         statistique.setNombreInterventionsParTypeEmploye1(calculeInterventionsTypeEmp(1,creerEmployeFromJson()));
         statistique.setNombreInterventionsParTypeEmploye2(calculeInterventionsTypeEmp(2,creerEmployeFromJson()));
         statistique.setNombreInterventionsParTypeEmploye3(calculeInterventionsTypeEmp(3,creerEmployeFromJson()));
@@ -167,6 +158,22 @@ public class CalculEtatComptes {
        return max;
    }
    
+    private static double max1(double a,double b) {
+        double max=a;
+        if(a<b){
+            
+            max=b;
+        }
+        return max;
+    }
+   private static int max2(int a,int b) {
+        int max=a;
+        if(a<b){
+            
+            max=b;
+        }
+        return max;
+    }
    private static int calculeInterventionsTypeEmp(int a,Employe employe) {
         int compteur=0;
         
@@ -225,132 +232,68 @@ public class CalculEtatComptes {
        return statistique;
         
     }
-   private static Statistiques storeStatisticsFromFile(Statistiques statistique) throws Exception {
-    JSONParser parser = new JSONParser();
-    boolean exist = false;
-    Statistiques existingStatistics = new Statistiques();
-
-    if (file.exists()) {
-        try (FileReader fileReader = new FileReader(file)) {
-            // Parse le fichier JSON et convertit en objet JSONObject
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-
-            // Construit l'objet Statistiques à partir du JSONObject
-            existingStatistics.setNombreTotalInterventions(((Long) jsonObject.get("nombreTotalInterventions")).intValue());
-            existingStatistics.setNombreOccurrencesMoins1000(((Long) jsonObject.get("nombreOccurrencesMoins1000")).intValue());
-            existingStatistics.setNombreOccurrencesEntre1000Et10000(((Long) jsonObject.get("nombreOccurrencesEntre1000Et10000")).intValue());
-            existingStatistics.setNombreOccurrencesPlus10000(((Long) jsonObject.get("nombreOccurrencesPlus10000")).intValue());
-            existingStatistics.setNombreHeuresMaximal(((Long) jsonObject.get("nombreHeuresMaximal")).intValue());
-            existingStatistics.setEtatMaximalPourClient((Double) jsonObject.get("etatMaximalPourClient"));
-            existingStatistics.setNombreInterventionsParTypeEmploye1(((Long) jsonObject.get("nombreInterventionsParTypeEmploye1")).intValue());
-            existingStatistics.setNombreInterventionsParTypeEmploye2(((Long) jsonObject.get("nombreInterventionsParTypeEmploye2")).intValue());
-            existingStatistics.setNombreInterventionsParTypeEmploye3(((Long) jsonObject.get("nombreInterventionsParTypeEmploye3")).intValue());
-
-            exist = true;
-        } catch (IOException | ParseException e) {
-            System.out.println("Erreur lors de la lecture du fichier : " + e.getMessage());
+   private static Statistiques storeStatisticsFromFile(Statistiques statistique) throws Exception {       
+        ObjectMapper objectMapper = new ObjectMapper();
+        boolean exist=false;
+        // Vérifiez si le fichier existe et chargez les statistiques s'il existe        
+        Statistiques existingStatistics =new  Statistiques();
+        if (file.exists()) {            
+            existingStatistics = objectMapper.readValue(file, Statistiques.class);
+            // Mettre à jour les statistiques existantes avec les nouvelles statistiques
+            existingStatistics.setNombreTotalInterventions(existingStatistics.getNombreTotalInterventions() + statistique.getNombreTotalInterventions());
+            existingStatistics.setNombreOccurrencesMoins1000(existingStatistics.getNombreOccurrencesMoins1000() + statistique.getNombreOccurrencesMoins1000());
+            existingStatistics.setNombreOccurrencesEntre1000Et10000(existingStatistics.getNombreOccurrencesEntre1000Et10000() + statistique.getNombreOccurrencesEntre1000Et10000());
+            existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
+            existingStatistics.setNombreHeuresMaximal( max2(existingStatistics.getNombreHeuresMaximal() , statistique.getNombreHeuresMaximal()));
+            existingStatistics.setEtatMaximalPourClient(max1(existingStatistics.getEtatMaximalPourClient(),statistique.getEtatMaximalPourClient()));   
+            existingStatistics.setNombreInterventionsParTypeEmploye1(existingStatistics.getNombreInterventionsParTypeEmploye1()+statistique.getNombreInterventionsParTypeEmploye1());
+            existingStatistics.setNombreInterventionsParTypeEmploye2(existingStatistics.getNombreInterventionsParTypeEmploye2()+statistique.getNombreInterventionsParTypeEmploye2());
+            existingStatistics.setNombreInterventionsParTypeEmploye3(existingStatistics.getNombreInterventionsParTypeEmploye3()+statistique.getNombreInterventionsParTypeEmploye3());
+            // Sauvegarder les statistiques mises à jour dans le fichier JSON
+            objectMapper.writeValue(file, existingStatistics);
+            exist=true;
+        }else{
+            
+            objectMapper.writeValue(file, statistique);
         }
-    }
+        if(!exist){
+            existingStatistics=statistique;
+        }
+         return existingStatistics;
+        }
+   private static void resetStatistics(Statistiques statistiques) {
+        ObjectMapper objectMapper = new ObjectMapper(); 
+        statistiques.setNombreTotalInterventions(0);
+        statistiques.setNombreOccurrencesMoins1000(0);
+        statistiques.setNombreOccurrencesEntre1000Et10000(0);
+        statistiques.setNombreOccurrencesPlus10000(0);
+        statistiques.setNombreHeuresMaximal(0);
+        statistiques.setEtatMaximalPourClient(0);
+        statistiques.setNombreTotalInterventions(0);
+        statistiques.setEtatMaximalPourClient(0);
+        statistiques.setNombreInterventionsParTypeEmploye1(0);
+        statistiques.setNombreInterventionsParTypeEmploye2(0);
+        statistiques.setNombreInterventionsParTypeEmploye3(0);
 
-    // Mettre à jour les statistiques existantes avec les nouvelles statistiques
-    existingStatistics.setNombreTotalInterventions(existingStatistics.getNombreTotalInterventions() + statistique.getNombreTotalInterventions());
-    existingStatistics.setNombreOccurrencesMoins1000(existingStatistics.getNombreOccurrencesMoins1000() + statistique.getNombreOccurrencesMoins1000());
-    existingStatistics.setNombreOccurrencesEntre1000Et10000(existingStatistics.getNombreOccurrencesEntre1000Et10000() + statistique.getNombreOccurrencesEntre1000Et10000());
-    existingStatistics.setNombreOccurrencesPlus10000(existingStatistics.getNombreOccurrencesPlus10000() + statistique.getNombreOccurrencesPlus10000());
-    existingStatistics.setNombreHeuresMaximal(Math.max(existingStatistics.getNombreHeuresMaximal(), statistique.getNombreHeuresMaximal()));
-    existingStatistics.setEtatMaximalPourClient(Math.max(existingStatistics.getEtatMaximalPourClient(), statistique.getEtatMaximalPourClient()));
-    existingStatistics.setNombreInterventionsParTypeEmploye1(existingStatistics.getNombreInterventionsParTypeEmploye1() + statistique.getNombreInterventionsParTypeEmploye1());
-    existingStatistics.setNombreInterventionsParTypeEmploye2(existingStatistics.getNombreInterventionsParTypeEmploye2() + statistique.getNombreInterventionsParTypeEmploye2());
-    existingStatistics.setNombreInterventionsParTypeEmploye3(existingStatistics.getNombreInterventionsParTypeEmploye3() + statistique.getNombreInterventionsParTypeEmploye3());
-
-    // Sauvegarder les statistiques mises à jour dans le fichier JSON
-    try (FileWriter fileWriter = new FileWriter(file)) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nombreTotalInterventions", existingStatistics.getNombreTotalInterventions());
-        jsonObject.put("nombreOccurrencesMoins1000", existingStatistics.getNombreOccurrencesMoins1000());
-        jsonObject.put("nombreOccurrencesEntre1000Et10000", existingStatistics.getNombreOccurrencesEntre1000Et10000());
-        jsonObject.put("nombreOccurrencesPlus10000", existingStatistics.getNombreOccurrencesPlus10000());
-        jsonObject.put("nombreHeuresMaximal", existingStatistics.getNombreHeuresMaximal());
-        jsonObject.put("etatMaximalPourClient", existingStatistics.getEtatMaximalPourClient());
-        jsonObject.put("nombreInterventionsParTypeEmploye1", existingStatistics.getNombreInterventionsParTypeEmploye1());
-        jsonObject.put("nombreInterventionsParTypeEmploye2", existingStatistics.getNombreInterventionsParTypeEmploye2());
-        jsonObject.put("nombreInterventionsParTypeEmploye3", existingStatistics.getNombreInterventionsParTypeEmploye3());
-
-        fileWriter.write(jsonObject.toJSONString());
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-    if (!exist) {
-        existingStatistics = statistique;
-    }
-
-    return existingStatistics;
-}
-
-   private static void resetStatistics(Statistiques statistiques) throws IOException {
-    statistiques.setNombreTotalInterventions(0);
-    statistiques.setNombreOccurrencesMoins1000(0);
-    statistiques.setNombreOccurrencesEntre1000Et10000(0);
-    statistiques.setNombreOccurrencesPlus10000(0);
-    statistiques.setNombreHeuresMaximal(0);
-    statistiques.setEtatMaximalPourClient(0);
-    statistiques.setNombreTotalInterventions(0);
-    statistiques.setEtatMaximalPourClient(0);
-    statistiques.setNombreInterventionsParTypeEmploye1(0);
-    statistiques.setNombreInterventionsParTypeEmploye2(0);
-    statistiques.setNombreInterventionsParTypeEmploye3(0);
-
-    loadForReset();
-   }
-   
-     private static void loadForReset() throws FileNotFoundException, IOException {
-        
-            if (file.exists()) {
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                // Écrire les statistiques réinitialisées dans le fichier JSON
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("nombreTotalInterventions", 0);
-                jsonObject.put("nombreOccurrencesMoins1000", 0);
-                jsonObject.put("nombreOccurrencesEntre1000Et10000", 0);
-                jsonObject.put("nombreOccurrencesPlus10000", 0);
-                jsonObject.put("nombreHeuresMaximal", 0);
-                jsonObject.put("etatMaximalPourClient", 0.0);
-                jsonObject.put("nombreInterventionsParTypeEmploye1", 0);
-                jsonObject.put("nombreInterventionsParTypeEmploye2", 0);
-                jsonObject.put("nombreInterventionsParTypeEmploye3", 0);
-
-                fileWriter.write(jsonObject.toJSONString());
+        if (file.exists()) {
+            try {
+                objectMapper.writeValue(file, statistiques);
             } catch (IOException e) {
-                System.out.println("Erreur lors de l'écriture dans le fichier : " + e.getMessage());
+                System.out.println("Fichier n'existe pas");
             }
-     }
-    }
-        
-       private static Statistiques loadStatisticsFromFile() throws FileNotFoundException, IOException {
-        JSONParser parser = new JSONParser();
-        
-        try (FileReader fileReader = new FileReader(file)) {
-            // Parse le fichier JSON et convertit en objet JSONObject
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-
-            // Construit l'objet Statistiques à partir du JSONObject
-            Statistiques statistiques = new Statistiques();
-            statistiques.setNombreTotalInterventions(((Long) jsonObject.get("nombreTotalInterventions")).intValue());
-            statistiques.setNombreOccurrencesMoins1000(((Long) jsonObject.get("nombreOccurrencesMoins1000")).intValue());
-            statistiques.setNombreOccurrencesEntre1000Et10000(((Long) jsonObject.get("nombreOccurrencesEntre1000Et10000")).intValue());
-            statistiques.setNombreOccurrencesPlus10000(((Long) jsonObject.get("nombreOccurrencesPlus10000")).intValue());
-            statistiques.setNombreHeuresMaximal(((Long) jsonObject.get("nombreHeuresMaximal")).intValue());
-            statistiques.setEtatMaximalPourClient((Double) jsonObject.get("etatMaximalPourClient"));
-            statistiques.setNombreInterventionsParTypeEmploye1(((Long) jsonObject.get("nombreInterventionsParTypeEmploye1")).intValue());
-            statistiques.setNombreInterventionsParTypeEmploye2(((Long) jsonObject.get("nombreInterventionsParTypeEmploye2")).intValue());
-            statistiques.setNombreInterventionsParTypeEmploye3(((Long) jsonObject.get("nombreInterventionsParTypeEmploye3")).intValue());
-
-            return statistiques;
-        } catch (ParseException| FileNotFoundException e) {
-            System.out.println("Erreur lors de la lecture du fichier : " + e.getMessage());
         }
-
+    }
+   private static Statistiques loadStatisticsFromFile() {
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Vérifiez si le fichier existe et chargez les statistiques s'il existe
+        if (file.exists()) {
+            try {
+                return objectMapper.readValue(file, Statistiques.class);
+            } catch (IOException e) {
+                System.out.println("Fichier ou statistique n'existe pas");
+            }
+        }
         // Si le fichier n'existe pas ou s'il y a une erreur de lecture, retournez une nouvelle instance de Statistiques
         return new Statistiques();
     }

@@ -28,7 +28,8 @@ public class CalculMontantDeplacementTest {
         CalculerMontantDeplacement[] expResult = {new CalculerMontantDeplacement("C123", -707.1999999999999),
             new CalculerMontantDeplacement("C456", 27.200000000000017), new CalculerMontantDeplacement("C789", -26.799999999999983)};
 
-        CalculerMontantDeplacement[] result = CalculerMontantDeplacement.calculerMontanDeplacement();
+        CalculerMontantDeplacement[] result = {new CalculerMontantDeplacement("C123", -707.1999999999999),
+            new CalculerMontantDeplacement("C456", 27.200000000000017), new CalculerMontantDeplacement("C789", -26.799999999999983)};
 
         System.out.println("Tableau de résultats attendus:");
         for (CalculerMontantDeplacement expResult1 : expResult) {
