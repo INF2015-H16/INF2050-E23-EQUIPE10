@@ -278,7 +278,7 @@ public class CalculEtatComptes {
 
         if (file.exists()) {
             try {
-                objectMapper.writeValue(file, Statistiques.class);
+                objectMapper.writeValue(file, statistiques);
             } catch (IOException e) {
                 System.out.println("Fichier n'existe pas");
             }
