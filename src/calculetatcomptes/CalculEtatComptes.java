@@ -36,7 +36,7 @@ public class CalculEtatComptes {
                 ecrireFichierSortie(args[1],creationJson());
                 storeStatisticsFromFile(loadStatistics());
             }catch(Exception e){
-        //******Fichier Sortie*****************  
+        //******Fichier Sortie*******************  
         ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
         throw e;
         }
