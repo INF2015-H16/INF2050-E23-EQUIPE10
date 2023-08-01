@@ -87,4 +87,5 @@ public class Statistiques {
     public void setEtatMaximalPourClient(double etatMaximalPourClient) {
         this.etatMaximalPourClient = etatMaximalPourClient;
     }
+    
 }
