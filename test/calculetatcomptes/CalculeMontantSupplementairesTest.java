@@ -1,117 +1,121 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package calculetatcomptes;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import static junit.framework.Assert.assertEquals;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author 256SSD
+ * @author Luz Suarez
  */
+
 public class CalculeMontantSupplementairesTest {
-
-    public CalculeMontantSupplementairesTest () {
-    }
-
-    @BeforeClass
-    public static void setUpClass () {
-    }
-
-    @AfterClass
-    public static void tearDownClass () {
-    }
-
-    @Before
-    public void setUp () {
-    }
-
-    @After
-    public void tearDown () {
-    }
-
-    /**
-     * Test of verifierLeCodeClient method, of class
-     * CalculeMontantSupplementaires.
-     */
     
-    @Test
-    public void testVerifierLeCodeClient () {
-        System.out.println ( "verifierLeCodeClient" );
-        String code = "C123";
-        String[] tab = { "C123", "C456", "C789", "C789"};
-        boolean expResult = false;
-        boolean result = CalculeMontantSupplementaires.verifierLeCodeClient ( code, tab );
-        assertEquals ( expResult, result );
+    static CalculeMontantSupplementaires instance;
+    
+    public CalculeMontantSupplementairesTest() {
     }
-
-    /**
-     * Test of calculeMontantSupplementaire method, of class
-     * CalculeMontantSupplementaires.
-     */
-    @Test
-    public void testCalculeMontantSupplementaire () throws Exception {
-        System.out.println ( "calculeMontantSupplementaire" );
-        CalculeMontantSupplementaires[] expResult = { new CalculeMontantSupplementaires ( "C123", 1050.00 ), new CalculeMontantSupplementaires ( "C456", 225.00 ), new CalculeMontantSupplementaires ( "C789", 750.00 ) };
-        CalculeMontantSupplementaires[] result = CalculeMontantSupplementaires.calculeMontantSupplementaire ();
-        System.out.println ( "Tableau de résultats attendus:" );
-
-        for ( CalculeMontantSupplementaires expResult1 : expResult ) {
-            System.out.println ( "Code du client: " + expResult1.getCodeClient () + " Montant Supplementaires: " + expResult1.getMontantHeuresSupp () );
-        }
-
-        System.out.println ( "Tableau de résultats:" );
-        for ( CalculeMontantSupplementaires result1 : result ) {
-            System.out.println ( "Code du client: " + result1.getCodeClient () + " Montant Supplementaires " + result1.getMontantHeuresSupp () );
-        }
-
-        for ( int i = 0 ;i < result.length ;i++ ) {
-            assertEquals ( expResult[ i ].getCodeClient (), result[ i ].getCodeClient () );
-            assertEquals ( expResult[ i ].getMontantHeuresSupp (), result[ i ].getMontantHeuresSupp () );
-        }
-
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+        instance = new CalculeMontantSupplementaires("C345", 10.0);
+    }
+    
+    @After
+    public void tearDown() {
     }
 
     /**
      * Test of setCodeClient method, of class CalculeMontantSupplementaires.
      */
     @Test
-    public void testSetCodeClient () {
-        System.out.println ( "setCodeClient" );
-        String codeClient = "";
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
-        instance.setCodeClient ( codeClient );
+    public void testSetCodeClient() {
+        System.out.println("setCodeClient");
+        String codeClient = "C111";        
+        instance.setCodeClient(codeClient);
+        String expResult = "C111";
+        String result = instance.getCodeClient();
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of setMontantHeuresSupp method, of class
-     * CalculeMontantSupplementaires.
-     */
-    //@Test
-    public void testSetMontantHeuresSupp () {
-        System.out.println ( "setMontantHeuresSupp" );
-        double MontantHeuresSupp = 0.0;
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
-        instance.setMontantHeuresSupp ( MontantHeuresSupp );
-    }
-
-    /**
-     * Test of getMontantHeuresSupp method, of class
-     * CalculeMontantSupplementaires.
+     * Test of setMontantHeuresSupp method, of class CalculeMontantSupplementaires.
      */
     @Test
-    public void testGetMontantHeuresSupp () {
-        System.out.println ( "getMontantHeuresSupp" );
-        CalculeMontantSupplementaires instance = new CalculeMontantSupplementaires ();
+    public void testSetMontantHeuresSupp() {
+        System.out.println("setMontantHeuresSupp");
+        double MontantHeuresSupp = 0.0;      
+        instance.setMontantHeuresSupp(MontantHeuresSupp);
         double expResult = 0.0;
-        double result = instance.getMontantHeuresSupp ();
-        assertEquals ( expResult, result, 0 );
+        double result = instance.getMontantHeuresSupp();
+        assertEquals(expResult, result, 0.0);
     }
 
+    /**
+     * Test of getCodeClient method, of class CalculeMontantSupplementaires.
+     */
+    @Test
+    public void testGetCodeClient() {
+        System.out.println("getCodeClient");       
+        String expResult = "C345";
+        String result = instance.getCodeClient();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMontantHeuresSupp method, of class CalculeMontantSupplementaires.
+     */
+    @Test
+    public void testGetMontantHeuresSupp() {
+        System.out.println("getMontantHeuresSupp");        
+        double expResult = 10.0;
+        double result = instance.getMontantHeuresSupp();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of calculeMontantSupplementaire method, of class CalculeMontantSupplementaires.
+     */
+    @Test
+    public void testCalculeMontantSupplementaire() throws Exception {
+        System.out.println("calculeMontantSupplementaire");
+        
+        //String codeClient, int distanceDeplacement, int overtime, int nombresHeures, String dateIntervention
+        Intervention[] tabIntervention = {new Intervention("C123", 4, 0, 4, "2023-04-14"), new Intervention("C456", 2, 1, 8, "2023-03-15"),
+            new Intervention("C789", 3, 3, 7, "2023-03-20"), new Intervention("C123", 8, 3, 3, "2023-04-20")};
+
+        ArrayList<Intervention> interventions = new ArrayList<>();
+        Collections.addAll(interventions, tabIntervention);
+
+        //int matricule, int typeEmploye, double tauxMin, double tauxMax, ArrayList<Intervention> interventions        
+        Employe employe = new Employe(123456789, 2, 35.45, 72.0, interventions);
+
+        CalculeMontantSupplementaires[] result = CalculeMontantSupplementaires.calculeMontantSupplementaire(employe);
+
+        CalculeMontantSupplementaires[] expResult = {new CalculeMontantSupplementaires("C123", 1050.0),
+            new CalculeMontantSupplementaires("C456", 225.0), new CalculeMontantSupplementaires("C789", 750.0)};
+
+        for (int i = 0; i < expResult.length; i++) {
+            assertEquals(expResult[i].getCodeClient(), result[i].getCodeClient());
+            assertEquals(expResult[i].getMontantHeuresSupp(), result[i].getMontantHeuresSupp());
+        }
+    }   
 }

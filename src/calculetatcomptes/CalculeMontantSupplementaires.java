@@ -42,9 +42,8 @@ public class CalculeMontantSupplementaires {
     }
 
     
-    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire() throws Exception, ClassExceptions {
-
-        Employe employe = GestionEmploye.creerEmployeFromJson();
+    public static CalculeMontantSupplementaires[] calculeMontantSupplementaire(Employe employe) throws Exception, ClassExceptions {
+        
         int typeEmploye = employe.getTypeEmploye();
 
         ArrayList<Intervention> interventions = employe.getInterventions();
@@ -200,7 +199,7 @@ public class CalculeMontantSupplementaires {
     }
 
     
-    public static boolean verifierLeCodeClient(String codeClient, String[] tabCodesClient) {
+    private static boolean verifierLeCodeClient(String codeClient, String[] tabCodesClient) {
 
         boolean verifier = false;
 

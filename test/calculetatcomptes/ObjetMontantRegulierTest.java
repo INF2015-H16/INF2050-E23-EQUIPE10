@@ -5,76 +5,87 @@
  */
 package calculetatcomptes;
 
+import calculetatcomptes.ObjetMontantRegulier;
 import org.junit.After;
-import org.junit.Assert;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author seif saidi
+ * @author Luz Suarez
  */
 public class ObjetMontantRegulierTest {
+    
+    static ObjetMontantRegulier instance;
     
     public ObjetMontantRegulierTest() {
     }
     
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
     @Before
     public void setUp() {
+        instance = new ObjetMontantRegulier("C456", 10.0);
     }
     
     @After
     public void tearDown() {
     }
 
+    /**
+     * Test of getCodeClient method, of class ObjetMontantRegulier.
+     */
     @Test
     public void testGetCodeClient() {
         System.out.println("getCodeClient");
-        ObjetMontantRegulier instance = new ObjetMontantRegulier("c123",52.22);
-        String expResult = "c123";
+        String expResult = "C456";
         String result = instance.getCodeClient();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of getMontantRegulier method, of class ObjetMontantRegulier.
+     */
     @Test
     public void testGetMontantRegulier() {
         System.out.println("getMontantRegulier");
-        ObjetMontantRegulier instance = new ObjetMontantRegulier("c123",52.22);
-        double expResult = 52.22;
+        double expResult = 10.0;
         double result = instance.getMontantRegulier();
-        assertEquals(expResult, result,0.22);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0);
     }
 
+    /**
+     * Test of setCodeClient method, of class ObjetMontantRegulier.
+     */
     @Test
     public void testSetCodeClient() {
-         System.out.println("setCodeClient");
-         String codeClient = "c322";
-        ObjetMontantRegulier instance = new ObjetMontantRegulier("c123",52.22);
+        System.out.println("setCodeClient");
+        String codeClient = "C111";
         instance.setCodeClient(codeClient);
-        String expResult = "c322";
+        String expResult = "C111";
         String result = instance.getCodeClient();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of setMontantRegulier method, of class ObjetMontantRegulier.
+     */
     @Test
     public void testSetMontantRegulier() {
-         System.out.println("setMontantRegulier");
-         double montantReg = 322.25;
-        ObjetMontantRegulier instance = new ObjetMontantRegulier("c123",52.22);
-        instance.setMontantRegulier(montantReg);
-        double expResult = 322.25;
+        System.out.println("setMontantRegulier");
+        double montantRegulier = 0.0;       
+        instance.setMontantRegulier(montantRegulier);
+        double expResult = 0.0;
         double result = instance.getMontantRegulier();
-        assertEquals(expResult, result,0.25);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    
-    }
-    
+        assertEquals(expResult, result, 0.0);
+    }   
 }

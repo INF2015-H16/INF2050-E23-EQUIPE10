@@ -11,6 +11,17 @@ public class Intervention {
     private int overtime;
     private int nombresHeures;
     private String dateIntervention;
+
+    public Intervention(String codeClient, int distanceDeplacement, int overtime, int nombresHeures, String dateIntervention) {
+        this.codeClient = codeClient;
+        this.distanceDeplacement = distanceDeplacement;
+        this.overtime = overtime;
+        this.nombresHeures = nombresHeures;
+        this.dateIntervention = dateIntervention;
+    }
+
+    public Intervention() {       
+    }
     
     public void setCodeClient(String codeClient){
         this.codeClient=codeClient;
@@ -43,5 +54,6 @@ public class Intervention {
         return this.dateIntervention;
         
     } 
+    
     
 }

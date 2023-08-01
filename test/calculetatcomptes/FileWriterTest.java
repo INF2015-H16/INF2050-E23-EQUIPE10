@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Luz Suarez
  */
-public class CalculEtatComptesTest {
+public class FileWriterTest {
     
-    public CalculEtatComptesTest() {
+    public FileWriterTest() {
     }
     
     @BeforeClass
@@ -38,15 +38,16 @@ public class CalculEtatComptesTest {
     }
 
     /**
-     * Test of main method, of class CalculEtatComptes.
-     * @throws java.lang.Exception
+     * Test of saveStringIntoFile method, of class FileWriter.
      */
     @Test
-    public void testMain() throws Exception {
-        System.out.println("main");
-        String[] args = null;
-        CalculEtatComptes.main(args);
+    public void testSaveStringIntoFile() throws Exception {
+        System.out.println("saveStringIntoFile");
+        String filePath = "";
+        String contentToSave = "";
+        FileWriter.saveStringIntoFile(filePath, contentToSave);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }   
+    }
+    
 }

@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
+import net.sf.json.JSONObject; 
 
 public class GestionEmploye {
 
@@ -36,8 +36,9 @@ public class GestionEmploye {
         employe = JSONObject.fromObject(source);
         validerProprietesEmploye(employe);
         }catch(JSONException e){
-           messageErreur ="Verifier la Syntaxe de votre Fichier JSON !!!!";  
-           throw new ClassExceptions(messageErreur);
+            messageErreur ="Verifier la Syntaxe de votre Fichier JSON !!!!";  
+            System.err.print(messageErreur);
+            System.exit(0);
         }
         objetEmploye.setMatricule(employe.getInt(MATRICULE_EMPLOYE));
         objetEmploye.setTypeEmploye(employe.getInt(TYPE_EMPLOYE));
@@ -116,7 +117,7 @@ public class GestionEmploye {
         }
         return isValid;
     }
-   
+   //
     public static double convertirStringEnDouble(String chaine) {
 
         chaine = chaine.split(" ")[0].replaceAll(",",".");
@@ -124,16 +125,22 @@ public class GestionEmploye {
         return decimal;
     }
 
-    public static void lireFichierEntree(String[] args) throws IOException {
+    public static void lireFichierEntree(String[] args) throws Exception {
         if (args.length != 2) {
-            throw new IOException("Fichier d'entree manquant.");
+            messageErreur = "Fichier d'entree ou sortie manquant.";
+            System.err.print(messageErreur);
+            System.exit(0);
+            
         }
         try {
             String texteSource = new String(Files.readAllBytes(Paths.get(args[0])));
             source = texteSource;
 
-        } catch (IOException e) {
-            throw new IOException("Erreur dans la lecture du fichier d'entree.");
+        } catch (Exception e) {
+            messageErreur ="Erreur dans la lecture du fichier d'entree.";
+            System.err.print(messageErreur);
+            System.exit(0);
+            
         }
     }
 

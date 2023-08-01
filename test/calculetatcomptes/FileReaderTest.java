@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Luz Suarez
  */
-public class GestionEtatCompteTest {
+public class FileReaderTest {
     
-    public GestionEtatCompteTest() {
+    public FileReaderTest() {
     }
     
     @BeforeClass
@@ -38,17 +38,19 @@ public class GestionEtatCompteTest {
     }
 
     /**
-     * Test of remplirObjetEtatCompte method, of class GestionEtatCompte.
+     * Test of loadFileIntoString method, of class FileReader.
      * @throws java.lang.Exception
      */
-    
     @Test
-    public void testRemplirObjetEtatCompte() throws Exception {
-        System.out.println("remplirObjetEtatCompte");
-        EtatEmploye expResult = null;
-        EtatEmploye result = GestionEtatCompte.remplirObjetEtatCompte();
+    public void testLoadFileIntoString() throws Exception {
+        System.out.println("loadFileIntoString");
+        String filePath = "";
+        String fileEncoding = "";
+        String expResult = "";
+        String result = FileReader.loadFileIntoString(filePath, fileEncoding);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }    
+    }
+    
 }
