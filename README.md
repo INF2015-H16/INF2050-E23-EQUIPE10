@@ -19,6 +19,8 @@ Le calcul de l'état de compte de l'employé se fait en fonction de l'état de c
 
 * Java
 * Librairie JSON-lib
+* jackson
+
 
 ### Installation
 
@@ -28,6 +30,7 @@ Le calcul de l'état de compte de l'employé se fait en fonction de l'état de c
 ### Exécution du  programme
 
 * Vous devrez spécifier le chemin complet dans lequel se trouve votre .jar et votre fichier d'entrée JSON
+* vous pouvez consulter les statistiques avec '-S' et '-SR' pour réinitialiser
 
 ## Aide
 
