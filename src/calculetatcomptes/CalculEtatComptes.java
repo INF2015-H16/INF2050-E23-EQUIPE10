@@ -20,7 +20,7 @@ public class CalculEtatComptes {
 
     public static void main(String[] args) throws Exception, ClassExceptions {
 
-        //********Fichier Entree*********    
+        //********Fichier Entree***************    
         if(!args[0].equals("-S")&& !args[0].equals("-SR")){
         try{
               
@@ -36,7 +36,7 @@ public class CalculEtatComptes {
                 ecrireFichierSortie(args[1],creationJson());
                 storeStatisticsFromFile(loadStatistics());
             }catch(Exception e){
-        //******Fichier Sortie***********    
+        //******Fichier Sortie*****************  
         ecrireFichierSortie(args[1],creerJsonErreurMessage(GestionErreurs.messageErreur));
         throw e;
         }

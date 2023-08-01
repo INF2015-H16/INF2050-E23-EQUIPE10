@@ -4,10 +4,7 @@
  */
 package calculetatcomptes;
 
-/**
- *
- * @author Lemaici Rabah
- */
+
 public class Statistiques {
     private int nombreTotalInterventions;
     private int nombreOccurrencesMoins1000;
