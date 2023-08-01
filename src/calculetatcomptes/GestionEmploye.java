@@ -117,7 +117,7 @@ public class GestionEmploye {
         }
         return isValid;
     }
-   
+   //
     public static double convertirStringEnDouble(String chaine) {
 
         chaine = chaine.split(" ")[0].replaceAll(",",".");
